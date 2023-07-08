@@ -42,9 +42,15 @@ dependencies:
   firebase_auth: ^4.6.3
   firebase_core: ^2.14.0
   google_sign_in: ^6.1.4
-  cloud_firestore: ^4.8.1
+  cloud_firestore: ^4.8.2
   table_calendar: ^3.0.9
-  intl: ^0.18.1
+ 
+  curved_navigation_bar: ^1.0.3
+  equatable: ^2.0.5
+  persistent_bottom_nav_bar: ^5.0.2
+  form_builder_validators: ^9.0.0
+dependency_overrides:
+   intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
