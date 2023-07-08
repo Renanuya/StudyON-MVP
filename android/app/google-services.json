@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "711520800549",
+    "project_id": "thinkthank-424242",
+    "storage_bucket": "thinkthank-424242.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711520800549:android:809046a118622cb71154cc",
+        "android_client_info": {
+          "package_name": "com.example.thinktank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "711520800549-j9ip9f7469s4d0i7cou4a9lgmkk7tho1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.thinktank",
+            "certificate_hash": "6b5508d56bc9e7d6bc51d5db89116779d6e4d160"
+          }
+        },
+        {
+          "client_id": "711520800549-34errgogkk3hios1js18h8ovojfg9t7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvhf4XbwT3v-VHePTFPs9BNvevUbVl_aI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711520800549-1gkpqg1sh834te346qeribms7g508jbc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "711520800549-3hp32l6j20e09poj6ctdeoq9llb5f563.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.thinktank"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
