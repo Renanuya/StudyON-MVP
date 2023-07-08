@@ -101,7 +101,7 @@ Story'ler yapılacak işlere (task'lere) bölünmüştür. Trello da gözüken m
 - **Daily Scrum**: Daily Scrum toplantılarının Discord üzerinden yapılmasına karar verilmiştir. Daily Scrum toplantısı örneği Notion linki olarak Readme'de tarafımızdan paylaşılmaktadır: [Sprint 1 Daily Scrum Chats](https://www.notion.so/F-42-Daily-Scrum-2d035ade81164ba7b94bd076f75c33db?pvs=4)
 
 - **Sprint board update**: Sprint board screenshotları: 
-Backlog 2
+- Backlog 2
 
 ![2 sprint_backlog](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/b9b1a5f8-b91f-4d5d-bbc1-d143b089cf10)
 
