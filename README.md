@@ -43,7 +43,7 @@ ThinkTank, kullanıcıların çalışırken yalnız başlarına olduklarında ya
 
 ## Product Backlog URL
 
-[Flutter Team 42 Trello Backlog Board 1.Sprint]([https://trello.com/b/2e69xpzn/f-42](https://trello.com/invite/b/2e69xpzn/ATTI0c01a3db55d637e2b473971f37c18f9f204616A5/f-42-team-1sprint))
+[Flutter Team 42 Trello Backlog Board 1.Sprint](https://trello.com/invite/b/2e69xpzn/ATTI0c01a3db55d637e2b473971f37c18f9f204616A5/f-42-team-1sprint)]
 <br>
 [Flutter Team 42 Trello Backlog Board 2.Sprint](https://trello.com/b/qDCcWj0s/f-42-team-2sprint)
 
