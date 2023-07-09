@@ -19,25 +19,35 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 59, 0),
-                  child: Text(
-                    user != null
-                        ? 'Hoş geldin ${user.displayName}'
-                        : 'Aramıza Hoş geldin',
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(
-                      color: Color(0xFF37352F),
-                      fontSize: 26,
-                      fontFamily: 'Nunito',
-                      fontWeight: FontWeight.w700,
+            SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 348,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(0, 0, 59, 0),
+                          child: Text(
+                            user != null
+                                ? 'Hoş geldin ${user.displayName}'
+                                : 'Aramıza Hoş geldin',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Color(0xFF37352F),
+                              fontSize: 26,
+                              fontFamily: 'Nunito',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(30, 30, 30, 30),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thinktank/pages/components/main_outlinedbutton.dart';
-import 'package:thinktank/pages/splashPages/splash_page_3.dart';
-
 import '../../core/constants/navigation/navigation_constants.dart';
 import '../../core/utils/navigation/navigation_service.dart';
 

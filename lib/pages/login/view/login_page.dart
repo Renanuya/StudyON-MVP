@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:thinktank/core/constants/enums/provider_enums.dart';
-import 'package:thinktank/core/utils/navigation/navigation_service.dart';
+import 'package:thinktank/core/utils/show_snackbar.dart';
 import 'package:thinktank/pages/homePage/view/home_page.dart';
 import 'package:thinktank/pages/login/model/login_request_model.dart';
 import 'package:thinktank/pages/login/viewmodel/view_model.dart';
 
 import 'package:thinktank/services/auth.dart';
-
-import '../../../core/constants/navigation/navigation_constants.dart';
 import '../../register/view/register_page.dart';
 import '../../register/view/reset_password.dart';
 part 'login_page_mixin.dart';
@@ -28,12 +27,24 @@ final AuthService _authService = AuthService();
 class _LoginPageState extends State<LoginPage> with LoginPageMixin {
   @override
   Widget build(BuildContext context) {
+    /* if (context.watch<UserLoginProvider>().getLoginIsSucces ==
+        Status.wrongPassword) {
+      ShowSnackbar.instance.errorSnackBar('Şifre Hatalı');
+    } else if (context.watch<UserLoginProvider>().getLoginIsSucces ==
+        Status.userNotFound) {
+      ShowSnackbar.instance.errorSnackBar('Kullanıcı Bulunamadı');
+    } else if (context.watch<UserLoginProvider>().getLoginIsSucces ==
+        Status.manyTried) {
+      ShowSnackbar.instance.errorSnackBar(
+          'Çok fazla deneme yaptınız. Lütfen daha sonra tekrar deneyiniz.');
+    }*/
     double mHeight = MediaQuery.of(context).size.height;
     double mWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'ThinkTank',
+          textAlign: TextAlign.center,
           style: GoogleFonts.inter(
             fontWeight: FontWeight.bold,
             fontSize: mHeight * 0.044,
@@ -47,8 +58,9 @@ class _LoginPageState extends State<LoginPage> with LoginPageMixin {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Form(
-              key: _key,
+            child: FormBuilder(
+              autoFocusOnValidationFailure: true,
+              key: formkey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,9 +123,6 @@ class _LoginPageState extends State<LoginPage> with LoginPageMixin {
                     padding: const EdgeInsets.all(8.0),
                     child: Consumer<UserLoginProvider>(
                         builder: (context, value, child) {
-                      if (value.getLoginIsSucces == Status.wrongPassword) {
-                        print('şifre yanlış');
-                      }
                       if (value.getLoginIsSucces == Status.loading) {
                         return ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -138,24 +147,19 @@ class _LoginPageState extends State<LoginPage> with LoginPageMixin {
                             minimumSize: Size(mWidth, mHeight * 0.06),
                           ),
                           onPressed: () {
-                            if (emailController.text.isNotEmpty &&
-                                passwordController.text.isNotEmpty &&
-                                _key.currentState!.validate()) {
-                              try {
-                                context
-                                    .read<UserLoginProvider>()
-                                    .userLoginWithEmailPassword(
-                                      LoginRequestModel(
-                                        email: emailController.text.trim(),
-                                        password:
-                                            passwordController.text.trim(),
-                                      ),
-                                    );
-                              } finally {
-                                /*  NavigationService.instance
-                                    .navigateToPageRemoveAll(
-                                        path: NavigationConstants.authPage);*/
-                              }
+                            // _key.currentState!.validate()
+                            if (formkey.currentState?.validate() ?? false) {
+                              context
+                                  .read<UserLoginProvider>()
+                                  .userLoginWithEmailPassword(
+                                    LoginRequestModel(
+                                      email: emailController.text.trim(),
+                                      password: passwordController.text.trim(),
+                                    ),
+                                  );
+                            } else {
+                              ShowSnackbar.instance.errorSnackBar(
+                                  'Lütfen gerekli alanları doldurunuz.');
                             }
                           },
                           child: const Text(
@@ -237,6 +241,7 @@ class LoginUserTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: emailController,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
@@ -261,4 +266,5 @@ class LoginUserTextFormField extends StatelessWidget {
     );
   }
 }
-//TODO ya da
+
+//TODO: LoginUserTextFormField "validator" çalışmıyor.
