@@ -44,7 +44,7 @@ class UserLoginProvider extends ChangeNotifier {
 }
 
 class LoginPasswordVisibilityProvider extends ChangeNotifier {
-  bool _isPasswordVisible = false;
+  bool _isPasswordVisible = true;
 
   bool get isPasswordVisible => _isPasswordVisible;
 

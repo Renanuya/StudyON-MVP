@@ -3,7 +3,8 @@ part of 'register_page.dart';
 mixin RegisterPageMixin on State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
 
@@ -12,15 +13,14 @@ mixin RegisterPageMixin on State<RegisterPage> {
 
   final AuthService _authService = AuthService();
 
- 
-
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'E-posta alanı boş olamaz.';
     }
 
     // Use a regular expression to validate the email format
-    final emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$');
+    final emailRegExp = RegExp(
+        r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$');
     if (!emailRegExp.hasMatch(value)) {
       return 'Geçerli bir e-posta adresi girin.';
     }
@@ -64,8 +64,6 @@ mixin RegisterPageMixin on State<RegisterPage> {
     );
   }
 
-
-
   void registerIsSucces() {
     final isSuccess = context.watch<RegisterUserProvider>().getIsSucces;
     if (isSuccess == Status.success) {
@@ -74,7 +72,6 @@ mixin RegisterPageMixin on State<RegisterPage> {
       print('Kayıt işlemi başarısız oldu, lütfen tekrar deneyiniz');
     }
   }
-
 
   @override
   void dispose() {
