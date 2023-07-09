@@ -1,16 +1,7 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:thinktank/pages/rankPages/view/rank_page.dart';
-import 'package:thinktank/pages/splashPages/splash_page_1.dart';
-import 'package:thinktank/pages/splashPages/splash_page_3.dart';
-
-import '../providers/theme.dart';
-import '../theme/dark_theme.dart';
-import '../theme/light_theme.dart';
-import '../theme/theme_service.dart';
-import 'calendar/calendar_main_page.dart';
+import '../../calendar/calendar_main_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,49 +11,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentIndex = 0;
-  // ignore: non_constant_identifier_names
-  void OnTabSelected(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-    if (currentIndex == 0) {
-      // Ana sayfaya yönlendirme
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    } else if (currentIndex == 1) {
-      // profil sayfasına yönlendirme
-    } else if (currentIndex == 2) {
-      // Ayarlar sayfasına yönlendirme
-    } else if (currentIndex == 3) {
-      // Giriş sayfasına yönlendirme
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const SplashPageThree()),
-      );
-    }
-  }
-
-  void _signOut(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      // Navigate to the sign-in page or any other page you desire
-
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const SplashPageOne(),
-        ),
-      );
-    } catch (e) {
-      // Display an error message or handle the error as needed
-      print('Error signing out: $e');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -71,23 +19,6 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           children: [
-            Consumer<ThemeChange>(
-              builder: (context, themeChange, _) => IconButton(
-                onPressed: () {
-                  themeChange.changeTheme =
-                      themeChange.isLightTheme ? darkTheme : lightTheme;
-                  ThemeService().saveTheme(
-                      themeChange.isLightTheme ? 'darkTheme' : 'lightTheme');
-                  ThemeService().getThemeFromSave();
-                },
-                icon: Icon(
-                  themeChange.isLightTheme ? Icons.dark_mode : Icons.sunny,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -508,52 +439,13 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+            ElevatedButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                },
+                child: Text('çıkış'))
           ],
         ),
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-        height: 60,
-        backgroundColor: Colors.transparent,
-        color: const Color(0xfffac6c4),
-        buttonBackgroundColor: const Color(0xffe7e7e6),
-        animationDuration: const Duration(milliseconds: 400),
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-          if (currentIndex == 0) {
-            // Ana sayfaya yönlendirme
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
-          } else if (currentIndex == 1) {
-            // profil sayfasına yönlendirme
-          } else if (currentIndex == 2) {
-            // Ayarlar sayfasına yönlendirme
-          } else if (currentIndex == 3) {
-            // Giriş sayfasına yönlendirme
-            _signOut(context);
-          }
-        },
-        items: const [
-          Icon(
-            Icons.home,
-            color: Color(0xffff534c),
-          ),
-          Icon(
-            Icons.person,
-            color: Color(0xffff534c),
-          ),
-          Icon(
-            Icons.settings,
-            color: Color(0xffff534c),
-          ),
-          Icon(
-            Icons.logout,
-            color: Color(0xffff534c),
-          ),
-        ],
       ),
     );
   }

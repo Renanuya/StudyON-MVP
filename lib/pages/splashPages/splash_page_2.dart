@@ -3,6 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:thinktank/pages/components/main_outlinedbutton.dart';
 import 'package:thinktank/pages/splashPages/splash_page_3.dart';
 
+import '../../core/constants/navigation/navigation_constants.dart';
+import '../../core/utils/navigation/navigation_service.dart';
+
 class SplashPageTwo extends StatelessWidget {
   const SplashPageTwo({super.key});
 
@@ -68,11 +71,8 @@ class SplashPageTwo extends StatelessWidget {
                 child: MainOutlinedButton(
                   text: 'Devam et',
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SplashPageThree(),
-                      ),
+                    NavigationService.instance.navigateToPage(
+                      path: NavigationConstants.splashPageThree,
                     );
                   },
                   textSize: 0.023,
@@ -80,11 +80,8 @@ class SplashPageTwo extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        // ! SplashPageTree OLACAK!
-                        builder: (context) => const SplashPageThree()),
+                  NavigationService.instance.navigateToPage(
+                    path: NavigationConstants.splashPageThree,
                   );
                 },
                 child: Text(
