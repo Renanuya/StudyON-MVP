@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import 'event.dart';
+
 const double _kItemExtent = 32.0;
 const List<String> _reminders = <String>[
   'On day of event ',
@@ -18,9 +20,29 @@ class CreateTaskPage extends StatefulWidget {
 }
 
 class _CreateTaskPageState extends State<CreateTaskPage> {
+  late Map<DateTime, List<Event>> selectedEvents;
+  TextEditingController _eventController = TextEditingController();
   bool isRedSelected = false;
   DateTime time = DateTime(2016, 5, 10, 22, 35);
+  DateTime selectedDay = DateTime.now();
+  DateTime focusedDay = DateTime.now();
   int _selectedIndex = 0;
+  @override
+  void initState() {
+    selectedEvents = {};
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _eventController.dispose();
+    super.dispose();
+  }
+
+  List _getEventsfromDay(DateTime date) {
+    return selectedEvents[date] ?? [];
+  }
+
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
       context: context,
@@ -55,6 +77,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
+              controller: _eventController,
               decoration: const InputDecoration(
                 fillColor: Color(0xffE8E8E7),
                 border: OutlineInputBorder(),
@@ -84,7 +107,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                 ),
               ),
             ),
-            _DatePickerItem(
+            DatePickerItem(
               children: <Widget>[
                 const Text('Time'),
                 CupertinoButton(
@@ -192,7 +215,26 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                 elevation: 0,
                 minimumSize: Size(mWidth, mHeight * 0.06),
               ),
-              onPressed: () async {},
+              onPressed: () async {
+                if (_eventController.text.isEmpty) {
+                  return;
+                } else {
+                  if (selectedEvents[selectedDay] != null) {
+                    selectedEvents[selectedDay]!.add(Event(
+                      title: _eventController.text,
+                    ));
+                  } else {
+                    selectedEvents[selectedDay] = [
+                      Event(
+                        title: _eventController.text,
+                      )
+                    ];
+                  }
+                  _eventController.clear();
+                  setState(() {});
+                  return;
+                }
+              },
               child: const Text(
                 'Kaydet',
                 style: TextStyle(
@@ -313,8 +355,8 @@ class _ColorButtonState extends State<ColorButton> {
   }
 }
 
-class _DatePickerItem extends StatelessWidget {
-  const _DatePickerItem({required this.children});
+class DatePickerItem extends StatelessWidget {
+  const DatePickerItem({required this.children});
 
   final List<Widget> children;
 
