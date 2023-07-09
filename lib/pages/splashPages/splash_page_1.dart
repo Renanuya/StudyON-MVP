@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thinktank/core/utils/navigation/navigation_service.dart';
 import 'package:thinktank/pages/components/main_outlinedbutton.dart';
-
 import '../../core/constants/navigation/navigation_constants.dart';
 
 class SplashPageOne extends StatelessWidget {

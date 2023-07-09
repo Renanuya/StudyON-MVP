@@ -11,6 +11,7 @@ import 'package:thinktank/theme/dark_theme.dart';
 import 'package:thinktank/theme/light_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'core/utils/navigation/navigation_service.dart';
+import 'core/utils/show_snackbar.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -45,6 +46,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       navigatorKey: NavigationService.instance.navigatorKey,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
+      scaffoldMessengerKey: ShowSnackbar.instance.messengerKey,
       debugShowCheckedModeBanner: false,
       theme: themeChange.currentTheme ?? lightTheme,
       darkTheme: themeChange.currentTheme ?? darkTheme,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:thinktank/pages/login/viewmodel/view_model.dart';
 import 'package:thinktank/pages/register/model/request_model.dart';
 import 'package:thinktank/services/auth.dart';
 
 import '../../../core/constants/enums/provider_enums.dart';
+import '../../../core/utils/show_snackbar.dart';
 import '../viewmodel/view_model.dart';
 import '../../login/view/login_page.dart';
 part 'register_page_mixin.dart';
@@ -19,6 +21,27 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> with RegisterPageMixin {
   @override
   Widget build(BuildContext context) {
+    if (context.watch<RegisterUserProvider>().getIsSucces ==
+        Status.wrongPassword) {
+      ShowSnackbar.instance.errorSnackBar('Şifre Hatalı');
+    } else if (context.watch<RegisterUserProvider>().getIsSucces ==
+        Status.userNotFound) {
+      ShowSnackbar.instance.errorSnackBar('Kullanıcı Bulunamadı');
+    } else if (context.watch<RegisterUserProvider>().getIsSucces ==
+        Status.userNotFound) {
+      ShowSnackbar.instance.errorSnackBar('Şifre eşleşmiyor');
+    } else if (context.watch<RegisterUserProvider>().getIsSucces ==
+        Status.userNotFound) {
+      ShowSnackbar.instance.errorSnackBar('Bu mail zaten kullanılıyor');
+    } else if (context.watch<RegisterUserProvider>().getIsSucces ==
+        Status.userNotFound) {
+      ShowSnackbar.instance.errorSnackBar('Şifre zayıf');
+    } else if (context.watch<RegisterUserProvider>().getIsSucces ==
+        Status.weakPassword) {
+      ShowSnackbar.instance.errorSnackBar(
+          'Çok fazla deneme yaptınız. Lütfen daha sonra tekrar deneyiniz.');
+    }
+
     if (context.watch<RegisterUserProvider>().getIsSucces != null) {
       registerIsSucces();
     }
