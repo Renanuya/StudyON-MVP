@@ -1,8 +1,11 @@
-import 'package:flutter/foundation.dart';
-
 class Event {
   final String title;
-  Event({required this.title});
+  final String description;
+
+  Event({
+    required this.title,
+    required this.description,
+  });
 
   String toString() => this.title;
 }

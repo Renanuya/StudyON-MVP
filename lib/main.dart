@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:thinktank/pages/calendar/time_model.dart';
 import 'package:thinktank/pages/login/viewmodel/view_model.dart';
 import 'package:thinktank/pages/register/viewmodel/view_model.dart';
 import 'package:thinktank/pages/splashPages/splash_page_1.dart';
