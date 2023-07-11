@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:thinktank/pages/calendar/color_button.dart';
+import 'package:thinktank/pages/calendar/create_event_page.dart';
 
 import 'package:thinktank/pages/calendar/date_picker_item.dart';
 import 'package:thinktank/pages/calendar/date_time.dart';
@@ -112,7 +113,6 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    TimeModel timeModel = Provider.of<TimeModel>(context);
     double mHeight = MediaQuery.of(context).size.height;
     double mWidth = MediaQuery.of(context).size.width;
 
@@ -125,6 +125,7 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
           child: Column(
             children: [
               TableCalendar(
+                rowHeight: mWidth * 0.1,
                 focusedDay: selectedDay,
                 firstDay: calendarFirstDay,
                 lastDay: calendarLastDay,
@@ -186,12 +187,12 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                           ]),
                           IconButton(
                             onPressed: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const CreateTaskPage(),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const CreateEventPage(),
+                                ),
+                              );
                             },
                             icon: const Icon(
                               Icons.add_circle_outline_sharp,
@@ -239,11 +240,10 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                                           child: ListBody(
                                                               children: [
                                                         Text(event.description),
-                                                        Text(timeModel.time.hour
+                                                        Text(time.hour
                                                                 .toString() +
                                                             ':' +
-                                                            timeModel
-                                                                .time.minute
+                                                            time.minute
                                                                 .toString())
                                                       ])),
                                                   actions: [
@@ -323,36 +323,36 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                   ),
 
                   //! aradigin yer burasi
-                  SelectDateTime(),
-                  // DatePickerItem(
-                  //   children: <Widget>[
-                  //     const Text('Time'),
-                  //     CupertinoButton(
-                  //       onPressed: () => _showDialog(
-                  //         CupertinoDatePicker(
-                  //           initialDateTime: time,
-                  //           mode: CupertinoDatePickerMode.time,
-                  //           use24hFormat: true,
-                  //           onDateTimeChanged: (DateTime newTime) {
-                  //             //! secilen veri burada
+                  //SelectDateTime(),
+                  DatePickerItem(
+                    children: <Widget>[
+                      const Text('Time'),
+                      CupertinoButton(
+                        onPressed: () => _showDialog(
+                          CupertinoDatePicker(
+                            initialDateTime: time,
+                            mode: CupertinoDatePickerMode.time,
+                            use24hFormat: true,
+                            onDateTimeChanged: (DateTime newTime) {
+                              //! secilen veri burada
 
-                  //             setState(() {
-                  //               time = newTime;
-                  //             });
-                  //             print(newTime);
-                  //           },
-                  //         ),
-                  //       ),
-                  //       child: Text(
-                  //         '${time.hour}:${time.minute}',
-                  //         style: const TextStyle(
-                  //           fontSize: 22.0,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  changeColor(mHeight, mWidth),
+                              setState(() {
+                                time = newTime;
+                              });
+                              print(newTime);
+                            },
+                          ),
+                        ),
+                        child: Text(
+                          '${time.hour}:${time.minute}',
+                          style: const TextStyle(
+                            fontSize: 22.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  // changeColor(mHeight, mWidth),
                   const Cupertio()
                 ]
                     .map((widget) => Padding(
@@ -401,65 +401,65 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
     );
   }
 
-  Container changeColor(double mHeight, double mWidth) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
-        ),
-        color: Colors.grey[300],
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ColorButton(
-                color: Colors.red,
-                onPressed: (isSelected) {
-                  setState(() {
-                    isRedSelected = isSelected;
-                  });
-                },
-              ),
-              ColorButton(
-                color: Colors.yellow,
-                onPressed: (isSelected) {
-                  setState(() {
-                    isRedSelected = isSelected;
-                  });
-                },
-              ),
-            ],
-          ),
-          SizedBox(
-            height: mHeight * 0.01,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ColorButton(
-                color: Colors.blue,
-                onPressed: (isSelected) {
-                  setState(() {
-                    isRedSelected = isSelected;
-                  });
-                },
-              ),
-              ColorButton(
-                color: Colors.green,
-                onPressed: (isSelected) {
-                  setState(() {
-                    isRedSelected = isSelected;
-                  });
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+  // Container changeColor(double mHeight, double mWidth) {
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //       borderRadius: const BorderRadius.all(
+  //         Radius.circular(10),
+  //       ),
+  //       color: Colors.grey[300],
+  //     ),
+  //     // child: Column(
+  //     //   children: [
+  //     //     Row(
+  //     //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //     //       children: [
+  //     //         ColorButton(
+  //     //           color: Colors.red,
+  //     //           onPressed: (isSelected) {
+  //     //             setState(() {
+  //     //               isRedSelected = isSelected;
+  //     //             });
+  //     //           },
+  //     //         ),
+  //     //         ColorButton(
+  //     //           color: Colors.yellow,
+  //     //           onPressed: (isSelected) {
+  //     //             setState(() {
+  //     //               isRedSelected = isSelected;
+  //     //             });
+  //     //           },
+  //     //         ),
+  //     //       ],
+  //     //     ),
+  //     //     SizedBox(
+  //     //       height: mHeight * 0.01,
+  //     //     ),
+  //     //     Row(
+  //     //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //     //       children: [
+  //     //         ColorButton(
+  //     //           color: Colors.blue,
+  //     //           onPressed: (isSelected) {
+  //     //             setState(() {
+  //     //               isRedSelected = isSelected;
+  //     //             });
+  //     //           },
+  //     //         ),
+  //     //         ColorButton(
+  //     //           color: Colors.green,
+  //     //           onPressed: (isSelected) {
+  //     //             setState(() {
+  //     //               isRedSelected = isSelected;
+  //     //             });
+  //     //           },
+  //     //         ),
+  //     //       ],
+  //     //     ),
+  //     //   ],
+  //     // ),
+  //   );
+  // }
 }
 
 class Cupertio extends StatefulWidget {
@@ -498,7 +498,7 @@ class _CupertioState extends State<Cupertio> {
           color: const Color(0xffE8E8E7),
           border: Border.all(color: Colors.black),
           borderRadius: BorderRadius.circular(5)),
-      width: mWidth * 0.8,
+      width: mWidth,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -512,7 +512,6 @@ class _CupertioState extends State<Cupertio> {
           ),
           CupertinoButton(
             padding: EdgeInsets.zero,
-            // Display a CupertinoPicker with list of fruits.
             onPressed: () => _showDialog(
               CupertinoPicker(
                 magnification: 1.22,
@@ -523,7 +522,7 @@ class _CupertioState extends State<Cupertio> {
                 scrollController: FixedExtentScrollController(
                   initialItem: _selectedIndex,
                 ),
-                // This is called when selected item is changed.
+
                 onSelectedItemChanged: (index) {
                   setState(() => _selectedIndex = index);
                   print(_reminders[index]);
@@ -533,11 +532,11 @@ class _CupertioState extends State<Cupertio> {
                 }),
               ),
             ),
-            // This displays the selected fruit name.
             child: Text(
               _reminders[_selectedIndex],
               style: const TextStyle(
                 fontSize: 22.0,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
