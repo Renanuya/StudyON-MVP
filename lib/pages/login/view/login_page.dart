@@ -22,9 +22,9 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-final AuthService _authService = AuthService();
-
 class _LoginPageState extends State<LoginPage> with LoginPageMixin {
+  final AuthService _authService = AuthService();
+  final formkey = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context) {
     /* if (context.watch<UserLoginProvider>().getLoginIsSucces ==
@@ -268,3 +268,4 @@ class LoginUserTextFormField extends StatelessWidget {
 }
 
 //TODO: LoginUserTextFormField "validator" çalışmıyor.
+//TODO: eğer mail şifre boşssa butonu tıklanamaz hale getir. aynsını register içinde

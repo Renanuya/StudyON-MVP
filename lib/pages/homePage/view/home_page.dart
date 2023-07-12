@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:thinktank/pages/rankPages/view/rank_page.dart';
@@ -11,6 +12,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final CollectionReference timerDataCollection =
+      FirebaseFirestore.instance.collection('timerdata');
+  String greeting = '';
+
+  @override
+  void initState() {
+    super.initState();
+    greeting = getGreetingMessage();
+  }
+
+  String getGreetingMessage() {
+    var now = DateTime.now();
+    var turkeyTime =
+        now.toUtc().add(Duration(hours: 3)); // Türkiye saatine göre ayarla
+
+    var hour = turkeyTime.hour;
+    String greetingMessage;
+
+    if (hour >= 6 && hour < 12) {
+      greetingMessage = 'Günaydın';
+    } else if (hour >= 12 && hour < 18) {
+      greetingMessage = 'İyi günler';
+    } else if (hour >= 18 && hour < 24) {
+      greetingMessage = 'İyi akşamlar';
+    } else {
+      greetingMessage = 'İyi geceler';
+    }
+
+    return greetingMessage;
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -32,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                           margin: const EdgeInsets.fromLTRB(0, 0, 59, 0),
                           child: Text(
                             user != null
-                                ? 'Hoş geldin ${user.displayName}'
+                                ? '$greeting, ${user.displayName}'
                                 : 'Aramıza Hoş geldin',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
@@ -49,186 +81,80 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
-              margin: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-              padding: const EdgeInsets.fromLTRB(17, 17, 0, 18.28),
-              width: double.infinity,
+              width: 348,
+              height: 244,
               decoration: BoxDecoration(
                 border: Border.all(color: const Color(0xffa4a4a3)),
                 color: const Color(0xffe7e7e6),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
-                    child: const Text(
-                      'Ders çalışmaya başlayın',
-                      style: TextStyle(
-                        color: Color(0xFF37352F),
-                        fontSize: 20,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                  const SizedBox(
+                    height: 10,
                   ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 0, 11, 11),
-                    width: double.infinity,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                          width: 20,
-                          height: 20,
-                          decoration:
-                              BoxDecoration(color: Colors.black.withOpacity(0)),
-                          child: const Stack(
-                            //ikon değiştirilecek
-                            children: [
-                              Icon(
-                                Icons.edit_note,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 259,
-                          height: 19,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Align(
-                                  child: SizedBox(
-                                    width: 259,
-                                    height: 19,
-                                    child: Text(
-                                      'Bu gün 3 saat, 25 dakika çalıştınız.',
-                                      style: TextStyle(
-                                        color: Color(0xFF37352F),
-                                        fontSize: 14,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                  const Text(
+                    'Ders çalışmaya başlayın',
+                    style: TextStyle(
+                      color: Color(0xFF37352F),
+                      fontSize: 20,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 11),
-                    width: double.infinity,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                          width: 20,
-                          height: 20,
-                          decoration:
-                              BoxDecoration(color: Colors.black.withOpacity(0)),
-                          child: const Stack(
-                            children: [
-                              Icon(Icons.edit_note),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 270,
-                          height: 19,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Align(
-                                  child: SizedBox(
-                                    width: 259,
-                                    height: 19,
-                                    child: Text(
-                                      'Bu hafta 9 saat, 50 dakika çalıştınız.',
-                                      style: TextStyle(
-                                        color: Color(0xFF37352F),
-                                        fontSize: 14,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 11),
-                    width: double.infinity,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                          width: 20,
-                          height: 20,
-                          decoration:
-                              BoxDecoration(color: Colors.black.withOpacity(0)),
-                          child: const Stack(
-                            children: [
-                              Icon(Icons.edit_note),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 270,
-                          height: 19,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Align(
-                                  child: SizedBox(
-                                    width: 259,
-                                    height: 19,
-                                    child: Text(
-                                      '4 gündür her gün çalışıyorsun.',
-                                      style: TextStyle(
-                                        color: Color(0xFF37352F),
-                                        fontSize: 14,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(
                     height: 10,
                   ),
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20, right: 5),
+                        child: Icon(
+                          Icons.edit_note,
+                        ),
+                      ),
+                      TimerDataScreen(),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20, right: 5),
+                        child: Icon(
+                          Icons.edit_note,
+                        ),
+                      ),
+                      TimerDataScreen(),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20, right: 5),
+                        child: Icon(
+                          Icons.edit_note,
+                        ),
+                      ),
+                      TimerDataScreen(),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   Container(
-                    margin: const EdgeInsets.fromLTRB(9, 0, 23, 0),
-                    width: double.infinity,
-                    height: 51.72,
+                    width: 300,
+                    height: 50,
                     decoration: BoxDecoration(
                       border: Border.all(color: const Color(0xffff534c)),
                       color: const Color(0xfffac6c4),
@@ -252,7 +178,97 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Container(
+            const SizedBox(
+              height: 30,
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 31.7),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 150,
+                            height: 150,
+                            decoration: BoxDecoration(
+                                color: const Color(0xffE5E5E3),
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  color: const Color(0xffA5A5A3),
+                                )),
+                            child: TextButton(
+                              onPressed: () {},
+                              child: const Text(
+                                'Takvim',
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 150,
+                            height: 150,
+                            decoration: BoxDecoration(
+                                color: const Color(0xffE5E5E3),
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  color: const Color(0xffA5A5A3),
+                                )),
+                            child: TextButton(
+                              onPressed: () {},
+                              child: const Text(
+                                'Takvim',
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 48),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 150,
+                              height: 150,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xffE5E5E3),
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    color: const Color(0xffA5A5A3),
+                                  )),
+                              child: TextButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'Takvim',
+                                  )),
+                            ),
+                            Container(
+                              width: 150,
+                              height: 150,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xffE5E5E3),
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    color: const Color(0xffA5A5A3),
+                                  )),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'Takvim',
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            /*Container(
               margin: const EdgeInsets.fromLTRB(30, 0, 0, 30),
               width: double.infinity,
               height: 100,
@@ -282,7 +298,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Container(
                               margin: const EdgeInsets.fromLTRB(0, 0, 25, 0),
-                              width: 15,
+                              width: 30,
                               height: 30,
                               child: const Icon(
                                 Icons.calendar_month_outlined,
@@ -448,7 +464,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-            ),
+            ),*/
             ElevatedButton(
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
@@ -460,3 +476,39 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+class TimerDataScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    CollectionReference timerDataCollection =
+        FirebaseFirestore.instance.collection('timerdata');
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: timerDataCollection.doc('daily').get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text("Loading...");
+        }
+
+        if (!snapshot.hasData || !snapshot.data!.exists) {
+          return Text("Document does not exist");
+        }
+
+        Map<String, dynamic> data =
+            snapshot.data!.data() as Map<String, dynamic>;
+        String dailyData = data['daily'];
+
+        return Text("Daily Data: $dailyData");
+      },
+    );
+  }
+}
+
+
+//ALKAN ABİYE SORULACAK
+

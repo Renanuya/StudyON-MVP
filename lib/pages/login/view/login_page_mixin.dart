@@ -4,12 +4,12 @@ mixin LoginPageMixin on State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  @override
-  void dispose() {
+  /* @override
+   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
-  }
+  }*/
 
   // void _changeLoading() {
   //   setState(() {
@@ -27,5 +27,5 @@ mixin LoginPageMixin on State<LoginPage> {
   //   }
   // }
 
-  final formkey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> _formkey = GlobalKey<FormBuilderState>();
 }
