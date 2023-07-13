@@ -1,11 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:thinktank/pages/calendar/calendar_main_page.dart';
 import 'package:thinktank/pages/calendar/color_button.dart';
 import 'package:thinktank/pages/calendar/date_picker_item.dart';
+import 'package:thinktank/pages/calendar/event.dart';
 
 class CreateEventPage extends StatefulWidget {
-  const CreateEventPage({super.key});
+  final Map<DateTime, List<Event>>? selectedEvents;
+  final DateTime selectedDate;
+  const CreateEventPage({
+    Key? key,
+    required this.selectedEvents,
+    required this.selectedDate,
+  }) : super(key: key);
 
   @override
   State<CreateEventPage> createState() => _CreateEventPageState();
@@ -124,25 +133,35 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   ),
                   minimumSize: Size(mWidth, mHeight * 0.1)),
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Başarılı'),
-                      content: Text('Başarılı bir şekilde kaydedildi'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('Tamam'),
-                        ),
-                      ],
+                String eventTitle = _eventController.text;
+                String eventDescription = _descriptionController.text;
+
+                if (eventTitle.isEmpty) {
+                  return;
+                } else {
+                  if (widget.selectedEvents?[widget.selectedDate] != null) {
+                    widget.selectedEvents?[widget.selectedDate]!.add(
+                      Event(
+                        title: eventTitle,
+                        description: eventDescription,
+                      ),
                     );
-                  },
-                );
+                  } else {
+                    widget.selectedEvents?[widget.selectedDate] = [
+                      Event(
+                        title: eventTitle,
+                        description: eventDescription,
+                      ),
+                    ];
+                  }
+                  _eventController.clear();
+                  _descriptionController.clear();
+
+                  Navigator.pop(context);
+                  return;
+                }
               },
-              child: Text(
+              child: const Text(
                 'Kaydet',
               ),
             ),

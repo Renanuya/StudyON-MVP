@@ -181,8 +181,7 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                           Column(children: [
                             Text('$formatDate - Yapılacaklar'),
                             Text(
-                              'Seçilen Gün: ' +
-                                  DateFormat('dd/MM/yyyy').format(selectedDay),
+                              'Seçilen Gün: ${DateFormat('dd/MM/yyyy').format(selectedDay)}',
                             ),
                           ]),
                           IconButton(
@@ -190,7 +189,10 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const CreateEventPage(),
+                                  builder: (context) => CreateEventPage(
+                                    selectedDate: selectedDay,
+                                    selectedEvents: selectedEvents,
+                                  ),
                                 ),
                               );
                             },
@@ -200,74 +202,137 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                           ),
                         ],
                       ),
+                      // Expanded(
+                      //   child: ListView(
+                      //     children: _getEventsfromDay(selectedDay)
+                      //         .map(
+                      //           (Event event) => Padding(
+                      //             padding: const EdgeInsets.all(8.0),
+                      //             child: Container(
+                      //               decoration: ShapeDecoration(
+                      //                 color: Colors.white,
+                      //                 shape: RoundedRectangleBorder(
+                      //                   side: const BorderSide(
+                      //                     width: 0.50,
+                      //                     color: Color(0xFF37352F),
+                      //                   ),
+                      //                   borderRadius: BorderRadius.circular(15),
+                      //                 ),
+                      //               ),
+                      //               child: ListTile(
+                      //                   title: Column(
+                      //                     children: [
+                      //                       Text(
+                      //                         event.title,
+                      //                       ),
+                      //                       Text(event.description),
+                      //                     ],
+                      //                   ),
+                      //                   leading: IconButton(
+                      //                       onPressed: () {},
+                      //                       icon: const Icon(Icons.check_box)),
+                      //                   trailing: IconButton(
+                      //                     onPressed: () => showDialog(
+                      //                       context: context,
+                      //                       builder: (BuildContext context) {
+                      //                         return SingleChildScrollView(
+                      //                           child: AlertDialog(
+                      //                             title: Text(event.title),
+                      //                             content:
+                      //                                 SingleChildScrollView(
+                      //                                     child: ListBody(
+                      //                                         children: [
+                      //                                   Text(event.description),
+                      //                                   Text(
+                      //                                       '${time.hour}:${time.minute}')
+                      //                                 ])),
+                      //                             actions: [
+                      //                               TextButton(
+                      //                                 onPressed: () {
+                      //                                   // AlertDialog kapatmak için yapılacak işlemler
+                      //                                   setState(() {});
+                      //                                   Navigator.of(context)
+                      //                                       .pop();
+                      //                                 },
+                      //                                 child:
+                      //                                     const Text("Tamam"),
+                      //                               ),
+                      //                             ],
+                      //                           ),
+                      //                         );
+                      //                       },
+                      //                     ),
+                      //                     icon: const Icon(
+                      //                         Icons.arrow_forward_ios),
+                      //                   )),
+                      //             ),
+                      //           ),
+                      //         )
+                      //         .toList(),
+                      //   ),
+                      // )
                       Expanded(
-                        child: ListView(
-                          children: _getEventsfromDay(selectedDay)
-                              .map(
-                                (Event event) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: ShapeDecoration(
-                                      color: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                        side: const BorderSide(
-                                          width: 0.50,
-                                          color: Color(0xFF37352F),
-                                        ),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
+                        child: ListView.builder(
+                          itemCount: _getEventsfromDay(selectedDay).length,
+                          itemBuilder: (context, index) {
+                            Event event = _getEventsfromDay(selectedDay)[index];
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    side: const BorderSide(
+                                      width: 0.50,
+                                      color: Color(0xFF37352F),
                                     ),
-                                    child: ListTile(
-                                        title: Column(
-                                          children: [
-                                            Text(
-                                              event.title,
-                                            ),
-                                          ],
-                                        ),
-                                        leading: IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(Icons.check_box)),
-                                        trailing: IconButton(
-                                          onPressed: () => showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return SingleChildScrollView(
-                                                child: AlertDialog(
-                                                  title: Text(event.title),
-                                                  content:
-                                                      SingleChildScrollView(
-                                                          child: ListBody(
-                                                              children: [
-                                                        Text(event.description),
-                                                        Text(time.hour
-                                                                .toString() +
-                                                            ':' +
-                                                            time.minute
-                                                                .toString())
-                                                      ])),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        // AlertDialog kapatmak için yapılacak işlemler
-                                                        setState(() {});
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: Text("Tamam"),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                          icon: const Icon(
-                                              Icons.arrow_forward_ios),
-                                        )),
+                                    borderRadius: BorderRadius.circular(15),
                                   ),
                                 ),
-                              )
-                              .toList(),
+                                child: ListTile(
+                                  title: Column(
+                                    children: [
+                                      Text(event.title),
+                                      Text(event.description),
+                                    ],
+                                  ),
+                                  leading: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.check_box),
+                                  ),
+                                  trailing: IconButton(
+                                    onPressed: () => showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text(event.title),
+                                          content: SingleChildScrollView(
+                                            child: ListBody(
+                                              children: [
+                                                Text(event.description),
+                                                Text(
+                                                    '${time.hour}:${time.minute}'),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                setState(() {});
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text("Tamam"),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                    icon: const Icon(Icons.arrow_forward_ios),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
