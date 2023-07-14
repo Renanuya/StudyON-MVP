@@ -1,15 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:thinktank/pages/calendar/color_button.dart';
 import 'package:thinktank/pages/calendar/create_event_page.dart';
-
 import 'package:thinktank/pages/calendar/date_picker_item.dart';
-import 'package:thinktank/pages/calendar/date_time.dart';
 import 'package:thinktank/pages/calendar/event.dart';
-import 'package:thinktank/pages/calendar/time_model.dart';
 
 const double _kItemExtent = 32.0;
 const List<String> _reminders = <String>[
@@ -389,35 +384,9 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
 
                   //! aradigin yer burasi
                   //SelectDateTime(),
-                  DatePickerItem(
-                    children: <Widget>[
-                      const Text('Time'),
-                      CupertinoButton(
-                        onPressed: () => _showDialog(
-                          CupertinoDatePicker(
-                            initialDateTime: time,
-                            mode: CupertinoDatePickerMode.time,
-                            use24hFormat: true,
-                            onDateTimeChanged: (DateTime newTime) {
-                              //! secilen veri burada
 
-                              setState(() {
-                                time = newTime;
-                              });
-                              print(newTime);
-                            },
-                          ),
-                        ),
-                        child: Text(
-                          '${time.hour}:${time.minute}',
-                          style: const TextStyle(
-                            fontSize: 22.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   // changeColor(mHeight, mWidth),
+                  const TimeWidget(),
                   const Cupertio()
                 ]
                     .map((widget) => Padding(
@@ -607,6 +576,65 @@ class _CupertioState extends State<Cupertio> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class TimeWidget extends StatefulWidget {
+  const TimeWidget({super.key});
+
+  @override
+  State<TimeWidget> createState() => _TimeWidgetState();
+}
+
+class _TimeWidgetState extends State<TimeWidget> {
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DatePickerItem(
+      children: <Widget>[
+        const Text('Time'),
+        CupertinoButton(
+          onPressed: () => _showDialog(
+            CupertinoDatePicker(
+              initialDateTime: time,
+              mode: CupertinoDatePickerMode.time,
+              use24hFormat: true,
+              onDateTimeChanged: (DateTime newTime) {
+                //! secilen veri burada
+
+                setState(() {
+                  time = newTime;
+                });
+                print(newTime);
+              },
+            ),
+          ),
+          child: Text(
+            '${time.hour}:${time.minute}',
+            style: const TextStyle(
+              fontSize: 22.0,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
