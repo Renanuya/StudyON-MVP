@@ -69,8 +69,13 @@ class _ResetPasswordState extends State<ResetPassword> {
             child: TextFormField(
               controller: emailController,
               decoration: const InputDecoration(
+                filled: true,
                 hintText: 'E-posta adresiniz',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
               ),
             ),
           ),

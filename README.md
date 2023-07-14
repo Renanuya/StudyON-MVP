@@ -43,7 +43,7 @@ ThinkTank, kullanıcıların çalışırken yalnız başlarına olduklarında ya
 
 ## Product Backlog URL
 
-[Flutter Team 42 Trello Backlog Board 1.Sprint]([https://trello.com/b/2e69xpzn/f-42](https://trello.com/invite/b/2e69xpzn/ATTI0c01a3db55d637e2b473971f37c18f9f204616A5/f-42-team-1sprint))
+[Flutter Team 42 Trello Backlog Board 1.Sprint](https://trello.com/invite/b/2e69xpzn/ATTI0c01a3db55d637e2b473971f37c18f9f204616A5/f-42-team-1sprint)
 <br>
 [Flutter Team 42 Trello Backlog Board 2.Sprint](https://trello.com/b/qDCcWj0s/f-42-team-2sprint)
 
@@ -101,14 +101,15 @@ Story'ler yapılacak işlere (task'lere) bölünmüştür. Trello da gözüken m
 - **Daily Scrum**: Daily Scrum toplantılarının Discord üzerinden yapılmasına karar verilmiştir. Daily Scrum toplantısı örneği Notion linki olarak Readme'de tarafımızdan paylaşılmaktadır: [Sprint 1 Daily Scrum Chats](https://www.notion.so/F-42-Daily-Scrum-2d035ade81164ba7b94bd076f75c33db?pvs=4)
 
 - **Sprint board update**: Sprint board screenshotları: 
-Backlog 2 ![2 sprint_backlog](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/a8bb966b-3a1e-485a-81e5-c30fecedd4d8)
+
+  Backlog 2
+
+![2 sprint_backlog](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/b9b1a5f8-b91f-4d5d-bbc1-d143b089cf10)
 
 
 
 - **Ürün Durumu**: Ekran görüntüleri:
-
-![2_sprint_UI](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/f093f624-b26b-4ba0-ba37-8ac98eac4370)
-
+![2_sprint_UI](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/bac1ced2-a862-46ff-83f3-7bbc7c36a84d)
 
 - **Sprint Review**: 
 Alınan kararlar: Takvim, Sıralama, Anasayfa, Hedef Belirleme ve Zamanlayıcı sayfalarında birkaç düzenleme yapılacak, ürün teslimine az bir süre kaldığı için organize bir şekilde bireysel iş bölümü yapılacak. Kullanıcıların çalışma sürelerini ölçtüğü zamanlayıcı sayfası ve buradaki verileri kullanan sıralama sayfalarının frontend kısmı tamamlandı. Backend kısmına yoğunlaşma kararı alındı. Diğer sprintte planlama konusunda dikatli olma kararı alındı. Sprint Review katılımcıları: - Ali Renan Uyanık, Bahar Ulus, Kemal Erdem Yenin, Selin Arslan, Vural Kayra Çetintaş

@@ -27,5 +27,5 @@ mixin LoginPageMixin on State<LoginPage> {
   //   }
   // }
 
-  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final formkey = GlobalKey<FormBuilderState>();
 }

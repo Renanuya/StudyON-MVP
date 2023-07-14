@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thinktank/pages/components/main_outlinedbutton.dart';
-import 'package:thinktank/pages/home_page.dart';
-import 'package:thinktank/pages/login/view/login_page.dart';
+import '../../core/constants/navigation/navigation_constants.dart';
+import '../../core/utils/navigation/navigation_service.dart';
 
 class SplashPageThree extends StatelessWidget {
   const SplashPageThree({super.key});
@@ -68,11 +68,8 @@ class SplashPageThree extends StatelessWidget {
                 child: MainOutlinedButton(
                   text: 'Giriş yap',
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
-                      ),
+                    NavigationService.instance.navigateToPage(
+                      path: NavigationConstants.authPage,
                     );
                   },
                   textSize: 0.023,
@@ -85,12 +82,8 @@ class SplashPageThree extends StatelessWidget {
                   text: 'Anonim olarak devam et',
                   textSize: 0.023,
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomePage(),
-                      ),
-                      (route) => false,
+                    NavigationService.instance.navigateToPageRemoveAll(
+                      path: NavigationConstants.homePage,
                     );
                   },
                 ),

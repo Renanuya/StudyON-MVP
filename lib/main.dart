@@ -1,7 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:thinktank/pages/calendar/time_model.dart';
+
+import 'package:thinktank/auth_page.dart';
+import 'package:thinktank/core/utils/navigation/navigation_route.dart';
+
 import 'package:thinktank/pages/login/viewmodel/view_model.dart';
 import 'package:thinktank/pages/register/viewmodel/view_model.dart';
 import 'package:thinktank/pages/splashPages/splash_page_1.dart';
@@ -9,8 +13,9 @@ import 'package:thinktank/providers/theme.dart';
 import 'package:thinktank/theme/dark_theme.dart';
 import 'package:thinktank/theme/light_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'core/utils/navigation/navigation_service.dart';
+import 'core/utils/show_snackbar.dart';
 import 'firebase_options.dart';
-import 'package:thinktank/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,18 +47,13 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<ThemeChange>(context);
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: themeChange.currentTheme ?? lightTheme,
-        darkTheme: themeChange.currentTheme ?? darkTheme,
-        home: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return const HomePage();
-            } else {
-              return const SplashPageOne();
-            }
-          },
-        ));
+      navigatorKey: NavigationService.instance.navigatorKey,
+      onGenerateRoute: NavigationRoute.instance.generateRoute,
+      scaffoldMessengerKey: ShowSnackbar.instance.messengerKey,
+      debugShowCheckedModeBanner: false,
+      theme: themeChange.currentTheme ?? lightTheme,
+      darkTheme: themeChange.currentTheme ?? darkTheme,
+      home: const SplashPageOne(),
+    );
   }
 }

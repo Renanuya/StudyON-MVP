@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:thinktank/core/constants/enums/provider_enums.dart';
 import 'package:thinktank/pages/login/model/login_request_model.dart';
 
+import '../../../core/utils/show_snackbar.dart';
+
 class UserLoginProvider extends ChangeNotifier {
   UserCredential? _model;
   Status? _loginStatus;
@@ -33,6 +35,7 @@ class UserLoginProvider extends ChangeNotifier {
           notifyListeners();
         } else if (e.code == Status.userNotFound.value) {
           _loginStatus = Status.userNotFound;
+
           notifyListeners();
         } else {
           _loginStatus = Status.failed;
@@ -44,7 +47,7 @@ class UserLoginProvider extends ChangeNotifier {
 }
 
 class LoginPasswordVisibilityProvider extends ChangeNotifier {
-  bool _isPasswordVisible = false;
+  bool _isPasswordVisible = true;
 
   bool get isPasswordVisible => _isPasswordVisible;
 

@@ -2,9 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:thinktank/pages/timerpage/goalselectionscreen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:thinktank/services/firestore_user_creation.dart';
-
 
 class MainStopwatchScreen extends StatefulWidget {
   late final String goal;
@@ -12,7 +10,8 @@ class MainStopwatchScreen extends StatefulWidget {
   late final int breakTime;
   late final String backgroundMusic;
 
-  MainStopwatchScreen({super.key,
+  MainStopwatchScreen({
+    super.key,
     required this.goal,
     required this.workingTime,
     required this.breakTime,
@@ -34,14 +33,14 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
   int currentBreakTime = 0;
   bool isFirstStart = true;
   Timer? timer;
-  final FirestoreUserCreationService _firestoreService = FirestoreUserCreationService();
-
+  final FirestoreUserCreationService _firestoreService =
+      FirestoreUserCreationService();
 
   @override
   void initState() {
     super.initState();
-    currentWorkingTime = widget.workingTime*60;
-    currentBreakTime = widget.breakTime*60;
+    currentWorkingTime = widget.workingTime * 60;
+    currentBreakTime = widget.breakTime * 60;
   }
 
   @override
@@ -51,20 +50,18 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
   }
 
   void startTimer({bool isBreakTimer = false}) {
-    if (isBreakTimer == false){
+    if (isBreakTimer == false) {
       setState(() {
-      isRunning = true;
-      startTime = DateTime.now();
-      currentTime = startTime;
-      isFirstStart = false;
-    });
+        isRunning = true;
+        startTime = DateTime.now();
+        currentTime = startTime;
+        isFirstStart = false;
+      });
 
-    timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      updateTimer(isRunning: isRunning);
-    });
-
-    }
-    else{
+      timer = Timer.periodic(const Duration(seconds: 1), (_) {
+        updateTimer(isRunning: isRunning);
+      });
+    } else {
       setState(() {
         isRunning = false;
         startTime = DateTime.now();
@@ -75,12 +72,8 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
       timer = Timer.periodic(const Duration(seconds: 1), (_) {
         updateTimer(isRunning: isRunning);
       });
-
     }
-
-
   }
-
 
   void stopTimer() {
     setState(() {
@@ -92,8 +85,8 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
   void resetTimer() {
     setState(() {
       isRunning = false;
-      currentWorkingTime = widget.workingTime*60;
-      currentBreakTime = widget.breakTime*60;
+      currentWorkingTime = widget.workingTime * 60;
+      currentBreakTime = widget.breakTime * 60;
       isFirstStart = true;
     });
     timer?.cancel();
@@ -105,17 +98,16 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
     final int secondsPassed = difference.inSeconds;
 
     if (isRunning) {
-        if (currentWorkingTime > 0) {
-          currentWorkingTime -= secondsPassed;
-          if (currentWorkingTime <= 0) {
-            currentWorkingTime = 0;
-            stopTimer();
-            _firestoreService.saveWorkingTime(user?.uid ?? '', widget.workingTime);
-          }
+      if (currentWorkingTime > 0) {
+        currentWorkingTime -= secondsPassed;
+        if (currentWorkingTime <= 0) {
+          currentWorkingTime = 0;
+          stopTimer();
+          _firestoreService.saveWorkingTime(
+              user?.uid ?? '', widget.workingTime);
+        }
       }
-    }
-    else {
-
+    } else {
       if (currentBreakTime > 0) {
         currentBreakTime -= secondsPassed;
         if (currentBreakTime <= 0) {
@@ -129,7 +121,6 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
     currentTime = now;
     setState(() {});
   }
-
 
   /*void updateTimer() {
     final now = DateTime.now();
@@ -165,7 +156,6 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
     setState(() {});
   }*/
 
-
   void showBreakTimeOverDialog() {
     showDialog(
       context: context,
@@ -186,6 +176,7 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
       },
     );
   }
+
   void startBreakTimer() {
     // Set the break time duration and start the timer
 
@@ -194,12 +185,9 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
 
   void startWorkingTimer() {
     // Set the working time duration and start the timer
-     // Stop break time
+    // Stop break time
     startTimer(); // No need to pass isBreakTimer flag (default is false)
   }
-
-
-
 
   /*String formatTime(int time) {
     final int hours = time ~/ 60;
@@ -215,7 +203,6 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
     return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -227,12 +214,12 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 40),
-
               GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => GoalSelectionScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => GoalSelectionScreen()),
                   );
                 },
                 child: Container(
@@ -240,9 +227,9 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                   width: double.infinity,
                   height: 50,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: const BoxDecoration(
-                  ),
-                  child: Row(mainAxisAlignment:MainAxisAlignment.center ,
+                  decoration: const BoxDecoration(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         widget.goal,
@@ -265,14 +252,18 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                   const SizedBox(height: 16),
                   Center(
                     child: buildTimerSection(
-                      currentWorkingTime > 0 ? currentWorkingTime : currentBreakTime,
+                      currentWorkingTime > 0
+                          ? currentWorkingTime
+                          : currentBreakTime,
                       "Çalışma",
                     ),
                   ),
                   const SizedBox(height: 16),
                   Center(
                     child: buildTimerSection(
-                      currentBreakTime > 0 ? currentBreakTime : currentWorkingTime,
+                      currentBreakTime > 0
+                          ? currentBreakTime
+                          : currentWorkingTime,
                       "Ara",
                       isBreakTimer: true,
                     ),
@@ -314,18 +305,16 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (isRunning) {
-                           // print("pressed durdur");
+                            // print("pressed durdur");
                             stopTimer();
                             startBreakTimer();
                           } else {
-                            if(isFirstStart==true) {
+                            if (isFirstStart == true) {
                               startTimer();
+                            } else {
+                              stopTimer();
+                              startWorkingTimer();
                             }
-                            else
-                              {
-                                stopTimer();
-                                startWorkingTimer();
-                              }
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -364,7 +353,6 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                   ],
                 ),
               ),
-
             ],
           ),
         ),
@@ -414,7 +402,8 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
       ),
     );
   }*/
-  Widget buildTimerSection(int time, String label, {bool isBreakTimer = false}) {
+  Widget buildTimerSection(int time, String label,
+      {bool isBreakTimer = false}) {
     final String formattedTime = formatTime(time);
     final double fontSize = isBreakTimer ? 32.0 : 40.0;
     //final Color backgroundColor = isBreakTimer ? Color.fromARGB(1, 232, 232, 232) : Color.fromARGB(1, 232, 232, 232);
@@ -456,6 +445,7 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
       ),
     );
   }
+
   Future<bool> showExitPopup(BuildContext context) async {
     return await showDialog(
       context: context,
@@ -474,8 +464,9 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           print('yes selected');
-                          _firestoreService.saveWorkingTime(user?.uid ?? '', (currentWorkingTime-widget.workingTime));
-                           // Call the function to save the working time
+                          _firestoreService.saveWorkingTime(user?.uid ?? '',
+                              (currentWorkingTime - widget.workingTime));
+                          // Call the function to save the working time
                           Navigator.of(context).popUntil((route) => false);
                         },
                         style: ElevatedButton.styleFrom(
@@ -494,7 +485,8 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                         ),
-                        child: const Text("Hayır", style: TextStyle(color: Colors.black)),
+                        child: const Text("Hayır",
+                            style: TextStyle(color: Colors.black)),
                       ),
                     )
                   ],
@@ -506,5 +498,4 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
       },
     );
   }
-
 }
