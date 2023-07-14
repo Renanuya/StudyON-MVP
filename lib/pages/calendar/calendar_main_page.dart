@@ -1,7 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:thinktank/pages/calendar/create_task.dart';
+import 'package:thinktank/pages/calendar/create_event_page.dart';
+import 'package:thinktank/pages/calendar/date_picker_item.dart';
+import 'package:thinktank/pages/calendar/event.dart';
+
+const double _kItemExtent = 32.0;
+const List<String> _reminders = <String>[
+  'On day of event ',
+  '1 day before ',
+  '2 days before ',
+  '1 week before ',
+];
 
 class CalendarMainPage extends StatefulWidget {
   const CalendarMainPage({super.key});
@@ -10,15 +21,89 @@ class CalendarMainPage extends StatefulWidget {
   State<CalendarMainPage> createState() => _CalendarMainPageState();
 }
 
+class ReminderModel extends ChangeNotifier {
+  int _selectedIndex = 0;
+
+  List<String> _reminders = <String>[
+    'On day of event ',
+    '1 day before ',
+    '2 days before ',
+    '1 week before ',
+  ];
+
+  int get selectedIndex => _selectedIndex;
+  List<String> get reminders => _reminders;
+
+  void updateSelectedIndex(int newIndex) {
+    _selectedIndex = newIndex;
+    notifyListeners();
+  }
+}
+
 class _CalendarMainPageState extends State<CalendarMainPage> {
-  DateTime today = DateTime.now();
+  void _onTimeChanged(DateTime newTime) {
+    setState(() {
+      selectedTime = newTime as String;
+    });
+  }
+
+  late Map<DateTime, List<Event>> selectedEvents;
+  DateTime selectedDay = DateTime.now();
+  DateTime focusedDay = DateTime.now();
+  CalendarFormat format = CalendarFormat.month;
+  StartingDayOfWeek weekStart = StartingDayOfWeek.monday;
+  //DateTime time = DateTime(2016, 5, 10, 22, 35);
+  DateTime selectedDate = DateTime.now();
+  DateTime time = DateTime.now();
+  bool isRedSelected = false;
+  String selectedTime = DateFormat('dd/MM/yyyy').format(DateTime.now());
   String formatDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
   DateTime calendarFirstDay = DateTime.utc(2020, 1, 1);
   DateTime calendarLastDay = DateTime.utc(2030, 1, 1);
+  int _selectedIndex = 0;
+
   void _onSelected(DateTime day, DateTime focusedDay) {
     setState(() {
-      today = day;
+      selectedDay = day;
     });
+  }
+
+  TextEditingController _eventController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    selectedEvents = {};
+    super.initState();
+  }
+
+  List<Event> _getEventsfromDay(DateTime date) {
+    return selectedEvents[date] ?? [];
+  }
+
+  @override
+  void dispose() {
+    _eventController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
   }
 
   @override
@@ -30,19 +115,51 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
       appBar: AppBar(
         title: const Text('Calendar page '),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            TableCalendar(
-              focusedDay: today,
-              firstDay: calendarFirstDay,
-              lastDay: calendarLastDay,
-              calendarStyle: const CalendarStyle(),
-              calendarFormat: CalendarFormat.month,
-              onDaySelected: _onSelected,
-              selectedDayPredicate: (day) => isSameDay(day, today),
-            ),
-            Container(
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              TableCalendar(
+                rowHeight: mWidth * 0.1,
+                focusedDay: selectedDay,
+                firstDay: calendarFirstDay,
+                lastDay: calendarLastDay,
+                headerStyle: const HeaderStyle(
+                  formatButtonVisible: true,
+                  titleCentered: true,
+                  formatButtonShowsNext: false,
+                ),
+                calendarStyle: const CalendarStyle(),
+
+                startingDayOfWeek: weekStart,
+                availableGestures: AvailableGestures.all,
+                eventLoader: _getEventsfromDay,
+                calendarFormat: format,
+                onFormatChanged: (CalendarFormat _format) {
+                  setState(() {
+                    format = _format;
+                  });
+                },
+                daysOfWeekVisible: true,
+
+                //Day Changed
+                onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                  setState(() {
+                    selectedDay = selectDay;
+                    focusedDay = focusDay;
+                  });
+                  print(focusedDay);
+                },
+                selectedDayPredicate: (DateTime date) {
+                  return isSameDay(selectedDay, date);
+                },
+
+                // rangeStartDay: selectedDate,
+                // rangeEndDay: today,
+
+                // eventLoader: (day) => [],
+              ),
+              Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.grey[300],
@@ -56,14 +173,22 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('$formatDate - Yapilacaklar'),
+                          Column(children: [
+                            Text('$formatDate - Yapılacaklar'),
+                            Text(
+                              'Seçilen Gün: ${DateFormat('dd/MM/yyyy').format(selectedDay)}',
+                            ),
+                          ]),
                           IconButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const CreateTaskPage()),
+                                  builder: (context) => CreateEventPage(
+                                    selectedDate: selectedDay,
+                                    selectedEvents: selectedEvents,
+                                  ),
+                                ),
                               );
                             },
                             icon: const Icon(
@@ -72,68 +197,444 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                )),
-            Container(
-              width: 280,
-              height: 40,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    child: Container(
-                      width: 280,
-                      height: 40,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            left: 0,
-                            top: 0,
-                            child: Container(
-                              width: 280,
-                              height: 40,
-                              decoration: ShapeDecoration(
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  side: const BorderSide(
-                                      width: 0.50, color: Color(0xFF37352F)),
-                                  borderRadius: BorderRadius.circular(15),
+                      // Expanded(
+                      //   child: ListView(
+                      //     children: _getEventsfromDay(selectedDay)
+                      //         .map(
+                      //           (Event event) => Padding(
+                      //             padding: const EdgeInsets.all(8.0),
+                      //             child: Container(
+                      //               decoration: ShapeDecoration(
+                      //                 color: Colors.white,
+                      //                 shape: RoundedRectangleBorder(
+                      //                   side: const BorderSide(
+                      //                     width: 0.50,
+                      //                     color: Color(0xFF37352F),
+                      //                   ),
+                      //                   borderRadius: BorderRadius.circular(15),
+                      //                 ),
+                      //               ),
+                      //               child: ListTile(
+                      //                   title: Column(
+                      //                     children: [
+                      //                       Text(
+                      //                         event.title,
+                      //                       ),
+                      //                       Text(event.description),
+                      //                     ],
+                      //                   ),
+                      //                   leading: IconButton(
+                      //                       onPressed: () {},
+                      //                       icon: const Icon(Icons.check_box)),
+                      //                   trailing: IconButton(
+                      //                     onPressed: () => showDialog(
+                      //                       context: context,
+                      //                       builder: (BuildContext context) {
+                      //                         return SingleChildScrollView(
+                      //                           child: AlertDialog(
+                      //                             title: Text(event.title),
+                      //                             content:
+                      //                                 SingleChildScrollView(
+                      //                                     child: ListBody(
+                      //                                         children: [
+                      //                                   Text(event.description),
+                      //                                   Text(
+                      //                                       '${time.hour}:${time.minute}')
+                      //                                 ])),
+                      //                             actions: [
+                      //                               TextButton(
+                      //                                 onPressed: () {
+                      //                                   // AlertDialog kapatmak için yapılacak işlemler
+                      //                                   setState(() {});
+                      //                                   Navigator.of(context)
+                      //                                       .pop();
+                      //                                 },
+                      //                                 child:
+                      //                                     const Text("Tamam"),
+                      //                               ),
+                      //                             ],
+                      //                           ),
+                      //                         );
+                      //                       },
+                      //                     ),
+                      //                     icon: const Icon(
+                      //                         Icons.arrow_forward_ios),
+                      //                   )),
+                      //             ),
+                      //           ),
+                      //         )
+                      //         .toList(),
+                      //   ),
+                      // )
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: _getEventsfromDay(selectedDay).length,
+                          itemBuilder: (context, index) {
+                            Event event = _getEventsfromDay(selectedDay)[index];
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    side: const BorderSide(
+                                      width: 0.50,
+                                      color: Color(0xFF37352F),
+                                    ),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                child: ListTile(
+                                  title: Column(
+                                    children: [
+                                      Text(event.title),
+                                      Text(event.description),
+                                    ],
+                                  ),
+                                  leading: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.check_box),
+                                  ),
+                                  trailing: IconButton(
+                                    onPressed: () => showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text(event.title),
+                                          content: SingleChildScrollView(
+                                            child: ListBody(
+                                              children: [
+                                                Text(event.description),
+                                                Text(
+                                                    '${time.hour}:${time.minute}'),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                setState(() {});
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text("Tamam"),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                    icon: const Icon(Icons.arrow_forward_ios),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                          const Text(
-                            'Flutter MVVM çalış',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontFamily: 'Nunito',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Positioned(
-                            left: 10,
-                            top: 8,
-                            child: Container(
-                              width: 25,
-                              height: 25,
-                              clipBehavior: Clip.antiAlias,
-                              decoration: const BoxDecoration(),
-                              child: const Stack(children: []),
-                            ),
-                          ),
-                        ],
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.red,
+        onPressed: () => showDialog(
+          context: context,
+          builder: (context) => SingleChildScrollView(
+            child: AlertDialog(
+              title: const Text("Add Event"),
+              content: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: _eventController,
+                    decoration: const InputDecoration(
+                      fillColor: Color(0xffE8E8E7),
+                      border: OutlineInputBorder(),
+                      filled: true,
+                      labelText: 'Yapılacaklar',
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      hintText: 'Ne yapmak istediğinizi yazın...',
+                      hintStyle: TextStyle(
+                        color: Color(0xFFAFAFAC),
                       ),
                     ),
                   ),
-                ],
+                  TextFormField(
+                    controller: _descriptionController,
+                    decoration: const InputDecoration(
+                      fillColor: Color(0xffE8E8E7),
+                      border: OutlineInputBorder(),
+                      filled: true,
+                      labelText: 'Aciklama',
+                      labelStyle: TextStyle(
+                        color: Colors.black,
+                      ),
+                      hintText:
+                          'Yapmak istediginiz seyin aciklamasini yazin ...',
+                      hintStyle: TextStyle(
+                        color: Color(0xFFAFAFAC),
+                      ),
+                    ),
+                  ),
+
+                  //! aradigin yer burasi
+                  //SelectDateTime(),
+
+                  // changeColor(mHeight, mWidth),
+                  const TimeWidget(),
+                  const Cupertio()
+                ]
+                    .map((widget) => Padding(
+                        padding: const EdgeInsets.all(10), child: widget))
+                    .toList(),
               ),
-            )
-          ],
+              actions: [
+                TextButton(
+                  child: const Text("Cancel"),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                TextButton(
+                  child: const Text("Ok"),
+                  onPressed: () async {
+                    if (_eventController.text.isEmpty) {
+                      return;
+                    } else {
+                      if (selectedEvents[selectedDay] != null) {
+                        selectedEvents[selectedDay]!.add(Event(
+                          title: _eventController.text,
+                          description: _descriptionController.text,
+                        ));
+                      } else {
+                        selectedEvents[selectedDay] = [
+                          Event(
+                            title: _eventController.text,
+                            description: _descriptionController.text,
+                          )
+                        ];
+                      }
+                      _eventController.clear();
+                      _descriptionController.clear();
+
+                      setState(() {});
+                      return;
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        label: const Text("Add Event"),
+        icon: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  // Container changeColor(double mHeight, double mWidth) {
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //       borderRadius: const BorderRadius.all(
+  //         Radius.circular(10),
+  //       ),
+  //       color: Colors.grey[300],
+  //     ),
+  //     // child: Column(
+  //     //   children: [
+  //     //     Row(
+  //     //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //     //       children: [
+  //     //         ColorButton(
+  //     //           color: Colors.red,
+  //     //           onPressed: (isSelected) {
+  //     //             setState(() {
+  //     //               isRedSelected = isSelected;
+  //     //             });
+  //     //           },
+  //     //         ),
+  //     //         ColorButton(
+  //     //           color: Colors.yellow,
+  //     //           onPressed: (isSelected) {
+  //     //             setState(() {
+  //     //               isRedSelected = isSelected;
+  //     //             });
+  //     //           },
+  //     //         ),
+  //     //       ],
+  //     //     ),
+  //     //     SizedBox(
+  //     //       height: mHeight * 0.01,
+  //     //     ),
+  //     //     Row(
+  //     //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //     //       children: [
+  //     //         ColorButton(
+  //     //           color: Colors.blue,
+  //     //           onPressed: (isSelected) {
+  //     //             setState(() {
+  //     //               isRedSelected = isSelected;
+  //     //             });
+  //     //           },
+  //     //         ),
+  //     //         ColorButton(
+  //     //           color: Colors.green,
+  //     //           onPressed: (isSelected) {
+  //     //             setState(() {
+  //     //               isRedSelected = isSelected;
+  //     //             });
+  //     //           },
+  //     //         ),
+  //     //       ],
+  //     //     ),
+  //     //   ],
+  //     // ),
+  //   );
+  // }
+}
+
+class Cupertio extends StatefulWidget {
+  const Cupertio({super.key});
+
+  @override
+  State<Cupertio> createState() => _CupertioState();
+}
+
+class _CupertioState extends State<Cupertio> {
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        child: SafeArea(
+          top: false,
+          child: child,
         ),
       ),
+    );
+  }
+
+  int _selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final double mWidth = MediaQuery.of(context).size.width;
+    return Container(
+      decoration: BoxDecoration(
+          color: const Color(0xffE8E8E7),
+          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(5)),
+      width: mWidth,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text(
+            'Hatirlatici Sec:',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+          CupertinoButton(
+            padding: EdgeInsets.zero,
+            onPressed: () => _showDialog(
+              CupertinoPicker(
+                magnification: 1.22,
+                squeeze: 1.2,
+                useMagnifier: true,
+                itemExtent: _kItemExtent,
+                // This sets the initial item.
+                scrollController: FixedExtentScrollController(
+                  initialItem: _selectedIndex,
+                ),
+
+                onSelectedItemChanged: (index) {
+                  setState(() => _selectedIndex = index);
+                  print(_reminders[index]);
+                },
+                children: List<Widget>.generate(_reminders.length, (int index) {
+                  return Center(child: Text(_reminders[index]));
+                }),
+              ),
+            ),
+            child: Text(
+              _reminders[_selectedIndex],
+              style: const TextStyle(
+                fontSize: 22.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TimeWidget extends StatefulWidget {
+  const TimeWidget({super.key});
+
+  @override
+  State<TimeWidget> createState() => _TimeWidgetState();
+}
+
+class _TimeWidgetState extends State<TimeWidget> {
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DatePickerItem(
+      children: <Widget>[
+        const Text('Time'),
+        CupertinoButton(
+          onPressed: () => _showDialog(
+            CupertinoDatePicker(
+              initialDateTime: time,
+              mode: CupertinoDatePickerMode.time,
+              use24hFormat: true,
+              onDateTimeChanged: (DateTime newTime) {
+                //! secilen veri burada
+
+                setState(() {
+                  time = newTime;
+                });
+                print(newTime);
+              },
+            ),
+          ),
+          child: Text(
+            '${time.hour}:${time.minute}',
+            style: const TextStyle(
+              fontSize: 22.0,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
