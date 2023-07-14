@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thinktank/auth.dart';
-import 'package:thinktank/pages/calendar/create_task.dart';
+import 'package:thinktank/pages/calendar/create_event_page.dart';
+
 import 'package:thinktank/pages/homePage/view/home_page.dart';
 import 'package:thinktank/pages/rankPages/view/rank_page.dart';
 import 'package:thinktank/pages/splashPages/splash_page_1.dart';
@@ -48,7 +49,11 @@ class NavigationRoute {
             const CalendarMainPage(), NavigationConstants.calendarPage);
       case NavigationConstants.createTaskPage:
         return normalNavigate(
-            const CreateTaskPage(), NavigationConstants.createTaskPage);
+            CreateEventPage(
+              selectedDate: DateTime.now(),
+              selectedEvents: {},
+            ),
+            NavigationConstants.createTaskPage);
 
       //Login & Register Pages
       case NavigationConstants.loginPage:
