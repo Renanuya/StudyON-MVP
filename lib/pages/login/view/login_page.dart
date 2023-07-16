@@ -6,12 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:thinktank/core/constants/enums/provider_enums.dart';
 import 'package:thinktank/core/utils/show_snackbar.dart';
-import 'package:thinktank/pages/homePage/view/home_page.dart';
+
 import 'package:thinktank/pages/login/model/login_request_model.dart';
 import 'package:thinktank/pages/login/viewmodel/view_model.dart';
 
 import 'package:thinktank/services/auth.dart';
-import '../../register/view/register_page.dart';
+import '../../../core/constants/navigation/navigation_constants.dart';
+import '../../../core/utils/navigation/navigation_service.dart';
+
 import '../../register/view/reset_password.dart';
 part 'login_page_mixin.dart';
 
@@ -41,187 +43,225 @@ class _LoginPageState extends State<LoginPage> with LoginPageMixin {
     double mHeight = MediaQuery.of(context).size.height;
     double mWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'ThinkTank',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.inter(
-            fontWeight: FontWeight.bold,
-            fontSize: mHeight * 0.044,
-            color: const Color(0xFF37352f),
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: FormBuilder(
-              autoFocusOnValidationFailure: true,
-              key: formkey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  LoginUserTextFormField(emailController: emailController),
-                  const SizedBox(height: 20.0),
-                  TextFormField(
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: context
-                        .watch<LoginPasswordVisibilityProvider>()
-                        .isPasswordVisible,
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      border: const OutlineInputBorder(),
-                      labelText: 'Şifre',
-                      hintText: 'Lütfen Şifrenizi Giriniz...',
-                      prefixIcon: const Icon(Icons.lock_outline),
-                      suffixIcon: IconButton(
-                        onPressed: () => context
-                            .read<LoginPasswordVisibilityProvider>()
-                            .changePasswordVisibility(),
-                        icon: AnimatedCrossFade(
-                          firstChild: const Icon(Icons.visibility_off_outlined),
-                          secondChild: const Icon(Icons.visibility_outlined),
-                          crossFadeState: context
-                                  .watch<LoginPasswordVisibilityProvider>()
-                                  .isPasswordVisible
-                              ? CrossFadeState.showFirst
-                              : CrossFadeState.showSecond,
-                          duration: const Duration(milliseconds: 300),
-                        ),
-                      ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: 'Study',
+                    style: GoogleFonts.pacifico(
+                      fontSize: mHeight * 0.04,
+                      color: const Color(0xFF37352f),
                     ),
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.required(errorText: 'Zorunlu Alan'),
-                      FormBuilderValidators.minLength(6,
-                          errorText: 'En az 6 karakter olmalıdır.'),
-                    ]),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        child: const Text(
-                          'Şifrenizi mi unuttunuz?',
+                    children: const [
+                      TextSpan(
+                        text: 'On',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 101, 191, 107),
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const ResetPassword()));
-                        },
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20.0),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Consumer<UserLoginProvider>(
-                        builder: (context, value, child) {
-                      if (value.getLoginIsSucces == Status.loading) {
-                        return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Theme.of(context).brightness == Brightness.dark
+                    ? Image.asset('assets/images/loginpage.png',
+                        height: mHeight * 0.4, width: mWidth * 0.9)
+                    : Image.asset('assets/images/loginpage.png',
+                        height: mHeight * 0.2, width: mWidth * 0.7),
+                const SizedBox(
+                  height: 10,
+                ),
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: FormBuilder(
+                      autoFocusOnValidationFailure: true,
+                      key: formkey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          LoginUserTextFormField(
+                              emailController: emailController),
+                          const SizedBox(height: 20.0),
+                          TextFormField(
+                            keyboardType: TextInputType.visiblePassword,
+                            obscureText: context
+                                .watch<LoginPasswordVisibilityProvider>()
+                                .isPasswordVisible,
+                            controller: passwordController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              border: const OutlineInputBorder(),
+                              labelText: 'Şifre',
+                              hintText: 'Lütfen Şifrenizi Giriniz...',
+                              prefixIcon: const Icon(Icons.lock_outline),
+                              suffixIcon: IconButton(
+                                onPressed: () => context
+                                    .read<LoginPasswordVisibilityProvider>()
+                                    .changePasswordVisibility(),
+                                icon: AnimatedCrossFade(
+                                  firstChild:
+                                      const Icon(Icons.visibility_off_outlined),
+                                  secondChild:
+                                      const Icon(Icons.visibility_outlined),
+                                  crossFadeState: context
+                                          .watch<
+                                              LoginPasswordVisibilityProvider>()
+                                          .isPasswordVisible
+                                      ? CrossFadeState.showFirst
+                                      : CrossFadeState.showSecond,
+                                  duration: const Duration(milliseconds: 300),
+                                ),
+                              ),
                             ),
-                            elevation: 0,
-                            minimumSize: Size(mWidth, mHeight * 0.06),
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(
+                                  errorText: 'Zorunlu Alan'),
+                              FormBuilderValidators.minLength(6,
+                                  errorText: 'En az 6 karakter olmalıdır.'),
+                            ]),
                           ),
-                          onPressed: null,
-                          child: const CircularProgressIndicator.adaptive(),
-                        );
-                      } else {
-                        return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(),
-                            ),
-                            elevation: 0,
-                            minimumSize: Size(mWidth, mHeight * 0.06),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                child: const Text(
+                                  'Şifrenizi mi unuttunuz?',
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ResetPassword()));
+                                },
+                              ),
+                            ],
                           ),
-                          onPressed: () {
-                            // _key.currentState!.validate()
-                            if (formkey.currentState?.validate() ?? false) {
-                              context
-                                  .read<UserLoginProvider>()
-                                  .userLoginWithEmailPassword(
-                                    LoginRequestModel(
-                                      email: emailController.text.trim(),
-                                      password: passwordController.text.trim(),
+                          const SizedBox(height: 20.0),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Consumer<UserLoginProvider>(
+                                builder: (context, value, child) {
+                              if (value.getLoginIsSucces == Status.loading) {
+                                return ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: const BorderSide(),
                                     ),
-                                  );
-                            } else {
-                              ShowSnackbar.instance.errorSnackBar(
-                                  'Lütfen gerekli alanları doldurunuz.');
-                            }
-                          },
-                          child: const Text(
-                            'Giriş',
-                            style: TextStyle(
-                              fontSize: 20,
+                                    elevation: 0,
+                                    minimumSize: Size(mWidth, mHeight * 0.06),
+                                  ),
+                                  onPressed: null,
+                                  child: const CircularProgressIndicator
+                                      .adaptive(),
+                                );
+                              } else {
+                                return ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: const BorderSide(),
+                                    ),
+                                    elevation: 0,
+                                    minimumSize: Size(mWidth, mHeight * 0.06),
+                                  ),
+                                  onPressed: () {
+                                    // _key.currentState!.validate()
+                                    if (formkey.currentState?.validate() ??
+                                        false) {
+                                      try {
+                                        context
+                                            .read<UserLoginProvider>()
+                                            .userLoginWithEmailPassword(
+                                              LoginRequestModel(
+                                                email:
+                                                    emailController.text.trim(),
+                                                password: passwordController
+                                                    .text
+                                                    .trim(),
+                                              ),
+                                            );
+                                      } finally {
+                                        NavigationService.instance
+                                            .navigateToPageRemoveAll(
+                                                path: NavigationConstants
+                                                    .authPage);
+                                      }
+                                    } else {
+                                      ShowSnackbar.instance.errorSnackBar(
+                                          'Lütfen gerekli alanları doldurunuz.');
+                                    }
+                                  },
+                                  child: const Text(
+                                    'Giriş',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                );
+                              }
+                            }),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              'Ya da ?',
                             ),
                           ),
-                        );
-                      }
-                    }),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Text(
-                      'Ya da ?',
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton.icon(
-                      onPressed: () async {
-                        await _authService.signInWithGoogle();
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomePage(),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton.icon(
+                              onPressed: () async {
+                                await _authService.signInWithGoogle();
+                                NavigationService.instance
+                                    .navigateToPageRemoveAll(
+                                  path: NavigationConstants.homePage,
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  side: const BorderSide(),
+                                ),
+                                elevation: 0,
+                                minimumSize: Size(mWidth, mHeight * 0.06),
+                              ),
+                              icon: const Icon(
+                                FontAwesomeIcons.google,
+                                color: Colors.black,
+                              ),
+                              label: const Text(
+                                'Google ile Giriş Yap',
+                              ),
+                            ),
                           ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: const BorderSide(),
-                        ),
-                        elevation: 0,
-                        minimumSize: Size(mWidth, mHeight * 0.06),
-                      ),
-                      icon: const Icon(
-                        FontAwesomeIcons.google,
-                        color: Colors.black,
-                      ),
-                      label: const Text(
-                        'Google ile Giriş Yap',
+                          TextButton(
+                            onPressed: () {
+                              NavigationService.instance
+                                  .navigateToPageRemoveAll(
+                                path: NavigationConstants.registerPage,
+                              );
+                            },
+                            child: const Text(
+                              'Bir hesabın yok mu? Kayıt ol',
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterPage(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Bir hesabın yok mu ? ',
-                    ),
-                  )
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

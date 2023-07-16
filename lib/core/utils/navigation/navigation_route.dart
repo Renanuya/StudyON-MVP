@@ -67,6 +67,9 @@ class NavigationRoute {
       //Other Pages
       case NavigationConstants.homePage:
         return normalNavigate(const HomePage(), NavigationConstants.homePage);
+      case NavigationConstants.notFound:
+        return normalNavigate(
+            const NotFoundPage(), NavigationConstants.notFound);
       case NavigationConstants.splashPageOne:
         return normalNavigate(
             const SplashPageOne(), NavigationConstants.splashPageOne);

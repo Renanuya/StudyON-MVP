@@ -23,9 +23,11 @@ class UserLoginProvider extends ChangeNotifier {
         if (response.user != null) {
           _model = response;
           _loginStatus = Status.success;
+
           notifyListeners();
         } else {
           _loginStatus = Status.failed;
+
           notifyListeners();
         }
       } on FirebaseAuthException catch (e) {

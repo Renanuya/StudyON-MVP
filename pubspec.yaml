@@ -50,6 +50,7 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   form_builder_validators: ^9.0.0
   flutter_form_builder: ^7.8.0
+  firebase_storage: ^11.2.4
 dependency_overrides:
    intl: ^0.18.1
 
@@ -80,6 +81,10 @@ flutter:
     - assets/images/image_1.png
     - assets/images/image_1_dark.png
     - assets/images/crown.png
+    - assets/images/splashpage1.png
+    - assets/images/splashpage2.png
+    - assets/images/splashpage3.png
+    - assets/images/loginpage.png
   
 
   # An image asset can refer to one or more resolution-specific "variants", see
