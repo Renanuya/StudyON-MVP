@@ -13,6 +13,7 @@ import 'package:thinktank/pages/calendar/event.dart';
 import 'package:thinktank/providers/event_provider.dart';
 
 const double _kItemExtent = 32.0;
+DateTime _timeSelect = DateTime.now();
 const List<String> _reminders = <String>[
   'On day of event ',
   '1 day before ',
@@ -58,7 +59,7 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
   DateTime calendarFirstDay = DateTime.utc(2020, 1, 1);
   DateTime calendarLastDay = DateTime.utc(2030, 1, 1);
   bool checkController = false;
-  DateTime currentTime = DateTime.now();
+
   final CalendarFormat _calendarFormat = CalendarFormat.month;
   final DateTime _firstDay = DateTime.utc(2020, 1, 1);
   DateTime _focusedDate = DateTime.now();
@@ -113,7 +114,7 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendar page '),
+        title: const Text('Yapılacaklar'),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -172,10 +173,129 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Column(children: [
-                            Text('$_formatDate - Yapılacaklar'),
-                            Text(
-                              'Seçilen Gün: ${DateFormat('dd/MM/yyyy').format(_selectedDate)}',
+                            Row(
+                              children: [
+                                Text('$_formatDate - Yapılacaklar'),
+                                SizedBox(width: 10),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.add_circle_outline_sharp,
+                                  ),
+                                  onPressed: () => showDialog(
+                                    context: context,
+                                    builder: (context) => SingleChildScrollView(
+                                      child: AlertDialog(
+                                        title: const Text("Add Event"),
+                                        content: Form(
+                                          key: GlobalKey<FormState>(),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              TextField(
+                                                controller: _titleController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                  fillColor: Color(0xffE8E8E7),
+                                                  border: OutlineInputBorder(),
+                                                  filled: true,
+                                                  labelText: 'Yapılacaklar',
+                                                  labelStyle: TextStyle(
+                                                    color: Colors.black,
+                                                  ),
+                                                  hintText:
+                                                      'Ne yapmak istediğinizi yazın...',
+                                                  hintStyle: TextStyle(
+                                                    color: Color(0xFFAFAFAC),
+                                                  ),
+                                                ),
+                                              ),
+                                              TextField(
+                                                controller:
+                                                    _descriptionController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                  fillColor: Color(0xffE8E8E7),
+                                                  border: OutlineInputBorder(),
+                                                  filled: true,
+                                                  labelText: 'Aciklama',
+                                                  labelStyle: TextStyle(
+                                                    color: Colors.black,
+                                                  ),
+                                                  hintText:
+                                                      'Yapmak istediginiz seyin aciklamasini yazin ...',
+                                                  hintStyle: TextStyle(
+                                                    color: Color(0xFFAFAFAC),
+                                                  ),
+                                                ),
+                                              ),
+
+                                              //! aradigin yer burasi
+                                              //SelectDateTime(),
+
+                                              // changeColor(mHeight, mWidth),
+                                              const TimeWidget(),
+
+                                              const Cupertio()
+                                            ]
+                                                .map((widget) => Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    child: widget))
+                                                .toList(),
+                                          ),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            child: const Text("Cancel"),
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                          ),
+                                          TextButton(
+                                              child: const Text("Ok"),
+                                              onPressed: () async {
+                                                //! fab yap
+                                                String title =
+                                                    _titleController.text;
+                                                String description =
+                                                    _descriptionController.text;
+                                                DateTime selectedDate =
+                                                    _selectedDate;
+                                                bool controlEvent =
+                                                    checkController;
+                                                DateTime timeSelect =
+                                                    _timeSelect;
+
+                                                EventProvider eventProvider =
+                                                    Provider.of<EventProvider>(
+                                                        context,
+                                                        listen: false);
+
+                                                eventProvider.addEvent(
+                                                    title,
+                                                    description,
+                                                    selectedDate,
+                                                    controlEvent,
+                                                    timeSelect);
+                                                setState(() {
+                                                  timeSelect = time;
+                                                });
+
+                                                _titleController.clear();
+                                                _descriptionController.clear();
+
+                                                Navigator.pop(context);
+                                              }),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
+                            Text(
+                                'Seçilen Gün: ${DateFormat('dd/MM/yyyy').format(_selectedDate)}'),
                           ]),
                         ],
                       ),
@@ -200,7 +320,10 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                 child: ListTile(
                                   title: Text(event.title),
                                   // subtitle: Text(event.description),
-                                  subtitle: Text('${time.hour}:${time.minute}'),
+                                  subtitle: Text(
+                                      '${event.timeSelect.hour}:${event.timeSelect.minute}'),
+
+                                  // Text(      '${event.timeSelect.hour}:${event.timeSelect.minute}'),
                                   leading: IconButton(
                                       onPressed: () {
                                         setState(() {
@@ -224,9 +347,10 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                             content: SingleChildScrollView(
                                               child: ListBody(
                                                 children: [
+                                                  Text(event.title),
                                                   Text(event.description),
-                                                  Text(
-                                                      '${time.hour}:${time.minute}')
+                                                  // Text(
+                                                  //     '${event.timeSelect.hour}:${event.timeSelect.minute}')
                                                 ],
                                               ),
                                             ),
@@ -260,125 +384,125 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.red,
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => SingleChildScrollView(
-            child: AlertDialog(
-              title: const Text("Add Event"),
-              content: Form(
-                key: GlobalKey<FormState>(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextField(
-                      controller: _titleController,
-                      decoration: const InputDecoration(
-                        fillColor: Color(0xffE8E8E7),
-                        border: OutlineInputBorder(),
-                        filled: true,
-                        labelText: 'Yapılacaklar',
-                        labelStyle: TextStyle(
-                          color: Colors.black,
-                        ),
-                        hintText: 'Ne yapmak istediğinizi yazın...',
-                        hintStyle: TextStyle(
-                          color: Color(0xFFAFAFAC),
-                        ),
-                      ),
-                    ),
-                    TextField(
-                      controller: _descriptionController,
-                      decoration: const InputDecoration(
-                        fillColor: Color(0xffE8E8E7),
-                        border: OutlineInputBorder(),
-                        filled: true,
-                        labelText: 'Aciklama',
-                        labelStyle: TextStyle(
-                          color: Colors.black,
-                        ),
-                        hintText:
-                            'Yapmak istediginiz seyin aciklamasini yazin ...',
-                        hintStyle: TextStyle(
-                          color: Color(0xFFAFAFAC),
-                        ),
-                      ),
-                    ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   backgroundColor: Colors.red,
+      //   onPressed: () => showDialog(
+      //     context: context,
+      //     builder: (context) => SingleChildScrollView(
+      //       child: AlertDialog(
+      //         title: const Text("Add Event"),
+      //         content: Form(
+      //           key: GlobalKey<FormState>(),
+      //           child: Column(
+      //             mainAxisAlignment: MainAxisAlignment.center,
+      //             children: [
+      //               TextField(
+      //                 controller: _titleController,
+      //                 decoration: const InputDecoration(
+      //                   fillColor: Color(0xffE8E8E7),
+      //                   border: OutlineInputBorder(),
+      //                   filled: true,
+      //                   labelText: 'Yapılacaklar',
+      //                   labelStyle: TextStyle(
+      //                     color: Colors.black,
+      //                   ),
+      //                   hintText: 'Ne yapmak istediğinizi yazın...',
+      //                   hintStyle: TextStyle(
+      //                     color: Color(0xFFAFAFAC),
+      //                   ),
+      //                 ),
+      //               ),
+      //               TextField(
+      //                 controller: _descriptionController,
+      //                 decoration: const InputDecoration(
+      //                   fillColor: Color(0xffE8E8E7),
+      //                   border: OutlineInputBorder(),
+      //                   filled: true,
+      //                   labelText: 'Aciklama',
+      //                   labelStyle: TextStyle(
+      //                     color: Colors.black,
+      //                   ),
+      //                   hintText:
+      //                       'Yapmak istediginiz seyin aciklamasini yazin ...',
+      //                   hintStyle: TextStyle(
+      //                     color: Color(0xFFAFAFAC),
+      //                   ),
+      //                 ),
+      //               ),
 
-                    //! aradigin yer burasi
-                    //SelectDateTime(),
+      //               //! aradigin yer burasi
+      //               //SelectDateTime(),
 
-                    // changeColor(mHeight, mWidth),
-                    //const TimeWidget(),
-                    DatePickerItem(
-                      children: <Widget>[
-                        const Text('Time'),
-                        CupertinoButton(
-                          onPressed: () => _showDialog(
-                            CupertinoDatePicker(
-                              initialDateTime: time,
-                              mode: CupertinoDatePickerMode.time,
-                              use24hFormat: true,
-                              onDateTimeChanged: (DateTime newTime) {
-                                //! secilen veri burada
+      //               // changeColor(mHeight, mWidth),
+      //               //const TimeWidget(),
+      //               DatePickerItem(
+      //                 children: <Widget>[
+      //                   const Text('Time'),
+      //                   CupertinoButton(
+      //                     onPressed: () => _showDialog(
+      //                       CupertinoDatePicker(
+      //                         initialDateTime: currentTime,
+      //                         mode: CupertinoDatePickerMode.time,
+      //                         use24hFormat: true,
+      //                         onDateTimeChanged: (DateTime newTime) {
+      //                           //! secilen veri burada
 
-                                setState(() {
-                                  time = newTime;
-                                });
-                                print(newTime);
-                              },
-                            ),
-                          ),
-                          child: Text(
-                            '${time.hour}:${time.minute}',
-                            style: const TextStyle(
-                              fontSize: 22.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Cupertio()
-                  ]
-                      .map((widget) => Padding(
-                          padding: const EdgeInsets.all(10), child: widget))
-                      .toList(),
-                ),
-              ),
-              actions: [
-                TextButton(
-                  child: const Text("Cancel"),
-                  onPressed: () => Navigator.pop(context),
-                ),
-                TextButton(
-                    child: const Text("Ok"),
-                    onPressed: () async {
-                      //! fab yap
-                      String title = _titleController.text;
-                      String description = _descriptionController.text;
-                      DateTime selectedDate = _selectedDate;
-                      bool controlEvent = checkController;
-                      DateTime timeSelect = currentTime;
+      //                           setState(() {
+      //                             time = newTime;
+      //                           });
+      //                           print(newTime);
+      //                         },
+      //                       ),
+      //                     ),
+      //                     child: Text(
+      //                       '${currentTime.hour}:${currentTime.minute}',
+      //                       style: const TextStyle(
+      //                         fontSize: 22.0,
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 ],
+      //               ),
+      //               const Cupertio()
+      //             ]
+      //                 .map((widget) => Padding(
+      //                     padding: const EdgeInsets.all(10), child: widget))
+      //                 .toList(),
+      //           ),
+      //         ),
+      //         actions: [
+      //           TextButton(
+      //             child: const Text("Cancel"),
+      //             onPressed: () => Navigator.pop(context),
+      //           ),
+      //           TextButton(
+      //               child: const Text("Ok"),
+      //               onPressed: () async {
+      //                 //! fab yap
+      //                 String title = _titleController.text;
+      //                 String description = _descriptionController.text;
+      //                 DateTime selectedDate = _selectedDate;
+      //                 bool controlEvent = checkController;
+      //                 DateTime timeSelect = _timeSelect;
 
-                      EventProvider eventProvider =
-                          Provider.of<EventProvider>(context, listen: false);
+      //                 EventProvider eventProvider =
+      //                     Provider.of<EventProvider>(context, listen: false);
 
-                      eventProvider.addEvent(title, description, selectedDate,
-                          controlEvent, timeSelect);
+      //                 eventProvider.addEvent(title, description, selectedDate,
+      //                     controlEvent, timeSelect);
 
-                      _titleController.clear();
-                      _descriptionController.clear();
+      //                 _titleController.clear();
+      //                 _descriptionController.clear();
 
-                      Navigator.pop(context);
-                    }),
-              ],
-            ),
-          ),
-        ),
-        label: const Text("Add Event"),
-        icon: const Icon(Icons.add),
-      ),
+      //                 Navigator.pop(context);
+      //               }),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      //   label: const Text("Add Event"),
+      //   icon: const Icon(Icons.add),
+      // ),
     );
   }
 
@@ -570,14 +694,14 @@ class _TimeWidgetState extends State<TimeWidget> {
                 //! secilen veri burada
 
                 setState(() {
-                  time = newTime;
+                  _timeSelect = newTime;
                 });
                 print(newTime);
               },
             ),
           ),
           child: Text(
-            '${time.hour}:${time.minute}',
+            '${_timeSelect.hour}:${_timeSelect.minute}',
             style: const TextStyle(
               fontSize: 22.0,
             ),
