@@ -1,12 +1,15 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class Event {
-  final String title;
-  final String description;
+  String title;
+  String description;
+  DateTime date;
+  DateTime timeSelect;
+  bool eventController;
 
   Event({
     required this.title,
     required this.description,
+    required this.date,
+    required this.eventController,
+    required this.timeSelect,
   });
-
-  String toString() => this.title;
 }

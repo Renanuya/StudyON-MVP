@@ -144,6 +144,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       Event(
                         title: eventTitle,
                         description: eventDescription,
+                        date: time,
+                        eventController: true,
+                        timeSelect: DateTime.now(),
                       ),
                     );
                   } else {
@@ -151,6 +154,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       Event(
                         title: eventTitle,
                         description: eventDescription,
+                        date: time,
+                        eventController: true,
+                        timeSelect: DateTime.now(),
                       ),
                     ];
                   }

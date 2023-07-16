@@ -1,10 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 import 'package:thinktank/pages/calendar/create_event_page.dart';
 import 'package:thinktank/pages/calendar/date_picker_item.dart';
 import 'package:thinktank/pages/calendar/event.dart';
+import 'package:thinktank/providers/event_provider.dart';
 
 const double _kItemExtent = 32.0;
 const List<String> _reminders = <String>[
@@ -24,7 +30,7 @@ class CalendarMainPage extends StatefulWidget {
 class ReminderModel extends ChangeNotifier {
   int _selectedIndex = 0;
 
-  List<String> _reminders = <String>[
+  final List<String> _reminders = <String>[
     'On day of event ',
     '1 day before ',
     '2 days before ',
@@ -41,51 +47,43 @@ class ReminderModel extends ChangeNotifier {
 }
 
 class _CalendarMainPageState extends State<CalendarMainPage> {
-  void _onTimeChanged(DateTime newTime) {
-    setState(() {
-      selectedTime = newTime as String;
-    });
-  }
+  late Map<DateTime, List<Event>> _selectedEvents;
 
-  late Map<DateTime, List<Event>> selectedEvents;
-  DateTime selectedDay = DateTime.now();
-  DateTime focusedDay = DateTime.now();
-  CalendarFormat format = CalendarFormat.month;
   StartingDayOfWeek weekStart = StartingDayOfWeek.monday;
   //DateTime time = DateTime(2016, 5, 10, 22, 35);
-  DateTime selectedDate = DateTime.now();
+  //DateTime selectedDate = DateTime.now();
   DateTime time = DateTime.now();
   bool isRedSelected = false;
   String selectedTime = DateFormat('dd/MM/yyyy').format(DateTime.now());
-  String formatDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
   DateTime calendarFirstDay = DateTime.utc(2020, 1, 1);
   DateTime calendarLastDay = DateTime.utc(2030, 1, 1);
-  int _selectedIndex = 0;
+  bool checkController = false;
+  DateTime currentTime = DateTime.now();
+  final CalendarFormat _calendarFormat = CalendarFormat.month;
+  final DateTime _firstDay = DateTime.utc(2020, 1, 1);
+  DateTime _focusedDate = DateTime.now();
+  final DateTime _lastDay = DateTime(DateTime.now().year + 5);
+  DateTime _selectedDate = DateTime.now();
+  final String _formatDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
-  void _onSelected(DateTime day, DateTime focusedDay) {
-    setState(() {
-      selectedDay = day;
-    });
-  }
-
-  TextEditingController _eventController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   void initState() {
-    selectedEvents = {};
+    _selectedEvents = {};
     super.initState();
-  }
-
-  List<Event> _getEventsfromDay(DateTime date) {
-    return selectedEvents[date] ?? [];
   }
 
   @override
   void dispose() {
-    _eventController.dispose();
+    _titleController.dispose();
     _descriptionController.dispose();
     super.dispose();
+  }
+
+  List<Event> _getEventsfromDay(DateTime date) {
+    return _selectedEvents[date] ?? [];
   }
 
   void _showDialog(Widget child) {
@@ -110,6 +108,8 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
   Widget build(BuildContext context) {
     double mHeight = MediaQuery.of(context).size.height;
     double mWidth = MediaQuery.of(context).size.width;
+    final eventProvider = Provider.of<EventProvider>(context);
+    final filteredEvents = eventProvider.getEventsByDate(_selectedDate);
 
     return Scaffold(
       appBar: AppBar(
@@ -121,9 +121,9 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
             children: [
               TableCalendar(
                 rowHeight: mWidth * 0.1,
-                focusedDay: selectedDay,
-                firstDay: calendarFirstDay,
-                lastDay: calendarLastDay,
+                focusedDay: _focusedDate,
+                firstDay: _firstDay,
+                lastDay: _lastDay,
                 headerStyle: const HeaderStyle(
                   formatButtonVisible: true,
                   titleCentered: true,
@@ -131,29 +131,27 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                 ),
                 calendarStyle: const CalendarStyle(),
 
-                startingDayOfWeek: weekStart,
+                startingDayOfWeek: StartingDayOfWeek.monday,
                 availableGestures: AvailableGestures.all,
                 eventLoader: _getEventsfromDay,
-                calendarFormat: format,
-                onFormatChanged: (CalendarFormat _format) {
+                calendarFormat: _calendarFormat,
+                onFormatChanged: (CalendarFormat format) {
                   setState(() {
-                    format = _format;
+                    format = format;
                   });
                 },
                 daysOfWeekVisible: true,
 
                 //Day Changed
-                onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                  setState(() {
-                    selectedDay = selectDay;
-                    focusedDay = focusDay;
-                  });
-                  print(focusedDay);
-                },
                 selectedDayPredicate: (DateTime date) {
-                  return isSameDay(selectedDay, date);
+                  return isSameDay(_selectedDate, date);
                 },
-
+                onDaySelected: (selectedDay, focusedDay) {
+                  setState(() {
+                    _selectedDate = selectedDay;
+                    _focusedDate = focusedDay;
+                  });
+                },
                 // rangeStartDay: selectedDate,
                 // rangeEndDay: today,
 
@@ -164,8 +162,8 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.grey[300],
                 ),
-                height: mHeight * 0.3,
-                width: mWidth * 0.8,
+                height: mHeight * 0.35,
+                width: mWidth * 0.9,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -174,103 +172,18 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Column(children: [
-                            Text('$formatDate - Yapılacaklar'),
+                            Text('$_formatDate - Yapılacaklar'),
                             Text(
-                              'Seçilen Gün: ${DateFormat('dd/MM/yyyy').format(selectedDay)}',
+                              'Seçilen Gün: ${DateFormat('dd/MM/yyyy').format(_selectedDate)}',
                             ),
                           ]),
-                          IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CreateEventPage(
-                                    selectedDate: selectedDay,
-                                    selectedEvents: selectedEvents,
-                                  ),
-                                ),
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.add_circle_outline_sharp,
-                            ),
-                          ),
                         ],
                       ),
-                      // Expanded(
-                      //   child: ListView(
-                      //     children: _getEventsfromDay(selectedDay)
-                      //         .map(
-                      //           (Event event) => Padding(
-                      //             padding: const EdgeInsets.all(8.0),
-                      //             child: Container(
-                      //               decoration: ShapeDecoration(
-                      //                 color: Colors.white,
-                      //                 shape: RoundedRectangleBorder(
-                      //                   side: const BorderSide(
-                      //                     width: 0.50,
-                      //                     color: Color(0xFF37352F),
-                      //                   ),
-                      //                   borderRadius: BorderRadius.circular(15),
-                      //                 ),
-                      //               ),
-                      //               child: ListTile(
-                      //                   title: Column(
-                      //                     children: [
-                      //                       Text(
-                      //                         event.title,
-                      //                       ),
-                      //                       Text(event.description),
-                      //                     ],
-                      //                   ),
-                      //                   leading: IconButton(
-                      //                       onPressed: () {},
-                      //                       icon: const Icon(Icons.check_box)),
-                      //                   trailing: IconButton(
-                      //                     onPressed: () => showDialog(
-                      //                       context: context,
-                      //                       builder: (BuildContext context) {
-                      //                         return SingleChildScrollView(
-                      //                           child: AlertDialog(
-                      //                             title: Text(event.title),
-                      //                             content:
-                      //                                 SingleChildScrollView(
-                      //                                     child: ListBody(
-                      //                                         children: [
-                      //                                   Text(event.description),
-                      //                                   Text(
-                      //                                       '${time.hour}:${time.minute}')
-                      //                                 ])),
-                      //                             actions: [
-                      //                               TextButton(
-                      //                                 onPressed: () {
-                      //                                   // AlertDialog kapatmak için yapılacak işlemler
-                      //                                   setState(() {});
-                      //                                   Navigator.of(context)
-                      //                                       .pop();
-                      //                                 },
-                      //                                 child:
-                      //                                     const Text("Tamam"),
-                      //                               ),
-                      //                             ],
-                      //                           ),
-                      //                         );
-                      //                       },
-                      //                     ),
-                      //                     icon: const Icon(
-                      //                         Icons.arrow_forward_ios),
-                      //                   )),
-                      //             ),
-                      //           ),
-                      //         )
-                      //         .toList(),
-                      //   ),
-                      // )
                       Expanded(
                         child: ListView.builder(
-                          itemCount: _getEventsfromDay(selectedDay).length,
+                          itemCount: filteredEvents.length,
                           itemBuilder: (context, index) {
-                            Event event = _getEventsfromDay(selectedDay)[index];
+                            Event event = filteredEvents[index];
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
@@ -285,40 +198,49 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                   ),
                                 ),
                                 child: ListTile(
-                                  title: Column(
-                                    children: [
-                                      Text(event.title),
-                                      Text(event.description),
-                                    ],
-                                  ),
+                                  title: Text(event.title),
+                                  // subtitle: Text(event.description),
+                                  subtitle: Text('${time.hour}:${time.minute}'),
                                   leading: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.check_box),
-                                  ),
+                                      onPressed: () {
+                                        setState(() {
+                                          event.eventController =
+                                              !event.eventController;
+                                        });
+                                      },
+                                      icon: Icon(
+                                        color: Colors.green,
+                                        event.eventController
+                                            ? Icons.check
+                                            : Icons.check_box_outline_blank,
+                                      )),
                                   trailing: IconButton(
                                     onPressed: () => showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text(event.title),
-                                          content: SingleChildScrollView(
-                                            child: ListBody(
-                                              children: [
-                                                Text(event.description),
-                                                Text(
-                                                    '${time.hour}:${time.minute}'),
-                                              ],
+                                        return SingleChildScrollView(
+                                          child: AlertDialog(
+                                            title: Text(event.title),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: [
+                                                  Text(event.description),
+                                                  Text(
+                                                      '${time.hour}:${time.minute}')
+                                                ],
+                                              ),
                                             ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  // AlertDialog kapatmak için yapılacak işlemler
+                                                  setState(() {});
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text("Tamam"),
+                                              ),
+                                            ],
                                           ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                setState(() {});
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text("Tamam"),
-                                            ),
-                                          ],
                                         );
                                       },
                                     ),
@@ -329,7 +251,7 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                             );
                           },
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),
@@ -345,53 +267,84 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
           builder: (context) => SingleChildScrollView(
             child: AlertDialog(
               title: const Text("Add Event"),
-              content: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextFormField(
-                    controller: _eventController,
-                    decoration: const InputDecoration(
-                      fillColor: Color(0xffE8E8E7),
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      labelText: 'Yapılacaklar',
-                      labelStyle: TextStyle(
-                        color: Colors.black,
-                      ),
-                      hintText: 'Ne yapmak istediğinizi yazın...',
-                      hintStyle: TextStyle(
-                        color: Color(0xFFAFAFAC),
-                      ),
-                    ),
-                  ),
-                  TextFormField(
-                    controller: _descriptionController,
-                    decoration: const InputDecoration(
-                      fillColor: Color(0xffE8E8E7),
-                      border: OutlineInputBorder(),
-                      filled: true,
-                      labelText: 'Aciklama',
-                      labelStyle: TextStyle(
-                        color: Colors.black,
-                      ),
-                      hintText:
-                          'Yapmak istediginiz seyin aciklamasini yazin ...',
-                      hintStyle: TextStyle(
-                        color: Color(0xFFAFAFAC),
+              content: Form(
+                key: GlobalKey<FormState>(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextField(
+                      controller: _titleController,
+                      decoration: const InputDecoration(
+                        fillColor: Color(0xffE8E8E7),
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        labelText: 'Yapılacaklar',
+                        labelStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                        hintText: 'Ne yapmak istediğinizi yazın...',
+                        hintStyle: TextStyle(
+                          color: Color(0xFFAFAFAC),
+                        ),
                       ),
                     ),
-                  ),
+                    TextField(
+                      controller: _descriptionController,
+                      decoration: const InputDecoration(
+                        fillColor: Color(0xffE8E8E7),
+                        border: OutlineInputBorder(),
+                        filled: true,
+                        labelText: 'Aciklama',
+                        labelStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                        hintText:
+                            'Yapmak istediginiz seyin aciklamasini yazin ...',
+                        hintStyle: TextStyle(
+                          color: Color(0xFFAFAFAC),
+                        ),
+                      ),
+                    ),
 
-                  //! aradigin yer burasi
-                  //SelectDateTime(),
+                    //! aradigin yer burasi
+                    //SelectDateTime(),
 
-                  // changeColor(mHeight, mWidth),
-                  const TimeWidget(),
-                  const Cupertio()
-                ]
-                    .map((widget) => Padding(
-                        padding: const EdgeInsets.all(10), child: widget))
-                    .toList(),
+                    // changeColor(mHeight, mWidth),
+                    //const TimeWidget(),
+                    DatePickerItem(
+                      children: <Widget>[
+                        const Text('Time'),
+                        CupertinoButton(
+                          onPressed: () => _showDialog(
+                            CupertinoDatePicker(
+                              initialDateTime: time,
+                              mode: CupertinoDatePickerMode.time,
+                              use24hFormat: true,
+                              onDateTimeChanged: (DateTime newTime) {
+                                //! secilen veri burada
+
+                                setState(() {
+                                  time = newTime;
+                                });
+                                print(newTime);
+                              },
+                            ),
+                          ),
+                          child: Text(
+                            '${time.hour}:${time.minute}',
+                            style: const TextStyle(
+                              fontSize: 22.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Cupertio()
+                  ]
+                      .map((widget) => Padding(
+                          padding: const EdgeInsets.all(10), child: widget))
+                      .toList(),
+                ),
               ),
               actions: [
                 TextButton(
@@ -399,32 +352,26 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                   onPressed: () => Navigator.pop(context),
                 ),
                 TextButton(
-                  child: const Text("Ok"),
-                  onPressed: () async {
-                    if (_eventController.text.isEmpty) {
-                      return;
-                    } else {
-                      if (selectedEvents[selectedDay] != null) {
-                        selectedEvents[selectedDay]!.add(Event(
-                          title: _eventController.text,
-                          description: _descriptionController.text,
-                        ));
-                      } else {
-                        selectedEvents[selectedDay] = [
-                          Event(
-                            title: _eventController.text,
-                            description: _descriptionController.text,
-                          )
-                        ];
-                      }
-                      _eventController.clear();
+                    child: const Text("Ok"),
+                    onPressed: () async {
+                      //! fab yap
+                      String title = _titleController.text;
+                      String description = _descriptionController.text;
+                      DateTime selectedDate = _selectedDate;
+                      bool controlEvent = checkController;
+                      DateTime timeSelect = currentTime;
+
+                      EventProvider eventProvider =
+                          Provider.of<EventProvider>(context, listen: false);
+
+                      eventProvider.addEvent(title, description, selectedDate,
+                          controlEvent, timeSelect);
+
+                      _titleController.clear();
                       _descriptionController.clear();
 
-                      setState(() {});
-                      return;
-                    }
-                  },
-                ),
+                      Navigator.pop(context);
+                    }),
               ],
             ),
           ),
@@ -581,7 +528,9 @@ class _CupertioState extends State<Cupertio> {
 }
 
 class TimeWidget extends StatefulWidget {
-  const TimeWidget({super.key});
+  const TimeWidget({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<TimeWidget> createState() => _TimeWidgetState();
