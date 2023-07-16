@@ -51,6 +51,8 @@ dependencies:
   form_builder_validators: ^9.0.0
   flutter_form_builder: ^7.8.0
   firebase_storage: ^11.2.4
+  audioplayers: ^4.1.0
+  circular_countdown_timer: ^0.2.3
 dependency_overrides:
    intl: ^0.18.1
 
@@ -85,6 +87,7 @@ flutter:
     - assets/images/splashpage2.png
     - assets/images/splashpage3.png
     - assets/images/loginpage.png
+    - assets/sounds/
   
 
   # An image asset can refer to one or more resolution-specific "variants", see
