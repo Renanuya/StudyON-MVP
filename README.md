@@ -108,7 +108,9 @@ Story'ler yapılacak işlere (task'lere) bölünmüştür. Trello da gözüken m
 
 
 - **Ürün Durumu**: Ekran görüntüleri:
-![2_sprint_UI](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/bac1ced2-a862-46ff-83f3-7bbc7c36a84d)
+
+![2_sprint_UI](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/9ad49971-0916-4e0c-b141-9fc82c92c196)
+
 
 - **Sprint Review**: 
 Alınan kararlar: Takvim, Sıralama, Anasayfa, Hedef Belirleme ve Zamanlayıcı sayfalarında birkaç düzenleme yapılacak, ürün teslimine az bir süre kaldığı için organize bir şekilde bireysel iş bölümü yapılacak. Kullanıcıların çalışma sürelerini ölçtüğü zamanlayıcı sayfası ve buradaki verileri kullanan sıralama sayfalarının frontend kısmı tamamlandı. Backend kısmına yoğunlaşma kararı alındı. Diğer sprintte planlama konusunda dikatli olma kararı alındı. Sprint Review katılımcıları: - Ali Renan Uyanık, Bahar Ulus, Kemal Erdem Yenin, Selin Arslan, Vural Kayra Çetintaş
