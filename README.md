@@ -48,6 +48,11 @@ StudyOn, kullanıcıların çalışırken yalnız başlarına olduklarında yaş
 <br>
 [Flutter Team 42 Trello Backlog Board 3.Sprint](https://trello.com/invite/b/4bHrZoSx/ATTIdf9d830579be9b1f42a4c7fa07288287F958A4E7/f-42-team-3sprint)
 
+
+## Jüriye not:
+- Github da yaşanılan bazı olumsuz durumlar sonrası yeni repoya geçildi.
+- Uygulamanın ismi değiştirilmiştir
+
 ---
 
 # Sprint 1
