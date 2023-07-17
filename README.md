@@ -22,7 +22,7 @@ StudyOn, kullanıcıların çalışırken yalnız başlarına olduklarında yaş
 
 ## Ürün Özellikleri
 
-- Arkadaş Ekleme: ThinkTank, öğrencilerin uygulama içinde arkadaşlarını eklemelerine olanak tanır. Kullanıcılar, arkadaşlarını bulabilir, ekleyebilir ve birbirlerinin çalışma sürelerini takip edebilirler.
+- Arkadaş Ekleme: StudyOn, öğrencilerin uygulama içinde arkadaşlarını eklemelerine olanak tanır. Kullanıcılar, arkadaşlarını bulabilir, ekleyebilir ve birbirlerinin çalışma sürelerini takip edebilirler.
 
 - Kronometre: Uygulama, kullanıcılara çalışma sürelerini ölçmek için bir kronometre sağlar. Öğrenciler, çalışma sürelerini başlatabilir, duraklatabilir ve sonlandırabilirler. Bu sayede, verimli çalışma alışkanlıklarını izlemek ve geliştirmek için bir araç sunar.
 
