@@ -71,11 +71,9 @@ Backlog 1 ![trello_1 sprint_ss](https://github.com/Renanuya/F-42-bootcamp/assets
 
 - **Ürün Durumu**: Ekran görüntüleri:
   <br>
-  ![splash1](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/c254dd22-f71c-4d15-a150-d815fb0be3ee)
-  ![splash2](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/52777430-d93f-46e8-913c-aba41825de13)
   
-  ![loginn](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/08126f54-1cc4-4a7e-abf1-068d8bd5f369)
-  ![register](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/e74a8bce-b4fc-4ce0-bcfb-117b9f107926)
+[UI_1](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/e534c535-aca6-4b64-96c3-3ed05b5f1570)
+
 
 - **Sprint Review**: 
 Alınan kararlar: Kullanıcı giriş ve kayıt sayfaları kodlanmış, firebase kurulumu yapılmış, uygulama için veritabanı olarak firebase servisleri aktif edilmiş ve eksiklikler değerlendirilmiştir. Kullanıcıların ThinkTank uygulamasının içeriğine dair bilgi edinmelerini sağlayan onboarding sayfası yapılmıştır. Diğer sprintlerde planlama konusunda dikatli olma kararı alınmıştır. Sprint Review katılımcıları: - Ali Renan Uyanık, Bahar Ulus, Kemal Erdem Yenin, Selin Arslan, Vural Kayra Çetintaş
