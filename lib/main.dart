@@ -33,7 +33,12 @@ void main() async {
             create: (context) => LoginPasswordVisibilityProvider()),
         ChangeNotifierProvider(create: (context) => UserLoginProvider()),
         ChangeNotifierProvider(create: (context) => TimerDataProiver()),
-        ChangeNotifierProvider(create: (context) => RankUserListDataProvider()),
+        ChangeNotifierProvider(
+            create: (context) => RankUserListDataProviderAllTime()),
+        ChangeNotifierProvider(
+            create: (context) => RankUserListDataProviderMonthly()),
+        ChangeNotifierProvider(
+            create: (context) => RankUserListDataProviderWeekly()),
       ],
       child: const MainApp(),
     ),

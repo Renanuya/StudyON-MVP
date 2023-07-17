@@ -40,7 +40,7 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
   bool isWorking = false;
   bool isBreak = false;
   final FirestoreUserCreationService _firestoreService =
-  FirestoreUserCreationService();
+      FirestoreUserCreationService();
   AudioPlayer audioPlayer = AudioPlayer();
 
   CountDownController? workingTimerController;
@@ -120,7 +120,8 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Reset Confirmation'),
-          content: const Text('Are you sure you want to proceed with the reset?'),
+          content:
+              const Text('Are you sure you want to proceed with the reset?'),
           actions: [
             ElevatedButton(
               onPressed: () {
@@ -154,8 +155,6 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
     // Return the result indicating whether to proceed with the reset
     return result ?? false;
   }
-
-
 
   void showBreakTimeOverDialog() {
     showDialog(
@@ -203,7 +202,6 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
     }
   }
 
-
   void _onComplete() {
     if (isWorking) {
       if (isFirstStart) {
@@ -220,7 +218,6 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
       }
     }
   }
-
 
   String formatTime(int time) {
     final int hours = time ~/ 3600;
@@ -244,7 +241,8 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => GoalSelectionScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => GoalSelectionScreen()),
                   );
                 },
                 child: Container(
@@ -276,7 +274,9 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                   const SizedBox(height: 16),
                   Center(
                     child: buildTimerSection(
-                      currentWorkingTime > 0 ? currentWorkingTime : currentBreakTime,
+                      currentWorkingTime > 0
+                          ? currentWorkingTime
+                          : currentBreakTime,
                       "Çalışma",
                       workingTimerController!,
                       isBreakTimer: false,
@@ -285,7 +285,9 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                   const SizedBox(height: 16),
                   Center(
                     child: buildTimerSection(
-                      currentBreakTime > 0 ? currentBreakTime : currentWorkingTime,
+                      currentBreakTime > 0
+                          ? currentBreakTime
+                          : currentWorkingTime,
                       "Ara",
                       breakTimerController!,
                       isBreakTimer: true,
@@ -410,11 +412,11 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
   }
 
   Widget buildTimerSection(
-      int time,
-      String label,
-      CountDownController controller, {
-        bool isBreakTimer = false,
-      }) {
+    int time,
+    String label,
+    CountDownController controller, {
+    bool isBreakTimer = false,
+  }) {
     final String formattedTime = formatTime(time);
     final double fontSize = isBreakTimer ? 32.0 : 40.0;
     final double circleSize = isBreakTimer ? 150.0 : 250.0;
@@ -441,9 +443,9 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
         width: circleSize,
         height: circleSize,
         strokeWidth: 3.0,
-        fillColor: Colors.white,
+        fillColor: const Color(0xFFE7E7E6),
         ringColor: Colors.blue,
-        backgroundColor: Colors.greenAccent,
+        backgroundColor: const Color.fromARGB(0, 105, 240, 175),
         strokeCap: StrokeCap.round,
         textStyle: TextStyle(
           fontSize: fontSize,
@@ -513,7 +515,8 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                         ),
-                        child: const Text("Hayır", style: TextStyle(color: Colors.black)),
+                        child: const Text("Hayır",
+                            style: TextStyle(color: Colors.black)),
                       ),
                     )
                   ],
@@ -544,11 +547,13 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Well Done!'),
-          content: const Text('Congratulations on completing your working time.'),
+          content:
+              const Text('Congratulations on completing your working time.'),
           actions: [
             ElevatedButton(
               onPressed: () {
-                _firestoreService.saveWorkingTime(user!.uid, widget.workingTime);
+                _firestoreService.saveWorkingTime(
+                    user!.uid, widget.workingTime);
                 Navigator.pop(context);
               },
               child: const Text('Close'),

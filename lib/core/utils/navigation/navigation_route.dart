@@ -40,9 +40,14 @@ class NavigationRoute {
         return normalNavigate(
             const RankPage(), NavigationConstants.rankingPage);
 
-      case NavigationConstants.rankingPage:
+      case NavigationConstants.timerPage:
         return normalNavigate(
-             MainStopwatchScreen(goal: 'Hedefinizi Belirleyin', workingTime: 0, breakTime: 0, backgroundMusic: 'assets/sounds/askinolayim.mp3'), NavigationConstants.timerPage);
+            MainStopwatchScreen(
+                goal: 'Hedefinizi Belirleyin',
+                workingTime: 0,
+                breakTime: 0,
+                backgroundMusic: 'assets/sounds/askinolayim.mp3'),
+            NavigationConstants.timerPage);
 
       //Calendar Pages
       case NavigationConstants.calendarPage:
