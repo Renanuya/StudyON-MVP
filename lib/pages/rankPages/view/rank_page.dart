@@ -179,7 +179,7 @@ class _RankPageState extends State<RankPage>
                                                     size: mWidth *
                                                         0.0694444444444444),
                                                 Text(
-                                                  'Sırlama',
+                                                  'Siralama',
                                                   style: TextStyle(
                                                     color:
                                                         const Color(0xFF37352F),
@@ -257,306 +257,328 @@ class _RankPageState extends State<RankPage>
                     onPageChanged: _onPageChanged,
                     children: [
                       //Weekly
-                      Stack(
+                      Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          Stack(
                             children: [
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Column(
+                                  Row(
                                     children: [
-                                      SizedBox(
-                                        height: mHeight * 0.095,
-                                      ),
-                                      Container(
-                                        width: mWidth * 0.1157407407407407,
-                                        height: mWidth * 0.1157407407407407,
-                                        decoration: const ShapeDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                                "https://via.placeholder.com/50x50"),
-                                            fit: BoxFit.fill,
-                                          ),
-                                          shape: OvalBorder(),
-                                          shadows: [
-                                            BoxShadow(
-                                              color: Color(0x3F000000),
-                                              blurRadius: 4,
-                                              offset: Offset(0, 4),
-                                              spreadRadius: 0,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height: mHeight * 0.0231481481481481),
-                                      Text(
-                                        '${userProviderWeekly.getModel?[1].name ?? ''} ${userProviderWeekly.getModel?[1].surname ?? ''}',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: mWidth * 0.0324074074074074,
-                                          //  fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                      Column(
                                         children: [
-                                          Icon(Icons.star_border_outlined,
-                                              size:
-                                                  mWidth * 0.0462962962962963),
-                                          Text(
-                                            'Puan ',
-                                            style: TextStyle(
-                                              color: const Color(0xFF37352F),
-                                              fontSize:
-                                                  mWidth * 0.0277777777777778,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.w400,
+                                          SizedBox(
+                                            height: mHeight * 0.095,
+                                          ),
+                                          Container(
+                                            width: mWidth * 0.1157407407407407,
+                                            height: mWidth * 0.1157407407407407,
+                                            decoration: const ShapeDecoration(
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                    "https://via.placeholder.com/50x50"),
+                                                fit: BoxFit.fill,
+                                              ),
+                                              shape: OvalBorder(),
+                                              shadows: [
+                                                BoxShadow(
+                                                  color: Color(0x3F000000),
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 4),
+                                                  spreadRadius: 0,
+                                                )
+                                              ],
                                             ),
                                           ),
+                                          SizedBox(
+                                              height:
+                                                  mHeight * 0.0231481481481481),
                                           Text(
-                                            '${userProviderWeekly.getModel?[1].weekly ?? '0'}',
+                                            '${userProviderWeekly.getModel?[1].name ?? ''} ${userProviderWeekly.getModel?[1].surname ?? ''}',
+                                            textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              color: const Color(0xFF37352F),
                                               fontSize:
-                                                  mWidth * 0.0277777777777778,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.bold,
+                                                  mWidth * 0.0324074074074074,
+                                              //  fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.star_border_outlined,
+                                                  size: mWidth *
+                                                      0.0462962962962963),
+                                              Text(
+                                                'Puan ',
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFF37352F),
+                                                  fontSize: mWidth *
+                                                      0.0277777777777778,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              Text(
+                                                '${userProviderWeekly.getModel?[1].weekly ?? '0'}',
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFF37352F),
+                                                  fontSize: mWidth *
+                                                      0.0277777777777778,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            width: mWidth * 0.2685185185185185,
+                                            height:
+                                                mHeight * 0.1793981481481481,
+                                            decoration: const ShapeDecoration(
+                                              color: Color(0xFFFF8474),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(15),
+                                                  topRight: Radius.circular(15),
+                                                ),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              '2',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize:
+                                                    mWidth * 0.1759259259259259,
+                                                fontFamily: 'Nunito',
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          SizedBox(
+                                            height:
+                                                mHeight * 0.0231481481481481,
+                                            width: 10,
+                                          ),
+                                          SizedBox(
+                                            width: 70,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Image.asset(
+                                                        'assets/images/crown.png',
+                                                      )
+                                                    : Image.asset(
+                                                        'assets/images/crown.png',
+                                                      ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            width: mWidth * 0.1157407407407407,
+                                            height: mWidth * 0.1157407407407407,
+                                            decoration: const ShapeDecoration(
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                    "https://via.placeholder.com/50x50"),
+                                                fit: BoxFit.fill,
+                                              ),
+                                              shape: OvalBorder(),
+                                              shadows: [
+                                                BoxShadow(
+                                                  color: Color(0x3F000000),
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 4),
+                                                  spreadRadius: 0,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                              height:
+                                                  mHeight * 0.0115740740740741),
+                                          Text(
+                                            '${userProviderWeekly.getModel?.first.name ?? ''} ${userProviderWeekly.getModel?.first.surname ?? ''}',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  mWidth * 0.0324074074074074,
+                                              //  fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                              height:
+                                                  mHeight * 0.005787037037037),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.star_border_outlined,
+                                                  size: mWidth *
+                                                      0.0462962962962963),
+                                              Text(
+                                                'Puan ',
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFF37352F),
+                                                  fontSize: mWidth *
+                                                      0.0277777777777778,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              Text(
+                                                '${userProviderWeekly.getModel?[0].weekly ?? '0'}',
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFF37352F),
+                                                  fontSize: mWidth *
+                                                      0.0277777777777778,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            width: mWidth * 0.2685185185185185,
+                                            height:
+                                                mHeight * 0.2314814814814815,
+                                            decoration: const ShapeDecoration(
+                                              color: Color(0xFF139487),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(15),
+                                                  topRight: Radius.circular(15),
+                                                ),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              '1',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize:
+                                                    mWidth * 0.2222222222222222,
+                                                fontFamily: 'Nunito',
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          SizedBox(
+                                            height: mHeight * 0.15625,
+                                          ),
+                                          Container(
+                                            width: mWidth * 0.1157407407407407,
+                                            height: mWidth * 0.1157407407407407,
+                                            decoration: const ShapeDecoration(
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                    "https://via.placeholder.com/50x50"),
+                                                fit: BoxFit.fill,
+                                              ),
+                                              shape: OvalBorder(),
+                                              shadows: [
+                                                BoxShadow(
+                                                  color: Color(0x3F000000),
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 4),
+                                                  spreadRadius: 0,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                              height:
+                                                  mHeight * 0.0115740740740741),
+                                          Text(
+                                            '${userProviderWeekly.getModel?[2].name ?? ''} ${userProviderWeekly.getModel?[2].surname ?? ''}',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  mWidth * 0.0324074074074074,
+                                              //  fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                              height:
+                                                  mHeight * 0.005787037037037),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.star_border_outlined,
+                                                  size: mWidth *
+                                                      0.0462962962962963),
+                                              Text(
+                                                'Puan ',
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFF37352F),
+                                                  fontSize: mWidth *
+                                                      0.0277777777777778,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              Text(
+                                                '${userProviderWeekly.getModel?[2].weekly ?? '0'}',
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFF37352F),
+                                                  fontSize: mWidth *
+                                                      0.0277777777777778,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            width: mWidth * 0.2685185185185185,
+                                            height:
+                                                mHeight * 0.1273148148148148,
+                                            decoration: const ShapeDecoration(
+                                              color: Color(0xFFFFE162),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(15),
+                                                  topRight: Radius.circular(15),
+                                                ),
+                                              ),
+                                            ),
+                                            child: Text(
+                                              '3',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize:
+                                                    mWidth * 0.1527777777777778,
+                                                fontFamily: 'Nunito',
+                                                fontWeight: FontWeight.w400,
+                                              ),
                                             ),
                                           ),
                                         ],
-                                      ),
-                                      Container(
-                                        width: mWidth * 0.2685185185185185,
-                                        height: mHeight * 0.1793981481481481,
-                                        decoration: const ShapeDecoration(
-                                          color: Color(0xFFFF8474),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          '2',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize:
-                                                mWidth * 0.1759259259259259,
-                                            fontFamily: 'Nunito',
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: mHeight * 0.0231481481481481,
-                                        width: 10,
-                                      ),
-                                      SizedBox(
-                                        width: 70,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Theme.of(context).brightness ==
-                                                    Brightness.dark
-                                                ? Image.asset(
-                                                    'assets/images/crown.png',
-                                                  )
-                                                : Image.asset(
-                                                    'assets/images/crown.png',
-                                                  ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        width: mWidth * 0.1157407407407407,
-                                        height: mWidth * 0.1157407407407407,
-                                        decoration: const ShapeDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                                "https://via.placeholder.com/50x50"),
-                                            fit: BoxFit.fill,
-                                          ),
-                                          shape: OvalBorder(),
-                                          shadows: [
-                                            BoxShadow(
-                                              color: Color(0x3F000000),
-                                              blurRadius: 4,
-                                              offset: Offset(0, 4),
-                                              spreadRadius: 0,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height: mHeight * 0.0115740740740741),
-                                      Text(
-                                        '${userProviderWeekly.getModel?.first.name ?? ''} ${userProviderWeekly.getModel?.first.surname ?? ''}',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: mWidth * 0.0324074074074074,
-                                          //  fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height: mHeight * 0.005787037037037),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.star_border_outlined,
-                                              size:
-                                                  mWidth * 0.0462962962962963),
-                                          Text(
-                                            'Puan ',
-                                            style: TextStyle(
-                                              color: const Color(0xFF37352F),
-                                              fontSize:
-                                                  mWidth * 0.0277777777777778,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          Text(
-                                            '${userProviderWeekly.getModel?[0].weekly ?? '0'}',
-                                            style: TextStyle(
-                                              color: const Color(0xFF37352F),
-                                              fontSize:
-                                                  mWidth * 0.0277777777777778,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        width: mWidth * 0.2685185185185185,
-                                        height: mHeight * 0.2314814814814815,
-                                        decoration: const ShapeDecoration(
-                                          color: Color(0xFF139487),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          '1',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize:
-                                                mWidth * 0.2222222222222222,
-                                            fontFamily: 'Nunito',
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: mHeight * 0.15625,
-                                      ),
-                                      Container(
-                                        width: mWidth * 0.1157407407407407,
-                                        height: mWidth * 0.1157407407407407,
-                                        decoration: const ShapeDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                                "https://via.placeholder.com/50x50"),
-                                            fit: BoxFit.fill,
-                                          ),
-                                          shape: OvalBorder(),
-                                          shadows: [
-                                            BoxShadow(
-                                              color: Color(0x3F000000),
-                                              blurRadius: 4,
-                                              offset: Offset(0, 4),
-                                              spreadRadius: 0,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height: mHeight * 0.0115740740740741),
-                                      Text(
-                                        '${userProviderWeekly.getModel?[2].name ?? ''} ${userProviderWeekly.getModel?[2].surname ?? ''}',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: mWidth * 0.0324074074074074,
-                                          //  fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height: mHeight * 0.005787037037037),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.star_border_outlined,
-                                              size:
-                                                  mWidth * 0.0462962962962963),
-                                          Text(
-                                            'Puan ',
-                                            style: TextStyle(
-                                              color: const Color(0xFF37352F),
-                                              fontSize:
-                                                  mWidth * 0.0277777777777778,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          Text(
-                                            '${userProviderWeekly.getModel?[2].weekly ?? '0'}',
-                                            style: TextStyle(
-                                              color: const Color(0xFF37352F),
-                                              fontSize:
-                                                  mWidth * 0.0277777777777778,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        width: mWidth * 0.2685185185185185,
-                                        height: mHeight * 0.1273148148148148,
-                                        decoration: const ShapeDecoration(
-                                          color: Color(0xFFFFE162),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          '3',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize:
-                                                mWidth * 0.1527777777777778,
-                                            fontFamily: 'Nunito',
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
                                       ),
                                     ],
                                   ),
@@ -564,12 +586,462 @@ class _RankPageState extends State<RankPage>
                               ),
                             ],
                           ),
-                          Positioned(
-                            top: 305,
-                            left: 10,
-                            child: Container(
-                              width: 374,
-                              height: 130,
+                          Container(
+                            width: mWidth,
+                            height: mHeight * 0.15,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFE7E7E6),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListView.builder(
+                                itemCount: (context
+                                            .watch<
+                                                RankUserListDataProviderWeekly>()
+                                            .getModel
+                                            ?.length ??
+                                        0) -
+                                    3, // 4. öğeden başlaması için 3 çıkarıldı
+                                itemBuilder: (context, index) {
+                                  final user = context
+                                          .watch<RankUserListDataProviderWeekly>()
+                                          .getModel![
+                                      index +
+                                          3]; // 4. öğeden başlamak için index + 3
+                                  return Container(
+                                    margin: const EdgeInsets.only(bottom: 8.0),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            height: 25,
+                                            width: 25,
+                                            decoration: const BoxDecoration(
+                                                color: Color(0xffD9D9D9),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(4))),
+                                            alignment: Alignment.center,
+                                            child: Text('${index + 4}'),
+                                          ),
+                                          Container(
+                                            width: 30,
+                                            height: 30,
+                                            decoration: const ShapeDecoration(
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                    "https://via.placeholder.com/50x50"),
+                                                fit: BoxFit.fill,
+                                              ),
+                                              shape: OvalBorder(),
+                                              shadows: [
+                                                BoxShadow(
+                                                  color: Color(0x3F000000),
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 4),
+                                                  spreadRadius: 0,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                            width: 100,
+                                            child: Text(((user.name! +
+                                                            user.surname!)
+                                                        .length <=
+                                                    20)
+                                                ? '${user.name ?? ''} ${user.surname ?? ''}'
+                                                : user.name ?? ''),
+                                          ),
+                                          SizedBox(
+                                            width: 100,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                const Icon(
+                                                    Icons.star_border_outlined),
+                                                Text(
+                                                  '${user.weekly ?? '0'} Puan',
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+
+                      //monthly
+                      Center(
+                        child: Column(
+                          children: [
+                            Stack(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height: mHeight * 0.095,
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.1157407407407407,
+                                              height:
+                                                  mWidth * 0.1157407407407407,
+                                              decoration: const ShapeDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "https://via.placeholder.com/50x50"),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                shape: OvalBorder(),
+                                                shadows: [
+                                                  BoxShadow(
+                                                    color: Color(0x3F000000),
+                                                    blurRadius: 4,
+                                                    offset: Offset(0, 4),
+                                                    spreadRadius: 0,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: mHeight *
+                                                    0.0231481481481481),
+                                            Text(
+                                              '${userProviderMonthly.getModel?[1].name ?? ''} ${userProviderMonthly.getModel?[1].surname ?? ''}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    mWidth * 0.0324074074074074,
+                                                //  fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.star_border_outlined,
+                                                    size: mWidth *
+                                                        0.0462962962962963),
+                                                Text(
+                                                  'Puan ',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${userProviderMonthly.getModel?[1].monthly ?? '0'}',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.2685185185185185,
+                                              height:
+                                                  mHeight * 0.1793981481481481,
+                                              decoration: const ShapeDecoration(
+                                                color: Color(0xFFFF8474),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                '2',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: mWidth *
+                                                      0.1759259259259259,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height:
+                                                  mHeight * 0.0231481481481481,
+                                              width: 10,
+                                            ),
+                                            SizedBox(
+                                              width: 70,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Image.asset(
+                                                          'assets/images/crown.png',
+                                                        )
+                                                      : Image.asset(
+                                                          'assets/images/crown.png',
+                                                        ),
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.1157407407407407,
+                                              height:
+                                                  mWidth * 0.1157407407407407,
+                                              decoration: const ShapeDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "https://via.placeholder.com/50x50"),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                shape: OvalBorder(),
+                                                shadows: [
+                                                  BoxShadow(
+                                                    color: Color(0x3F000000),
+                                                    blurRadius: 4,
+                                                    offset: Offset(0, 4),
+                                                    spreadRadius: 0,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: mHeight *
+                                                    0.0115740740740741),
+                                            Text(
+                                              '${userProviderMonthly.getModel?.first.name ?? ''} ${userProviderMonthly.getModel?.first.surname ?? ''}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    mWidth * 0.0324074074074074,
+                                                //  fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: mHeight *
+                                                    0.005787037037037),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.star_border_outlined,
+                                                    size: mWidth *
+                                                        0.0462962962962963),
+                                                Text(
+                                                  'Puan ',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${userProviderMonthly.getModel?[0].monthly ?? '0'}',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.2685185185185185,
+                                              height:
+                                                  mHeight * 0.2314814814814815,
+                                              decoration: const ShapeDecoration(
+                                                color: Color(0xFF139487),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                '1',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: mWidth *
+                                                      0.2222222222222222,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height: mHeight * 0.15625,
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.1157407407407407,
+                                              height:
+                                                  mWidth * 0.1157407407407407,
+                                              decoration: const ShapeDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "https://via.placeholder.com/50x50"),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                shape: OvalBorder(),
+                                                shadows: [
+                                                  BoxShadow(
+                                                    color: Color(0x3F000000),
+                                                    blurRadius: 4,
+                                                    offset: Offset(0, 4),
+                                                    spreadRadius: 0,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: mHeight *
+                                                    0.0115740740740741),
+                                            Text(
+                                              '${userProviderMonthly.getModel?[2].name ?? ''} ${userProviderMonthly.getModel?[2].surname ?? ''}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    mWidth * 0.0324074074074074,
+                                                //  fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: mHeight *
+                                                    0.005787037037037),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.star_border_outlined,
+                                                    size: mWidth *
+                                                        0.0462962962962963),
+                                                Text(
+                                                  'Puan ',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${userProviderMonthly.getModel?[2].monthly ?? '0'}',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.2685185185185185,
+                                              height:
+                                                  mHeight * 0.1273148148148148,
+                                              decoration: const ShapeDecoration(
+                                                color: Color(0xFFFFE162),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                '3',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: mWidth *
+                                                      0.1527777777777778,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Container(
+                              width: mWidth,
+                              height: mHeight * 0.15,
                               decoration: BoxDecoration(
                                 color: const Color(0xFFE7E7E6),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -579,14 +1051,15 @@ class _RankPageState extends State<RankPage>
                                 child: ListView.builder(
                                   itemCount: (context
                                               .watch<
-                                                  RankUserListDataProviderWeekly>()
+                                                  RankUserListDataProviderMonthly>()
                                               .getModel
                                               ?.length ??
                                           0) -
                                       3, // 4. öğeden başlaması için 3 çıkarıldı
                                   itemBuilder: (context, index) {
                                     final user = context
-                                            .watch<RankUserListDataProviderWeekly>()
+                                            .watch<
+                                                RankUserListDataProviderMonthly>()
                                             .getModel![
                                         index +
                                             3]; // 4. öğeden başlamak için index + 3
@@ -654,7 +1127,7 @@ class _RankPageState extends State<RankPage>
                                                   const Icon(Icons
                                                       .star_border_outlined),
                                                   Text(
-                                                    '${user.weekly ?? '0'} Puan',
+                                                    '${user.monthly ?? '0'} Puan',
                                                     style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -669,752 +1142,354 @@ class _RankPageState extends State<RankPage>
                                   },
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      //monthly
-                      Center(
-                        child: Stack(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: mHeight * 0.095,
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.1157407407407407,
-                                          height: mWidth * 0.1157407407407407,
-                                          decoration: const ShapeDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  "https://via.placeholder.com/50x50"),
-                                              fit: BoxFit.fill,
-                                            ),
-                                            shape: OvalBorder(),
-                                            shadows: [
-                                              BoxShadow(
-                                                color: Color(0x3F000000),
-                                                blurRadius: 4,
-                                                offset: Offset(0, 4),
-                                                spreadRadius: 0,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                mHeight * 0.0231481481481481),
-                                        Text(
-                                          '${userProviderMonthly.getModel?[1].name ?? ''} ${userProviderMonthly.getModel?[1].surname ?? ''}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize:
-                                                mWidth * 0.0324074074074074,
-                                            //  fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.star_border_outlined,
-                                                size: mWidth *
-                                                    0.0462962962962963),
-                                            Text(
-                                              'Puan ',
-                                              style: TextStyle(
-                                                color: const Color(0xFF37352F),
-                                                fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            Text(
-                                              '${userProviderMonthly.getModel?[1].monthly ?? '0'}',
-                                              style: TextStyle(
-                                                color: const Color(0xFF37352F),
-                                                fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.2685185185185185,
-                                          height: mHeight * 0.1793981481481481,
-                                          decoration: const ShapeDecoration(
-                                            color: Color(0xFFFF8474),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight: Radius.circular(15),
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            '2',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize:
-                                                  mWidth * 0.1759259259259259,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: mHeight * 0.0231481481481481,
-                                          width: 10,
-                                        ),
-                                        SizedBox(
-                                          width: 70,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Theme.of(context).brightness ==
-                                                      Brightness.dark
-                                                  ? Image.asset(
-                                                      'assets/images/crown.png',
-                                                    )
-                                                  : Image.asset(
-                                                      'assets/images/crown.png',
-                                                    ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.1157407407407407,
-                                          height: mWidth * 0.1157407407407407,
-                                          decoration: const ShapeDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  "https://via.placeholder.com/50x50"),
-                                              fit: BoxFit.fill,
-                                            ),
-                                            shape: OvalBorder(),
-                                            shadows: [
-                                              BoxShadow(
-                                                color: Color(0x3F000000),
-                                                blurRadius: 4,
-                                                offset: Offset(0, 4),
-                                                spreadRadius: 0,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                mHeight * 0.0115740740740741),
-                                        Text(
-                                          '${userProviderMonthly.getModel?.first.name ?? ''} ${userProviderMonthly.getModel?.first.surname ?? ''}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize:
-                                                mWidth * 0.0324074074074074,
-                                            //  fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                mHeight * 0.005787037037037),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.star_border_outlined,
-                                                size: mWidth *
-                                                    0.0462962962962963),
-                                            Text(
-                                              'Puan ',
-                                              style: TextStyle(
-                                                color: const Color(0xFF37352F),
-                                                fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            Text(
-                                              '${userProviderMonthly.getModel?[0].monthly ?? '0'}',
-                                              style: TextStyle(
-                                                color: const Color(0xFF37352F),
-                                                fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.2685185185185185,
-                                          height: mHeight * 0.2314814814814815,
-                                          decoration: const ShapeDecoration(
-                                            color: Color(0xFF139487),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight: Radius.circular(15),
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            '1',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize:
-                                                  mWidth * 0.2222222222222222,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: mHeight * 0.15625,
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.1157407407407407,
-                                          height: mWidth * 0.1157407407407407,
-                                          decoration: const ShapeDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  "https://via.placeholder.com/50x50"),
-                                              fit: BoxFit.fill,
-                                            ),
-                                            shape: OvalBorder(),
-                                            shadows: [
-                                              BoxShadow(
-                                                color: Color(0x3F000000),
-                                                blurRadius: 4,
-                                                offset: Offset(0, 4),
-                                                spreadRadius: 0,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                mHeight * 0.0115740740740741),
-                                        Text(
-                                          '${userProviderMonthly.getModel?[2].name ?? ''} ${userProviderMonthly.getModel?[2].surname ?? ''}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize:
-                                                mWidth * 0.0324074074074074,
-                                            //  fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                mHeight * 0.005787037037037),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.star_border_outlined,
-                                                size: mWidth *
-                                                    0.0462962962962963),
-                                            Text(
-                                              'Puan ',
-                                              style: TextStyle(
-                                                color: const Color(0xFF37352F),
-                                                fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            Text(
-                                              '${userProviderMonthly.getModel?[2].monthly ?? '0'}',
-                                              style: TextStyle(
-                                                color: const Color(0xFF37352F),
-                                                fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.2685185185185185,
-                                          height: mHeight * 0.1273148148148148,
-                                          decoration: const ShapeDecoration(
-                                            color: Color(0xFFFFE162),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight: Radius.circular(15),
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            '3',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize:
-                                                  mWidth * 0.1527777777777778,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Positioned(
-                              top: 305,
-                              left: 10,
-                              child: Container(
-                                width: 374,
-                                height: 130,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFE7E7E6),
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ListView.builder(
-                                    itemCount: (context
-                                                .watch<
-                                                    RankUserListDataProviderMonthly>()
-                                                .getModel
-                                                ?.length ??
-                                            0) -
-                                        3, // 4. öğeden başlaması için 3 çıkarıldı
-                                    itemBuilder: (context, index) {
-                                      final user = context
-                                              .watch<
-                                                  RankUserListDataProviderMonthly>()
-                                              .getModel![
-                                          index +
-                                              3]; // 4. öğeden başlamak için index + 3
-                                      return Container(
-                                        margin:
-                                            const EdgeInsets.only(bottom: 8.0),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                height: 25,
-                                                width: 25,
-                                                decoration: const BoxDecoration(
-                                                    color: Color(0xffD9D9D9),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                4))),
-                                                alignment: Alignment.center,
-                                                child: Text('${index + 4}'),
-                                              ),
-                                              Container(
-                                                width: 30,
-                                                height: 30,
-                                                decoration:
-                                                    const ShapeDecoration(
-                                                  image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        "https://via.placeholder.com/50x50"),
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                  shape: OvalBorder(),
-                                                  shadows: [
-                                                    BoxShadow(
-                                                      color: Color(0x3F000000),
-                                                      blurRadius: 4,
-                                                      offset: Offset(0, 4),
-                                                      spreadRadius: 0,
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 20,
-                                                width: 100,
-                                                child: Text(((user.name! +
-                                                                user.surname!)
-                                                            .length <=
-                                                        20)
-                                                    ? '${user.name ?? ''} ${user.surname ?? ''}'
-                                                    : user.name ?? ''),
-                                              ),
-                                              SizedBox(
-                                                width: 100,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    const Icon(Icons
-                                                        .star_border_outlined),
-                                                    Text(
-                                                      '${user.monthly ?? '0'} Puan',
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
+                            )
                           ],
                         ),
                       ),
 
                       //alltime
                       Center(
-                        child: Stack(
+                        child: Column(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            Stack(
                               children: [
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Column(
+                                    Row(
                                       children: [
-                                        SizedBox(
-                                          height: mHeight * 0.095,
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.1157407407407407,
-                                          height: mWidth * 0.1157407407407407,
-                                          decoration: const ShapeDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  "https://via.placeholder.com/50x50"),
-                                              fit: BoxFit.fill,
-                                            ),
-                                            shape: OvalBorder(),
-                                            shadows: [
-                                              BoxShadow(
-                                                color: Color(0x3F000000),
-                                                blurRadius: 4,
-                                                offset: Offset(0, 4),
-                                                spreadRadius: 0,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                mHeight * 0.0231481481481481),
-                                        Text(
-                                          '${userProviderAllTime.getModel?[1].name ?? ''} ${userProviderAllTime.getModel?[1].surname ?? ''}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize:
-                                                mWidth * 0.0324074074074074,
-                                            //  fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                        Column(
                                           children: [
-                                            Icon(Icons.star_border_outlined,
-                                                size: mWidth *
-                                                    0.0462962962962963),
-                                            Text(
-                                              'Puan ',
-                                              style: TextStyle(
-                                                color: const Color(0xFF37352F),
-                                                fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.w400,
+                                            SizedBox(
+                                              height: mHeight * 0.095,
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.1157407407407407,
+                                              height:
+                                                  mWidth * 0.1157407407407407,
+                                              decoration: const ShapeDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "https://via.placeholder.com/50x50"),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                shape: OvalBorder(),
+                                                shadows: [
+                                                  BoxShadow(
+                                                    color: Color(0x3F000000),
+                                                    blurRadius: 4,
+                                                    offset: Offset(0, 4),
+                                                    spreadRadius: 0,
+                                                  )
+                                                ],
                                               ),
                                             ),
+                                            SizedBox(
+                                                height: mHeight *
+                                                    0.0231481481481481),
                                             Text(
-                                              '${userProviderAllTime.getModel?[1].allTime ?? '0'}',
+                                              '${userProviderAllTime.getModel?[1].name ?? ''} ${userProviderAllTime.getModel?[1].surname ?? ''}',
+                                              textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                color: const Color(0xFF37352F),
                                                 fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.bold,
+                                                    mWidth * 0.0324074074074074,
+                                                //  fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.star_border_outlined,
+                                                    size: mWidth *
+                                                        0.0462962962962963),
+                                                Text(
+                                                  'Puan ',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${userProviderAllTime.getModel?[1].allTime ?? '0'}',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.2685185185185185,
+                                              height:
+                                                  mHeight * 0.1793981481481481,
+                                              decoration: const ShapeDecoration(
+                                                color: Color(0xFFFF8474),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                '2',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: mWidth *
+                                                      0.1759259259259259,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height:
+                                                  mHeight * 0.0231481481481481,
+                                              width: 10,
+                                            ),
+                                            SizedBox(
+                                              width: 70,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Image.asset(
+                                                          'assets/images/crown.png',
+                                                        )
+                                                      : Image.asset(
+                                                          'assets/images/crown.png',
+                                                        ),
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.1157407407407407,
+                                              height:
+                                                  mWidth * 0.1157407407407407,
+                                              decoration: const ShapeDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "https://via.placeholder.com/50x50"),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                shape: OvalBorder(),
+                                                shadows: [
+                                                  BoxShadow(
+                                                    color: Color(0x3F000000),
+                                                    blurRadius: 4,
+                                                    offset: Offset(0, 4),
+                                                    spreadRadius: 0,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: mHeight *
+                                                    0.0115740740740741),
+                                            Text(
+                                              '${userProviderAllTime.getModel?.first.name ?? ''} ${userProviderAllTime.getModel?.first.surname ?? ''}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    mWidth * 0.0324074074074074,
+                                                //  fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: mHeight *
+                                                    0.005787037037037),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.star_border_outlined,
+                                                    size: mWidth *
+                                                        0.0462962962962963),
+                                                Text(
+                                                  'Puan ',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${userProviderAllTime.getModel?[0].allTime ?? '0'}',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.2685185185185185,
+                                              height:
+                                                  mHeight * 0.2314814814814815,
+                                              decoration: const ShapeDecoration(
+                                                color: Color(0xFF139487),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                '1',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: mWidth *
+                                                      0.2222222222222222,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height: mHeight * 0.15625,
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.1157407407407407,
+                                              height:
+                                                  mWidth * 0.1157407407407407,
+                                              decoration: const ShapeDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "https://via.placeholder.com/50x50"),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                shape: OvalBorder(),
+                                                shadows: [
+                                                  BoxShadow(
+                                                    color: Color(0x3F000000),
+                                                    blurRadius: 4,
+                                                    offset: Offset(0, 4),
+                                                    spreadRadius: 0,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: mHeight *
+                                                    0.0115740740740741),
+                                            Text(
+                                              '${userProviderAllTime.getModel?[2].name ?? ''} ${userProviderAllTime.getModel?[2].surname ?? ''}',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    mWidth * 0.0324074074074074,
+                                                //  fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: mHeight *
+                                                    0.005787037037037),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.star_border_outlined,
+                                                    size: mWidth *
+                                                        0.0462962962962963),
+                                                Text(
+                                                  'Puan ',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${userProviderAllTime.getModel?[2].allTime ?? '0'}',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.0277777777777778,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              width:
+                                                  mWidth * 0.2685185185185185,
+                                              height:
+                                                  mHeight * 0.1273148148148148,
+                                              decoration: const ShapeDecoration(
+                                                color: Color(0xFFFFE162),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                '3',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: mWidth *
+                                                      0.1527777777777778,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
                                               ),
                                             ),
                                           ],
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.2685185185185185,
-                                          height: mHeight * 0.1793981481481481,
-                                          decoration: const ShapeDecoration(
-                                            color: Color(0xFFFF8474),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight: Radius.circular(15),
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            '2',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize:
-                                                  mWidth * 0.1759259259259259,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: mHeight * 0.0231481481481481,
-                                          width: 10,
-                                        ),
-                                        SizedBox(
-                                          width: 70,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Theme.of(context).brightness ==
-                                                      Brightness.dark
-                                                  ? Image.asset(
-                                                      'assets/images/crown.png',
-                                                    )
-                                                  : Image.asset(
-                                                      'assets/images/crown.png',
-                                                    ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.1157407407407407,
-                                          height: mWidth * 0.1157407407407407,
-                                          decoration: const ShapeDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  "https://via.placeholder.com/50x50"),
-                                              fit: BoxFit.fill,
-                                            ),
-                                            shape: OvalBorder(),
-                                            shadows: [
-                                              BoxShadow(
-                                                color: Color(0x3F000000),
-                                                blurRadius: 4,
-                                                offset: Offset(0, 4),
-                                                spreadRadius: 0,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                mHeight * 0.0115740740740741),
-                                        Text(
-                                          '${userProviderAllTime.getModel?.first.name ?? ''} ${userProviderAllTime.getModel?.first.surname ?? ''}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize:
-                                                mWidth * 0.0324074074074074,
-                                            //  fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                mHeight * 0.005787037037037),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.star_border_outlined,
-                                                size: mWidth *
-                                                    0.0462962962962963),
-                                            Text(
-                                              'Puan ',
-                                              style: TextStyle(
-                                                color: const Color(0xFF37352F),
-                                                fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            Text(
-                                              '${userProviderAllTime.getModel?[0].allTime ?? '0'}',
-                                              style: TextStyle(
-                                                color: const Color(0xFF37352F),
-                                                fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.2685185185185185,
-                                          height: mHeight * 0.2314814814814815,
-                                          decoration: const ShapeDecoration(
-                                            color: Color(0xFF139487),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight: Radius.circular(15),
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            '1',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize:
-                                                  mWidth * 0.2222222222222222,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: mHeight * 0.15625,
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.1157407407407407,
-                                          height: mWidth * 0.1157407407407407,
-                                          decoration: const ShapeDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  "https://via.placeholder.com/50x50"),
-                                              fit: BoxFit.fill,
-                                            ),
-                                            shape: OvalBorder(),
-                                            shadows: [
-                                              BoxShadow(
-                                                color: Color(0x3F000000),
-                                                blurRadius: 4,
-                                                offset: Offset(0, 4),
-                                                spreadRadius: 0,
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                mHeight * 0.0115740740740741),
-                                        Text(
-                                          '${userProviderAllTime.getModel?[2].name ?? ''} ${userProviderAllTime.getModel?[2].surname ?? ''}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize:
-                                                mWidth * 0.0324074074074074,
-                                            //  fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                mHeight * 0.005787037037037),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.star_border_outlined,
-                                                size: mWidth *
-                                                    0.0462962962962963),
-                                            Text(
-                                              'Puan ',
-                                              style: TextStyle(
-                                                color: const Color(0xFF37352F),
-                                                fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            Text(
-                                              '${userProviderAllTime.getModel?[2].allTime ?? '0'}',
-                                              style: TextStyle(
-                                                color: const Color(0xFF37352F),
-                                                fontSize:
-                                                    mWidth * 0.0277777777777778,
-                                                fontFamily: 'Nunito',
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          width: mWidth * 0.2685185185185185,
-                                          height: mHeight * 0.1273148148148148,
-                                          decoration: const ShapeDecoration(
-                                            color: Color(0xFFFFE162),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight: Radius.circular(15),
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            '3',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize:
-                                                  mWidth * 0.1527777777777778,
-                                              fontFamily: 'Nunito',
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
                                         ),
                                       ],
                                     ),
@@ -1422,116 +1497,110 @@ class _RankPageState extends State<RankPage>
                                 ),
                               ],
                             ),
-                            Positioned(
-                              top: 305,
-                              left: 10,
-                              child: Container(
-                                width: 374,
-                                height: 130,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFE7E7E6),
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ListView.builder(
-                                    itemCount: (context
-                                                .watch<
-                                                    RankUserListDataProviderAllTime>()
-                                                .getModel
-                                                ?.length ??
-                                            0) -
-                                        3, // 4. öğeden başlaması için 3 çıkarıldı
-                                    itemBuilder: (context, index) {
-                                      final user = context
+                            Container(
+                              width: mWidth,
+                              height: mHeight * 0.15,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFE7E7E6),
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListView.builder(
+                                  itemCount: (context
                                               .watch<
                                                   RankUserListDataProviderAllTime>()
-                                              .getModel![
-                                          index +
-                                              3]; // 4. öğeden başlamak için index + 3
-                                      return Container(
-                                        margin:
-                                            const EdgeInsets.only(bottom: 8.0),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                height: 25,
-                                                width: 25,
-                                                decoration: const BoxDecoration(
-                                                    color: Color(0xffD9D9D9),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                4))),
-                                                alignment: Alignment.center,
-                                                child: Text('${index + 4}'),
+                                              .getModel
+                                              ?.length ??
+                                          0) -
+                                      3, // 4. öğeden başlaması için 3 çıkarıldı
+                                  itemBuilder: (context, index) {
+                                    final user = context
+                                            .watch<
+                                                RankUserListDataProviderAllTime>()
+                                            .getModel![
+                                        index +
+                                            3]; // 4. öğeden başlamak için index + 3
+                                    return Container(
+                                      margin:
+                                          const EdgeInsets.only(bottom: 8.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              height: 25,
+                                              width: 25,
+                                              decoration: const BoxDecoration(
+                                                  color: Color(0xffD9D9D9),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              alignment: Alignment.center,
+                                              child: Text('${index + 4}'),
+                                            ),
+                                            Container(
+                                              width: 30,
+                                              height: 30,
+                                              decoration: const ShapeDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "https://via.placeholder.com/50x50"),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                shape: OvalBorder(),
+                                                shadows: [
+                                                  BoxShadow(
+                                                    color: Color(0x3F000000),
+                                                    blurRadius: 4,
+                                                    offset: Offset(0, 4),
+                                                    spreadRadius: 0,
+                                                  )
+                                                ],
                                               ),
-                                              Container(
-                                                width: 30,
-                                                height: 30,
-                                                decoration:
-                                                    const ShapeDecoration(
-                                                  image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        "https://via.placeholder.com/50x50"),
-                                                    fit: BoxFit.fill,
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                              width: 100,
+                                              child: Text(((user.name! +
+                                                              user.surname!)
+                                                          .length <=
+                                                      20)
+                                                  ? '${user.name ?? ''} ${user.surname ?? ''}'
+                                                  : user.name ?? ''),
+                                            ),
+                                            SizedBox(
+                                              width: 100,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  const Icon(Icons
+                                                      .star_border_outlined),
+                                                  Text(
+                                                    '${user.allTime ?? '0'} Puan',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
                                                   ),
-                                                  shape: OvalBorder(),
-                                                  shadows: [
-                                                    BoxShadow(
-                                                      color: Color(0x3F000000),
-                                                      blurRadius: 4,
-                                                      offset: Offset(0, 4),
-                                                      spreadRadius: 0,
-                                                    )
-                                                  ],
-                                                ),
+                                                ],
                                               ),
-                                              SizedBox(
-                                                height: 20,
-                                                width: 100,
-                                                child: Text(((user.name! +
-                                                                user.surname!)
-                                                            .length <=
-                                                        20)
-                                                    ? '${user.name ?? ''} ${user.surname ?? ''}'
-                                                    : user.name ?? ''),
-                                              ),
-                                              SizedBox(
-                                                width: 100,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    const Icon(Icons
-                                                        .star_border_outlined),
-                                                    Text(
-                                                      '${user.allTime ?? '0'} Puan',
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ),
@@ -1607,7 +1676,7 @@ class TabWidget extends StatelessWidget {
               text: 'Aylık',
             ),
             Tab(
-              text: 'Bütün Zamanlar', // Add your third tab name here
+              text: 'Genel', // Add your third tab name here
             ),
           ],
         ),
