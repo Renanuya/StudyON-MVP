@@ -28,8 +28,8 @@ class _ResetPasswordState extends State<ResetPassword> {
       );
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.message.toString()),
+        const SnackBar(
+          content: Text('Lutfen E-posta adresinizi giriniz.'),
         ),
       );
     }
