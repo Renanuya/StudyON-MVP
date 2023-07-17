@@ -344,7 +344,10 @@ class _HomePageState extends State<HomePage> {
                           'Blog',
                           style: TextStyle(fontSize: 16),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          NavigationService.instance.navigateToPage(
+                              path: NavigationConstants.blogPage);
+                        },
                       ),
                     ),
                   ),
@@ -373,8 +376,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         onPressed: () {
                           NavigationService.instance.navigateToPage(
-                              path: NavigationConstants.ProfilePage);
-                          print("profil sayfasına yönlendirildi.");
+                              path: NavigationConstants.profilePage);
                         },
                       ),
                     ),

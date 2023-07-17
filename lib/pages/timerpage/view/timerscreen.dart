@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:thinktank/core/constants/navigation/navigation_constants.dart';
 import 'package:thinktank/core/utils/navigation/navigation_service.dart';
 import 'package:thinktank/pages/homePage/view/home_page.dart';
-import 'package:thinktank/pages/timerpage/goalselectionscreen.dart';
+import 'package:thinktank/pages/timerpage/view/goalselectionscreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:thinktank/services/firestore_user_creation.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';

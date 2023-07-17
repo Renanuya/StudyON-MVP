@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:thinktank/pages/timerpage/timerscreen.dart';
+import 'package:thinktank/pages/timerpage/view/timerscreen.dart';
 import 'package:thinktank/pages/timerpage/view_model/view_model_timer.dart';
 
 class GoalSelectionScreen extends StatefulWidget {
