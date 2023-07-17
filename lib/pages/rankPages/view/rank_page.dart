@@ -44,8 +44,8 @@ class _RankPageState extends State<RankPage>
     final user = FirebaseAuth.instance.currentUser;
     double mHeight = MediaQuery.of(context).size.height;
     double mWidth = MediaQuery.of(context).size.width;
-    if (userProviderAllTime.getReady == false ||
-        userProviderMonthly.getReady == false ||
+    if (userProviderAllTime.getReady == false &&
+        userProviderMonthly.getReady == false &&
         userProviderWeekly.getReady == false) {
       return const Scaffold(
         body: Center(
@@ -53,6 +53,7 @@ class _RankPageState extends State<RankPage>
         ),
       );
     } else {
+ 
       return Scaffold(
         body: Column(
           mainAxisSize: MainAxisSize.min,
@@ -191,10 +192,169 @@ class _RankPageState extends State<RankPage>
                                     ),
                                   ),
                                 ],
+
+      if (userProviderAllTime.getModel == null &&
+          userProviderMonthly.getModel == null &&
+          userProviderWeekly.getModel == null) {
+        return const Scaffold(
+          body: Center(
+            child: CircularProgressIndicator.adaptive(),
+          ),
+        );
+      } else {
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                Center(
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: mHeight * 0.0510185185),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: mWidth * 0.805555556,
+                              height: mHeight * 0.2462963,
+                              decoration: ShapeDecoration(
+                                color: const Color(0xFFE7E7E6),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    right: mWidth * 0.0462962962962963,
+                                    left: mWidth * 0.0462962962962963,
+                                    top: mHeight * 0.0462962962962963,
+                                    bottom: mHeight * 0.0231481481481481),
+                                child: InkWell(
+                                  onTap: () {
+                                    if (user == null) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginPage(),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        user?.displayName ??
+                                            'Önce hesap açmalısınız',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: mWidth * 0.0555555555555556,
+                                          //  fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: mHeight * 0.01,
+                                      ),
+                                      Container(
+                                        width: mWidth * 0.6481481481481481,
+                                        height: mHeight * 0.1157407407407407,
+                                        decoration: ShapeDecoration(
+                                          color: const Color(0xFFC9C7C7),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.star_border_outlined,
+                                                    size: mWidth *
+                                                        0.0694444444444444),
+                                                Text(
+                                                  'Puan',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.037037037037037,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${context.watch<TimerDataProiver>().getModel.allTime ?? '0'}',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.037037037037037,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            //! Bunları responsive yapmama gerek var mı bilemedim.
+                                            const VerticalDivider(
+                                              color: Color(0xFFffffff),
+                                              thickness: 2,
+                                              indent: 20,
+                                              endIndent: 20,
+                                              width: 0,
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.public_outlined,
+                                                    size: mWidth *
+                                                        0.0694444444444444),
+                                                Text(
+                                                  'Sırlama',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.037037037037037,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  //burası
+                                                  '${userProviderAllTime.getUserRank}',
+                                                  style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF37352F),
+                                                    fontSize: mWidth *
+                                                        0.037037037037037,
+                                                    fontFamily: 'Nunito',
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+ 
                               ),
                             ),
-                          ),
+                          ],
                         ),
+ 
                       ],
                     ),
                   ),
@@ -243,6 +403,52 @@ class _RankPageState extends State<RankPage>
                   //Weekly
                   Column(
                     children: [
+
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 75,
+                            height: 75,
+                            decoration: ShapeDecoration(
+                              image: const DecorationImage(
+                                image: NetworkImage(
+                                    "https://via.placeholder.com/100x100"),
+                                fit: BoxFit.fill,
+                              ),
+                              shape: OvalBorder(
+                                side: BorderSide(
+                                    width: mWidth * 0.0011574074074074,
+                                    color: const Color(0xFF37352F)),
+                              ),
+                              shadows: const [
+                                BoxShadow(
+                                  //  color: Color(0x3F000000),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                  spreadRadius: 0,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: mHeight * 0.0115740740740741),
+                TabWidget(
+                  tabController: _tabController,
+                  onTabChanged: _onTabChanged,
+                ),
+                Expanded(
+                  child: PageView(
+                    controller: _pageController,
+                    onPageChanged: _onPageChanged,
+                    children: [
+                      //Weekly
+ 
                       Stack(
                         children: [
                           Row(
@@ -550,6 +756,7 @@ class _RankPageState extends State<RankPage>
                               ),
                             ],
                           ),
+ 
                         ],
                       ),
                       //! ar
@@ -690,6 +897,152 @@ class _RankPageState extends State<RankPage>
                                             ],
                                           ),
                                         ),
+
+                          Positioned(
+                            top: 305,
+                            left: 10,
+                            child: Container(
+                              width: 374,
+                              height: 130,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFE7E7E6),
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListView.builder(
+                                  itemCount: (context
+                                              .watch<
+                                                  RankUserListDataProviderWeekly>()
+                                              .getModel
+                                              ?.length ??
+                                          0) -
+                                      3, // 4. öğeden başlaması için 3 çıkarıldı
+                                  itemBuilder: (context, index) {
+                                    final user = context
+                                            .watch<RankUserListDataProviderWeekly>()
+                                            .getModel![
+                                        index +
+                                            3]; // 4. öğeden başlamak için index + 3
+                                    return Container(
+                                      margin:
+                                          const EdgeInsets.only(bottom: 8.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              height: 25,
+                                              width: 25,
+                                              decoration: const BoxDecoration(
+                                                  color: Color(0xffD9D9D9),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              alignment: Alignment.center,
+                                              child: Text('${index + 4}'),
+                                            ),
+                                            Container(
+                                              width: 30,
+                                              height: 30,
+                                              decoration: const ShapeDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "https://via.placeholder.com/50x50"),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                                shape: OvalBorder(),
+                                                shadows: [
+                                                  BoxShadow(
+                                                    color: Color(0x3F000000),
+                                                    blurRadius: 4,
+                                                    offset: Offset(0, 4),
+                                                    spreadRadius: 0,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                              width: 100,
+                                              child: Text(((user.name! +
+                                                              user.surname!)
+                                                          .length <=
+                                                      20)
+                                                  ? '${user.name ?? ''} ${user.surname ?? ''}'
+                                                  : user.name ?? ''),
+                                            ),
+                                            SizedBox(
+                                              width: 100,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  const Icon(Icons
+                                                      .star_border_outlined),
+                                                  Text(
+                                                    '${user.weekly ?? '0'} Puan',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      //monthly
+                      Center(
+                        child: Stack(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          height: mHeight * 0.095,
+                                        ),
+                                        Container(
+                                          width: mWidth * 0.1157407407407407,
+                                          height: mWidth * 0.1157407407407407,
+                                          decoration: const ShapeDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "https://via.placeholder.com/50x50"),
+                                              fit: BoxFit.fill,
+                                            ),
+                                            shape: OvalBorder(),
+                                            shadows: [
+                                              BoxShadow(
+                                                color: Color(0x3F000000),
+                                                blurRadius: 4,
+                                                offset: Offset(0, 4),
+                                                spreadRadius: 0,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+ 
                                         SizedBox(
                                             height:
                                                 mHeight * 0.0231481481481481),
@@ -743,6 +1096,7 @@ class _RankPageState extends State<RankPage>
                                                 topLeft: Radius.circular(15),
                                                 topRight: Radius.circular(15),
                                               ),
+ 
                                             ),
                                           ),
                                           child: Text(
@@ -861,15 +1215,224 @@ class _RankPageState extends State<RankPage>
                                           ),
                                           child: Text(
                                             '1',
+
+                                            ),
+                                          ),
+                                          child: Text(
+                                            '2',
+ 
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize:
+ 
                                                   mWidth * 0.2222222222222222,
+
+                                                  mWidth * 0.1759259259259259,
+ 
                                               fontFamily: 'Nunito',
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
+                                        )
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        SizedBox(
+ 
+                                          height: mHeight * 0.15625,
+
+                                          height: mHeight * 0.0231481481481481,
+                                          width: 10,
+                                        ),
+                                        SizedBox(
+                                          width: 70,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Theme.of(context).brightness ==
+                                                      Brightness.dark
+                                                  ? Image.asset(
+                                                      'assets/images/crown.png',
+                                                    )
+                                                  : Image.asset(
+                                                      'assets/images/crown.png',
+                                                    ),
+                                            ],
+                                          ),
+ 
+                                        ),
+                                        Container(
+                                          width: mWidth * 0.1157407407407407,
+                                          height: mWidth * 0.1157407407407407,
+                                          decoration: const ShapeDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "https://via.placeholder.com/50x50"),
+                                              fit: BoxFit.fill,
+                                            ),
+                                            shape: OvalBorder(),
+                                            shadows: [
+                                              BoxShadow(
+                                                color: Color(0x3F000000),
+                                                blurRadius: 4,
+                                                offset: Offset(0, 4),
+                                                spreadRadius: 0,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            height:
+                                                mHeight * 0.0115740740740741),
+                                        Text(
+ 
+                                          '${userProviderMonthly.getModel?[2].name ?? ''} ${userProviderMonthly.getModel?[2].surname ?? ''}',
+
+                                          '${userProviderMonthly.getModel?.first.name ?? ''} ${userProviderMonthly.getModel?.first.surname ?? ''}',
+ 
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize:
+                                                mWidth * 0.0324074074074074,
+                                            //  fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            height:
+                                                mHeight * 0.005787037037037),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.star_border_outlined,
+                                                size: mWidth *
+                                                    0.0462962962962963),
+                                            Text(
+                                              'Puan ',
+                                              style: TextStyle(
+                                                color: const Color(0xFF37352F),
+                                                fontSize:
+                                                    mWidth * 0.0277777777777778,
+                                                fontFamily: 'Nunito',
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            Text(
+ 
+                                              '${userProviderMonthly.getModel?[2].monthly ?? '0'}',
+
+                                              '${userProviderMonthly.getModel?[0].monthly ?? '0'}',
+
+                                              style: TextStyle(
+                                                color: const Color(0xFF37352F),
+                                                fontSize:
+                                                    mWidth * 0.0277777777777778,
+                                                fontFamily: 'Nunito',
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Container(
+                                          width: mWidth * 0.2685185185185185,
+ 
+                                          height: mHeight * 0.1273148148148148,
+                                          decoration: const ShapeDecoration(
+                                            color: Color(0xFFFFE162),
+
+                                          height: mHeight * 0.2314814814814815,
+                                          decoration: const ShapeDecoration(
+                                            color: Color(0xFF139487),
+ 
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(15),
+                                                topRight: Radius.circular(15),
+                                              ),
+                                            ),
+                                          ),
+                                          child: Text(
+ 
+                                            '3',
+
+                                            '1',
+ 
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize:
+ 
+                                                  mWidth * 0.1527777777777778,
+
+                                                  mWidth * 0.2222222222222222,
+ 
+                                              fontFamily: 'Nunito',
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+ 
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Container(
+                          width: mWidth,
+                          height: mHeight * 0.18,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFE7E7E6),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListView.builder(
+                              itemCount: (context
+                                          .watch<
+                                              RankUserListDataProviderMonthly>()
+                                          .getModel
+                                          ?.length ??
+                                      0) -
+                                  3, // 4. öğeden başlaması için 3 çıkarıldı
+                              itemBuilder: (context, index) {
+                                final user = context
+                                        .watch<RankUserListDataProviderMonthly>()
+                                        .getModel![
+                                    index +
+                                        3]; // 4. öğeden başlamak için index + 3
+                                return Container(
+                                  margin: const EdgeInsets.only(bottom: 8.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          height: 25,
+                                          width: 25,
+                                          decoration: const BoxDecoration(
+                                              color: Color(0xffD9D9D9),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(4))),
+                                          alignment: Alignment.center,
+                                          child: Text('${index + 4}'),
+                                        ),
+                                        Container(
+                                          width: 30,
+                                          height: 30,
+
                                         )
                                       ],
                                     ),
@@ -881,11 +1444,14 @@ class _RankPageState extends State<RankPage>
                                         Container(
                                           width: mWidth * 0.1157407407407407,
                                           height: mWidth * 0.1157407407407407,
+ 
                                           decoration: const ShapeDecoration(
                                             image: DecorationImage(
                                               image: NetworkImage(
                                                   "https://via.placeholder.com/50x50"),
                                               fit: BoxFit.fill,
+ 
+
                                             ),
                                             shape: OvalBorder(),
                                             shadows: [
@@ -964,70 +1530,7 @@ class _RankPageState extends State<RankPage>
                                                   mWidth * 0.1527777777777778,
                                               fontFamily: 'Nunito',
                                               fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Container(
-                          width: mWidth,
-                          height: mHeight * 0.18,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE7E7E6),
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListView.builder(
-                              itemCount: (context
-                                          .watch<
-                                              RankUserListDataProviderMonthly>()
-                                          .getModel
-                                          ?.length ??
-                                      0) -
-                                  3, // 4. öğeden başlaması için 3 çıkarıldı
-                              itemBuilder: (context, index) {
-                                final user = context
-                                        .watch<RankUserListDataProviderMonthly>()
-                                        .getModel![
-                                    index +
-                                        3]; // 4. öğeden başlamak için index + 3
-                                return Container(
-                                  margin: const EdgeInsets.only(bottom: 8.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          height: 25,
-                                          width: 25,
-                                          decoration: const BoxDecoration(
-                                              color: Color(0xffD9D9D9),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(4))),
-                                          alignment: Alignment.center,
-                                          child: Text('${index + 4}'),
-                                        ),
-                                        Container(
-                                          width: 30,
-                                          height: 30,
-                                          decoration: const ShapeDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  "https://via.placeholder.com/50x50"),
-                                              fit: BoxFit.fill,
+ 
                                             ),
                                             shape: OvalBorder(),
                                             shadows: [
@@ -1040,6 +1543,7 @@ class _RankPageState extends State<RankPage>
                                             ],
                                           ),
                                         ),
+ 
                                         SizedBox(
                                           height: 20,
                                           width: 100,
@@ -1063,10 +1567,118 @@ class _RankPageState extends State<RankPage>
                                                 style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
+
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Positioned(
+                              top: 305,
+                              left: 10,
+                              child: Container(
+                                width: 374,
+                                height: 130,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFE7E7E6),
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ListView.builder(
+                                    itemCount: (context
+                                                .watch<
+                                                    RankUserListDataProviderMonthly>()
+                                                .getModel
+                                                ?.length ??
+                                            0) -
+                                        3, // 4. öğeden başlaması için 3 çıkarıldı
+                                    itemBuilder: (context, index) {
+                                      final user = context
+                                              .watch<
+                                                  RankUserListDataProviderMonthly>()
+                                              .getModel![
+                                          index +
+                                              3]; // 4. öğeden başlamak için index + 3
+                                      return Container(
+                                        margin:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                height: 25,
+                                                width: 25,
+                                                decoration: const BoxDecoration(
+                                                    color: Color(0xffD9D9D9),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                4))),
+                                                alignment: Alignment.center,
+                                                child: Text('${index + 4}'),
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                decoration:
+                                                    const ShapeDecoration(
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        "https://via.placeholder.com/50x50"),
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                  shape: OvalBorder(),
+                                                  shadows: [
+                                                    BoxShadow(
+                                                      color: Color(0x3F000000),
+                                                      blurRadius: 4,
+                                                      offset: Offset(0, 4),
+                                                      spreadRadius: 0,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                                width: 100,
+                                                child: Text(((user.name! +
+                                                                user.surname!)
+                                                            .length <=
+                                                        20)
+                                                    ? '${user.name ?? ''} ${user.surname ?? ''}'
+                                                    : user.name ?? ''),
+                                              ),
+                                              SizedBox(
+                                                width: 100,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    const Icon(Icons
+                                                        .star_border_outlined),
+                                                    Text(
+                                                      '${user.monthly ?? '0'} Puan',
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
                                         ),
+ 
                                       ],
                                     ),
                                   ),
@@ -1084,6 +1696,21 @@ class _RankPageState extends State<RankPage>
                     child: Column(
                       children: [
                         Stack(
+
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      //alltime
+                      Center(
+                        child: Stack(
+ 
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -1354,6 +1981,18 @@ class _RankPageState extends State<RankPage>
                                                     mWidth * 0.0277777777777778,
                                                 fontFamily: 'Nunito',
                                                 fontWeight: FontWeight.w400,
+ 
+                                              ),
+                                            ),
+                                            Text(
+                                              '${userProviderAllTime.getModel?[2].allTime ?? '0'}',
+                                              style: TextStyle(
+                                                color: const Color(0xFF37352F),
+                                                fontSize:
+                                                    mWidth * 0.0277777777777778,
+                                                fontFamily: 'Nunito',
+                                                fontWeight: FontWeight.bold,
+
                                               ),
                                             ),
                                             Text(
@@ -1398,8 +2037,149 @@ class _RankPageState extends State<RankPage>
                                 ),
                               ],
                             ),
+                            Positioned(
+                              top: 305,
+                              left: 10,
+                              child: Container(
+                                width: 374,
+                                height: 130,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFE7E7E6),
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ListView.builder(
+                                    itemCount: (context
+                                                .watch<
+                                                    RankUserListDataProviderAllTime>()
+                                                .getModel
+                                                ?.length ??
+                                            0) -
+                                        3, // 4. öğeden başlaması için 3 çıkarıldı
+                                    itemBuilder: (context, index) {
+                                      final user = context
+                                              .watch<
+                                                  RankUserListDataProviderAllTime>()
+                                              .getModel![
+                                          index +
+                                              3]; // 4. öğeden başlamak için index + 3
+                                      return Container(
+                                        margin:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                height: 25,
+                                                width: 25,
+                                                decoration: const BoxDecoration(
+                                                    color: Color(0xffD9D9D9),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                4))),
+                                                alignment: Alignment.center,
+                                                child: Text('${index + 4}'),
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                decoration:
+                                                    const ShapeDecoration(
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        "https://via.placeholder.com/50x50"),
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                  shape: OvalBorder(),
+                                                  shadows: [
+                                                    BoxShadow(
+                                                      color: Color(0x3F000000),
+                                                      blurRadius: 4,
+                                                      offset: Offset(0, 4),
+                                                      spreadRadius: 0,
+                                                    )
+                                                  ],
+                                                ),
+ 
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                                width: 100,
+                                                child: Text(((user.name! +
+                                                                user.surname!)
+                                                            .length <=
+                                                        20)
+                                                    ? '${user.name ?? ''} ${user.surname ?? ''}'
+                                                    : user.name ?? ''),
+                                              ),
+                                              SizedBox(
+                                                width: 100,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    const Icon(Icons
+                                                        .star_border_outlined),
+                                                    Text(
+                                                      '${user.allTime ?? '0'} Puan',
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+ 
+                                        Container(
+                                          width: mWidth * 0.2685185185185185,
+                                          height: mHeight * 0.1273148148148148,
+                                          decoration: const ShapeDecoration(
+                                            color: Color(0xFFFFE162),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(15),
+                                                topRight: Radius.circular(15),
+                                              ),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            '3',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize:
+                                                  mWidth * 0.1527777777777778,
+                                              fontFamily: 'Nunito',
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
+ 
                         Container(
                           width: mWidth,
                           height: mHeight * 0.18,
@@ -1509,6 +2289,17 @@ class _RankPageState extends State<RankPage>
           ],
         ),
       );
+
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+ 
     }
   }
 

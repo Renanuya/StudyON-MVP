@@ -15,7 +15,7 @@ class RankUserListDataProviderAllTime extends ChangeNotifier {
   bool _ready = false;
   bool get getReady => _ready;
 
-  void rankUser(String uid) {
+  Future<void> rankUser(String uid) async {
     if (_listModel.isNotEmpty) {
       _listModel.sort(
         (a, b) => (b.allTime ?? 0).compareTo(a.allTime ?? 0),
@@ -29,7 +29,9 @@ class RankUserListDataProviderAllTime extends ChangeNotifier {
   }
 
   Future<void> setList() async {
+    final List<RankDataListModel> newList = [];
     final reponse = await _firestore.collection('timerdata').get();
+
     final docs = reponse.docs;
 
     if (docs.isNotEmpty) {
@@ -37,7 +39,7 @@ class RankUserListDataProviderAllTime extends ChangeNotifier {
         final user = await _firestore.collection('users').doc(item.id).get();
         final data = TimerDataModel.fromMap(item.data());
         if (data.allTime != null && user.exists) {
-          _listModel.add(
+          newList.add(
             RankDataListModel(
                 name: user.data()?['name'],
                 surname: user.data()?['surname'],
@@ -49,6 +51,8 @@ class RankUserListDataProviderAllTime extends ChangeNotifier {
           );
         }
       }
+      _listModel = newList;
+      notifyListeners();
     }
     rankUser(FirebaseAuth.instance.currentUser?.uid ?? '');
   }
@@ -78,6 +82,7 @@ class RankUserListDataProviderWeekly extends ChangeNotifier {
   }
 
   Future<void> setList() async {
+    final List<RankDataListModel> newList = [];
     final reponse = await _firestore.collection('timerdata').get();
     final docs = reponse.docs;
 
@@ -86,7 +91,7 @@ class RankUserListDataProviderWeekly extends ChangeNotifier {
         final user = await _firestore.collection('users').doc(item.id).get();
         final data = TimerDataModel.fromMap(item.data());
         if (data.allTime != null && user.exists) {
-          _listModel.add(
+          newList.add(
             RankDataListModel(
                 name: user.data()?['name'],
                 surname: user.data()?['surname'],
@@ -98,6 +103,8 @@ class RankUserListDataProviderWeekly extends ChangeNotifier {
           );
         }
       }
+      _listModel = newList;
+      notifyListeners();
     }
     rankUser(FirebaseAuth.instance.currentUser?.uid ?? '');
   }
@@ -127,6 +134,7 @@ class RankUserListDataProviderMonthly extends ChangeNotifier {
   }
 
   Future<void> setList() async {
+    final List<RankDataListModel> newList = [];
     final reponse = await _firestore.collection('timerdata').get();
     final docs = reponse.docs;
 
@@ -135,7 +143,7 @@ class RankUserListDataProviderMonthly extends ChangeNotifier {
         final user = await _firestore.collection('users').doc(item.id).get();
         final data = TimerDataModel.fromMap(item.data());
         if (data.allTime != null && user.exists) {
-          _listModel.add(
+          newList.add(
             RankDataListModel(
                 name: user.data()?['name'],
                 surname: user.data()?['surname'],
@@ -147,6 +155,8 @@ class RankUserListDataProviderMonthly extends ChangeNotifier {
           );
         }
       }
+      _listModel = newList;
+      notifyListeners();
     }
     rankUser(FirebaseAuth.instance.currentUser?.uid ?? '');
   }

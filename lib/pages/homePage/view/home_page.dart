@@ -2,10 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import '../../../core/constants/navigation/navigation_constants.dart';
 import '../../../core/utils/navigation/navigation_service.dart';
-import '../../profileSettingPage/profilePage/profile_screen.dart';
 import '../viewmodel/home_page_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,9 +16,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    context
-        .read<TimerDataProiver>()
-        .getAllTime(FirebaseAuth.instance.currentUser!.uid);
+    if (FirebaseAuth.instance.currentUser != null) {
+      context
+          .read<TimerDataProiver>()
+          .getAllTime(FirebaseAuth.instance.currentUser!.uid);
+    }
 
     super.initState();
   }
@@ -244,7 +244,44 @@ class _HomePageState extends State<HomePage> {
                           'Takvim',
                           style: TextStyle(fontSize: 16),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          if (FirebaseAuth.instance.currentUser != null) {
+                            NavigationService.instance.navigateToPage(
+                                path: NavigationConstants.calendarPage);
+                          } else {
+                            await showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text('Önce hesap açmalısınız'),
+                                    content: const SingleChildScrollView(
+                                      child: ListBody(
+                                        children: <Widget>[
+                                          Text(
+                                              'Bu özelliği kullanabilmeniz için önce hesap açmalısınız.'),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Devam et')),
+                                      TextButton(
+                                        child: const Text('Hesap aç'),
+                                        onPressed: () {
+                                          NavigationService.instance
+                                              .navigateToPageRemoveAll(
+                                                  path: NavigationConstants
+                                                      .loginPage);
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                });
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -337,7 +374,7 @@ class _HomePageState extends State<HomePage> {
                         onPressed: () {
                           NavigationService.instance.navigateToPage(
                               path: NavigationConstants.ProfilePage);
-                              print("profil sayfasına yönlendirildi.");
+                          print("profil sayfasına yönlendirildi.");
                         },
                       ),
                     ),
