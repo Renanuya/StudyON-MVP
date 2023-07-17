@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thinktank/auth.dart';
 import 'package:thinktank/pages/blogPages/blog_home_page.dart';
+import 'package:thinktank/pages/blogPages/blog_topics/blog_topic_secondbrain.dart';
 import 'package:thinktank/pages/calendar/create_event_page.dart';
 
 import 'package:thinktank/pages/homePage/view/home_page.dart';
@@ -31,6 +32,9 @@ class NavigationRoute {
       case NavigationConstants.blogPage:
         return normalNavigate(
             const BlogHomePage(), NavigationConstants.blogPage);
+      case NavigationConstants.secondBrainPage:
+        return normalNavigate(
+            const SecondBrainPage(), NavigationConstants.secondBrainPage);
 
       //profile Page
       case NavigationConstants.profilePage:

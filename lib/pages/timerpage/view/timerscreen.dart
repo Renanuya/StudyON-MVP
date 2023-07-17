@@ -67,6 +67,7 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
   void dispose() {
     super.dispose();
     audioPlayer.dispose();
+    audioPlayer.stop();
   }
 
   void stopTimer({bool isBreakTimer = false}) {
@@ -483,13 +484,18 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           final remainingTime =
-                              workingTimerController?.getTime() ?? '0';
+                              workingTimerController?.getTime().toString();
+                          final timeString =
+                              remainingTime?.replaceAll(RegExp(r":"), "") ??
+                                  '0';
                           final elapsedMinutes =
-                              widget.workingTime - int.parse(remainingTime);
-                          _firestoreService.saveWorkingTime(
-                            user!.uid,
-                            elapsedMinutes,
-                          );
+                              widget.workingTime - int.parse(timeString);
+                          if (FirebaseAuth.instance.currentUser != null) {
+                            _firestoreService.saveWorkingTime(
+                              user!.uid,
+                              elapsedMinutes,
+                            );
+                          }
                           NavigationService.instance.navigateToPageRemoveAll(
                               path: NavigationConstants.homePage);
                           // Navigator.pushAndRemoveUntil(

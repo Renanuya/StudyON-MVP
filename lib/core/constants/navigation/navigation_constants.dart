@@ -1,6 +1,7 @@
 class NavigationConstants {
   //Blog Page
   static const String blogPage = '/blogPage';
+  static const String secondBrainPage = '/secondBrainPage';
   //Profile Page
   static const String profilePage = '/profilePage';
 

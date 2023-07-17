@@ -95,11 +95,6 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
               const SizedBox(height: 50),
               buildSoundPicker(
                 label: 'Arka plan sesi',
-                onChanged: (value) {
-                  setState(() {
-                    backgroundSound = value;
-                  });
-                },
               ),
               const SizedBox(height: 70),
               ElevatedButton(
@@ -223,46 +218,34 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
 
   Widget buildSoundPicker({
     required String label,
-    required ValueChanged<String> onChanged,
   }) {
-    final Map<String, String> soundOptionsMap = {
-      'Arkaplan sesi 1': 'sounds/campfire.m4a',
-      'Arkaplan sesi 2': 'sounds/fragments.m4a',
-      'Arkaplan sesi 3': 'sounds/insChill.m4a',
-      'Arkaplan sesi 4': 'sounds/askinolayim.mp3',
-    };
-
-    String selectedSound = soundOptionsMap.keys.first;
+    final List<Map<String, String>> soundOptionsMap = [
+      {
+        'Arkaplan sesi 1': 'sounds/campfire.m4a',
+      },
+      {'Arkaplan sesi 2': 'sounds/fragments.m4a'},
+      {'Arkaplan sesi 3': 'sounds/insChill.m4a'},
+      {'Arkaplan sesi 4': 'sounds/askinolayim.mp3'},
+    ];
 
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
           context: context,
           builder: (context) {
-            return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-                return SizedBox(
-                  height: 200,
-                  child: CupertinoPicker(
-                    onSelectedItemChanged: (index) {
-                      String selectedSound =
-                          soundOptionsMap.keys.toList()[index];
-                      String selectedSoundPath =
-                          soundOptionsMap[selectedSound]!;
-                      setState(
-                        () {
-                          selectedSound = selectedSound;
-                        },
-                      );
-                      onChanged(selectedSoundPath);
-                    },
-                    itemExtent: 40,
-                    children: soundOptionsMap.keys.map((sound) {
-                      return Text(sound);
-                    }).toList(),
-                  ),
-                );
-              },
+            return SizedBox(
+              height: 200,
+              child: CupertinoPicker(
+                onSelectedItemChanged: (index) {
+                  context
+                      .read<TimerPageBackgroundMusicProvider>()
+                      .selectedSoundSet = index;
+                },
+                itemExtent: 40,
+                children: soundOptionsMap.map((sound) {
+                  return Text(sound.keys.first);
+                }).toList(),
+              ),
             );
           },
         );
