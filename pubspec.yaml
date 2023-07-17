@@ -44,6 +44,8 @@ dependencies:
   google_sign_in: ^6.1.4
   cloud_firestore: ^4.8.2
   table_calendar: ^3.0.9
+  url_launcher: ^6.1.12
+  expansion_tile_card: ^3.0.0
  
   curved_navigation_bar: ^1.0.3
   equatable: ^2.0.5

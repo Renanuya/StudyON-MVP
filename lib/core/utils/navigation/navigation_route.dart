@@ -10,6 +10,7 @@ import '../../../auth_page.dart';
 import '../../../not_found.dart';
 import '../../../pages/calendar/calendar_main_page.dart';
 import '../../../pages/login/view/login_page.dart';
+import '../../../pages/profileSettingPage/profilePage/profile_screen.dart';
 import '../../../pages/register/view/register_page.dart';
 import '../../../pages/register/view/reset_password.dart';
 import '../../../pages/splashPages/splash_page_2.dart';
@@ -24,7 +25,13 @@ class NavigationRoute {
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      //profilePage
+      case NavigationConstants.ProfilePage:
+        return normalNavigate(
+            const ProfilePage(), NavigationConstants.ProfilePage);
+
       //Splash Pages
+
       case NavigationConstants.splashPageOne:
         return normalNavigate(
             const SplashPageOne(), NavigationConstants.splashPageOne);

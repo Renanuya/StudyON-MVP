@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 import '../../../core/constants/navigation/navigation_constants.dart';
 import '../../../core/utils/navigation/navigation_service.dart';
+import '../../profileSettingPage/profilePage/profile_screen.dart';
 import '../viewmodel/home_page_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
@@ -332,7 +334,11 @@ class _HomePageState extends State<HomePage> {
                           'profil',
                           style: TextStyle(fontSize: 16),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          NavigationService.instance.navigateToPage(
+                              path: NavigationConstants.ProfilePage);
+                              print("profil sayfasına yönlendirildi.");
+                        },
                       ),
                     ),
                   ),

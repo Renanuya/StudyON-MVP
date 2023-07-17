@@ -1,4 +1,6 @@
 class NavigationConstants {
+  //ProfilePage
+  static const String ProfilePage = '/ProfilePage';
   //Splash Pages
   static const String splashPageOne = '/splashPageOne';
   static const String splashPageTwo = '/splashPageTwo';
