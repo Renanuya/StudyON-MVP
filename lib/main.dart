@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import 'package:thinktank/pages/calendar/time_model.dart';
 
 import 'package:thinktank/auth_page.dart';
 import 'package:thinktank/core/utils/navigation/navigation_route.dart';
-
 
 import 'package:thinktank/auth_page.dart';
 import 'package:thinktank/core/utils/navigation/navigation_route.dart';
@@ -42,9 +40,7 @@ void main() async {
         ChangeNotifierProvider(
             create: (context) => LoginPasswordVisibilityProvider()),
         ChangeNotifierProvider(create: (context) => UserLoginProvider()),
-
-        ChangeNotifierProvider(create: (context) => EventProvider())
-
+        ChangeNotifierProvider(create: (context) => EventProvider()),
         ChangeNotifierProvider(create: (context) => TimerDataProiver()),
         ChangeNotifierProvider(
             create: (context) => RankUserListDataProviderAllTime()),
@@ -52,7 +48,6 @@ void main() async {
             create: (context) => RankUserListDataProviderMonthly()),
         ChangeNotifierProvider(
             create: (context) => RankUserListDataProviderWeekly()),
-
       ],
       child: const MainApp(),
     ),
