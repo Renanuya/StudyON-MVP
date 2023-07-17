@@ -6,7 +6,6 @@ class Event {
   DateTime date;
   DateTime timeSelect;
   bool eventController;
-  Color selectColor;
 
   Event({
     required this.title,
@@ -14,6 +13,5 @@ class Event {
     required this.date,
     required this.eventController,
     required this.timeSelect,
-    required this.selectColor,
   });
 }
