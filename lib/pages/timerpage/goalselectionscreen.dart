@@ -19,14 +19,16 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (context) => MainStopwatchScreen(
-          goal: goal,
-          workingTime: workingTime,
-          breakTime: breakTime,
-          backgroundMusic: backgroundSound,
-        ),
+        builder: (context) =>
+            MainStopwatchScreen(
+              goal: goal,
+              workingTime: workingTime,
+              breakTime: breakTime,
+              backgroundMusic: backgroundSound,
+            ),
       ),
-      ModalRoute.withName('/'), // Remove all routes until reaching the home screen
+      ModalRoute.withName(
+          '/'), // Remove all routes until reaching the home screen
     );
   }
 
@@ -53,7 +55,7 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
 
               buildTextField(
                 label: 'Hedefiniz',
-                hinttext:'Lütfen hedefinizi yazın..' ,
+                hinttext: 'Lütfen hedefinizi yazın..',
                 hintstyle: const TextStyle(
                   color: Color(0xFF717171),
                   fontSize: 15,
@@ -108,16 +110,16 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
                   ),
                 ),
                 child: const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    'Çalışmaya başlayın!',
-                    style: TextStyle(
-                      color: Color(0xFF37352F),
-                      fontSize: 24,
-                      fontFamily: 'Nunito',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  )
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      'Çalışmaya başlayın!',
+                      style: TextStyle(
+                        color: Color(0xFF37352F),
+                        fontSize: 24,
+                        fontFamily: 'Nunito',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
                 ),
               ),
               const SizedBox(height: 32),
@@ -139,11 +141,12 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
       decoration: InputDecoration(
         labelText: label,
         hintText: hinttext,
-        hintStyle: hintstyle ,
+        hintStyle: hintstyle,
         border: const OutlineInputBorder(),
         fillColor: const Color(0xFFE7E7E6),
         filled: true,
-        contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+        contentPadding: const EdgeInsets.symmetric(
+            vertical: 16.0, horizontal: 16.0),
         isDense: true,
       ),
       onChanged: onChanged,
@@ -161,14 +164,14 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
         builder: (BuildContext context) {
           return Container(
             decoration: const ShapeDecoration(
-            color: Color(0xFFE2E2E1),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25),
-                topRight: Radius.circular(25),
+              color: Color(0xFFE2E2E1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
+                ),
               ),
             ),
-          ),
             height: 300,
             child: CupertinoTimerPicker(
               minuteInterval: 5,
@@ -205,7 +208,8 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
               builder: (BuildContext context) {
                 return Text(
                   '$selectedTime dakika',
-                  style: const TextStyle(fontSize: 16, color: Color(0xFF37352F)),
+                  style: const TextStyle(
+                      fontSize: 16, color: Color(0xFF37352F)),
                 );
               },
             ),
@@ -220,31 +224,40 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
     required String label,
     required ValueChanged<String> onChanged,
   }) {
-    List<String> soundOptions = [
-      'Arkaplan sesi 1',
-      'Arkaplan sesi 2',
-      'Arkaplan sesi 3',
-      'Arkaplan sesi 4',
-    ];
+    final Map<String, String> soundOptionsMap = {
+      'Arkaplan sesi 1': 'sounds/campfire.m4a',
+      'Arkaplan sesi 2': 'sounds/fragments.m4a',
+      'Arkaplan sesi 3': 'sounds/insChill.m4a',
+      'Arkaplan sesi 4': 'sounds/askinolayim.mp3',
+    };
+
+    String selectedSound = soundOptionsMap.keys.first;
 
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
           context: context,
           builder: (context) {
-            return SizedBox(
-              height: 200,
-              child: CupertinoPicker(
-                onSelectedItemChanged: (index) {
-                  setState(() {
-                    selectedSound = soundOptions[index];
-                  });
-                },
-                itemExtent: 40,
-                children: soundOptions.map((sound) {
-                  return Text(sound);
-                }).toList(),
-              ),
+            return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return SizedBox(
+                  height: 200,
+                  child: CupertinoPicker(
+                    onSelectedItemChanged: (index) {
+                      String selectedSound = soundOptionsMap.keys.toList()[index];
+                      String selectedSoundPath = soundOptionsMap[selectedSound]!;
+                      setState(() {
+                        selectedSound = selectedSound;
+                      });
+                      onChanged(selectedSoundPath);
+                    },
+                    itemExtent: 40,
+                    children: soundOptionsMap.keys.map((sound) {
+                      return Text(sound);
+                    }).toList(),
+                  ),
+                );
+              },
             );
           },
         );
@@ -268,7 +281,8 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
               builder: (BuildContext context) {
                 return Text(
                   selectedSound,
-                  style: const TextStyle(fontSize: 16, color: Color(0xFF37352F)),
+                  style: const TextStyle(
+                      fontSize: 16, color: Color(0xFF37352F)),
                 );
               },
             ),
@@ -277,4 +291,6 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
       ),
     );
   }
+
+
 }

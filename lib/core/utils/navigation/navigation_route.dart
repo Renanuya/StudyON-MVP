@@ -5,6 +5,7 @@ import 'package:thinktank/pages/calendar/create_event_page.dart';
 import 'package:thinktank/pages/homePage/view/home_page.dart';
 import 'package:thinktank/pages/rankPages/view/rank_page.dart';
 import 'package:thinktank/pages/splashPages/splash_page_1.dart';
+import 'package:thinktank/pages/timerpage/timerscreen.dart';
 
 import '../../../auth_page.dart';
 import '../../../not_found.dart';
@@ -40,8 +41,14 @@ class NavigationRoute {
         return normalNavigate(
             const RankPage(), NavigationConstants.rankingPage);
 
-      //Timer Pages
-      //! hata vardı ondan sonra yapılacak
+      case NavigationConstants.timerPage:
+        return normalNavigate(
+            MainStopwatchScreen(
+                goal: 'Hedefinizi Belirleyin',
+                workingTime: 0,
+                breakTime: 0,
+                backgroundMusic: 'assets/sounds/askinolayim.mp3'),
+            NavigationConstants.timerPage);
 
       //Calendar Pages
       case NavigationConstants.calendarPage:
@@ -72,6 +79,9 @@ class NavigationRoute {
       //Other Pages
       case NavigationConstants.homePage:
         return normalNavigate(const HomePage(), NavigationConstants.homePage);
+      case NavigationConstants.notFound:
+        return normalNavigate(
+            const NotFoundPage(), NavigationConstants.notFound);
       case NavigationConstants.splashPageOne:
         return normalNavigate(
             const SplashPageOne(), NavigationConstants.splashPageOne);

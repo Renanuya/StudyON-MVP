@@ -29,12 +29,21 @@ class FirestoreUserCreationService {
 
     final DocumentSnapshot documentSnapshot = await documentRef.get();
     if (documentSnapshot.exists) {
-      // Document exists, update the workingTime field
-      await documentRef.update({'allTime': workingTime,'daily':workingTime});
-
+      // Document exists, update the workingTime field by incrementing the values
+      await documentRef.update({
+        'allTime': FieldValue.increment(workingTime),
+        'daily': FieldValue.increment(workingTime),
+        'weekly': FieldValue.increment(workingTime),
+        'monthly': FieldValue.increment(workingTime),
+      });
     } else {
       // Document does not exist, create it with the workingTime field
-      await documentRef.set({'allTime': workingTime,'daily':workingTime});
+      await documentRef.set({
+        'allTime': workingTime,
+        'daily': workingTime,
+        'weekly': workingTime,
+        'monthly': workingTime,
+      });
     }
   }
 

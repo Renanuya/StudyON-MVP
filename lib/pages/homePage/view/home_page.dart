@@ -1,7 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:thinktank/pages/rankPages/view/rank_page.dart';
-import '../../calendar/calendar_main_page.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../core/constants/navigation/navigation_constants.dart';
+import '../../../core/utils/navigation/navigation_service.dart';
+import '../viewmodel/home_page_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,451 +15,338 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    context
+        .read<TimerDataProiver>()
+        .getAllTime(FirebaseAuth.instance.currentUser!.uid);
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+    final currentTime = DateTime.now();
+    final currentTimeInTurkey =
+        currentTime.toUtc().add(const Duration(hours: 3));
+
+    String greeting;
+
+    if (currentTimeInTurkey.hour >= 3 && currentTimeInTurkey.hour < 12) {
+      greeting = 'Günaydın';
+    } else if (currentTimeInTurkey.hour >= 12 &&
+        currentTimeInTurkey.hour < 18) {
+      greeting = 'İyi günler';
+    } else if (currentTimeInTurkey.hour >= 18 &&
+        currentTimeInTurkey.hour < 22) {
+      greeting = 'İyi akşamlar';
+    } else {
+      greeting = 'İyi geceler';
+    }
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 60,
+          ),
+          Center(
+            child: SizedBox(
+              width: 348,
+              child: Row(
                 children: [
-                  SizedBox(
-                    width: 348,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 0, 59, 0),
-                          child: Text(
-                            user != null
-                                ? 'Hoş geldin ${user.displayName}'
-                                : 'Aramıza Hoş geldin',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Color(0xFF37352F),
-                              fontSize: 26,
-                              fontFamily: 'Nunito',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ],
+                  Text(
+                    user != null ? '$greeting, ${user.displayName}' : greeting,
+                    style: const TextStyle(
+                      color: Color(0xFF37352F),
+                      fontSize: 26,
+                      fontFamily: 'Nunito',
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-              padding: const EdgeInsets.fromLTRB(17, 17, 0, 18.28),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(color: const Color(0xffa4a4a3)),
-                color: const Color(0xffe7e7e6),
-                borderRadius: BorderRadius.circular(15),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+            width: 348,
+            height: 244,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: const Color(0xFFE5E5E5),
+              border: Border.all(
+                color: const Color(0xFFA5A5A3),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
-                    child: const Text(
-                      'Ders çalışmaya başlayın',
+            ),
+            child: Column(
+              children: [
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Çalışmaya başlayın!',
                       style: TextStyle(
                         color: Color(0xFF37352F),
-                        fontSize: 20,
+                        fontSize: 24,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w500,
                       ),
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 0, 11, 11),
-                    width: double.infinity,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                          width: 20,
-                          height: 20,
-                          decoration:
-                              BoxDecoration(color: Colors.black.withOpacity(0)),
-                          child: const Stack(
-                            //ikon değiştirilecek
-                            children: [
-                              Icon(
-                                Icons.edit_note,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 25.0,
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Icon(
+                            Icons.star_rounded,
+                            color: Color(0xFF37352F),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              'Bu gün ${context.watch<TimerDataProiver>().getModel.daily ?? '0'} puan kazandınız.',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 259,
-                          height: 19,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Align(
-                                  child: SizedBox(
-                                    width: 259,
-                                    height: 19,
-                                    child: Text(
-                                      'Bu gün 3 saat, 25 dakika çalıştınız.',
-                                      style: TextStyle(
-                                        color: Color(0xFF37352F),
-                                        fontSize: 14,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Icon(
+                            Icons.star_rounded,
+                            color: Color(0xFF37352F),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              'Bu hafta ${context.watch<TimerDataProiver>().getModel.weekly ?? '0'} puan kazandınız.',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 11),
-                    width: double.infinity,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                          width: 20,
-                          height: 20,
-                          decoration:
-                              BoxDecoration(color: Colors.black.withOpacity(0)),
-                          child: const Stack(
-                            children: [
-                              Icon(Icons.edit_note),
-                            ],
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Icon(
+                            Icons.star_rounded,
+                            color: Color(0xFF37352F),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 270,
-                          height: 19,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Align(
-                                  child: SizedBox(
-                                    width: 259,
-                                    height: 19,
-                                    child: Text(
-                                      'Bu hafta 9 saat, 50 dakika çalıştınız.',
-                                      style: TextStyle(
-                                        color: Color(0xFF37352F),
-                                        fontSize: 14,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              'Bu ay ${context.watch<TimerDataProiver>().getModel.monthly ?? '0'} puan kazandınız.',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 11),
-                    width: double.infinity,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-                          width: 20,
-                          height: 20,
-                          decoration:
-                              BoxDecoration(color: Colors.black.withOpacity(0)),
-                          child: const Stack(
-                            children: [
-                              Icon(Icons.edit_note),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 270,
-                          height: 19,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Align(
-                                  child: SizedBox(
-                                    width: 259,
-                                    height: 19,
-                                    child: Text(
-                                      '4 gündür her gün çalışıyorsun.',
-                                      style: TextStyle(
-                                        color: Color(0xFF37352F),
-                                        fontSize: 14,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(9, 0, 23, 0),
-                    width: double.infinity,
-                    height: 51.72,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xffff534c)),
-                      color: const Color(0xfffac6c4),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Center(
-                        child: Text(
-                          'Zamanlayıcı Aç',
-                          style: TextStyle(
-                            color: Color(0xFFF13131),
-                            fontSize: 24,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 285,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      NavigationService.instance.navigateToPage(
+                        path: NavigationConstants.timerPage,
+                        //! timer sayfasına atacak ama hata vardı timer sayfasında o yüzden böyle tıklamayın.
+                      );
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        const Color(0xFFFAC6C4),
+                      ),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                            color: Color(0xFFFF534D),
                           ),
                         ),
                       ),
                     ),
+                    child: const Text(
+                      'Zamanlayıcı Aç',
+                      style: TextStyle(
+                        fontSize: 22,
+                        color: Color(0xffF13131),
+                      ),
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(30, 0, 0, 30),
-              width: double.infinity,
-              height: 100,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+          ),
+          Column(
+            children: [
+              Row(
                 children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CalendarMainPage()),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(12, 36, 17, 34),
-                        margin: const EdgeInsets.fromLTRB(0, 0, 32, 0),
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xffa4a4a3)),
-                          color: const Color(0xffe7e7e6),
-                          borderRadius: BorderRadius.circular(15),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      right: 50,
+                      top: 40,
+                    ),
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFFE5E5E5),
+                        border: Border.all(
+                          color: const Color(0xFFA5A5A3),
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(0, 0, 25, 0),
-                              width: 15,
-                              height: 30,
-                              child: const Icon(
-                                Icons.calendar_month_outlined,
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(0, 1, 0, 0),
-                              child: const Text(
-                                'Takvim',
-                                style: TextStyle(
-                                  color: Color(0xFF37352F),
-                                  fontSize: 16,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ],
+                      ),
+                      child: TextButton.icon(
+                        icon: const Icon(
+                          Icons.calendar_month,
+                          size: 40,
                         ),
+                        label: const Text(
+                          'Takvim',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        onPressed: () {},
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RankPage()),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(12, 36, 17, 34),
-                        margin: const EdgeInsets.fromLTRB(
-                            0, 0, 30, 0), // Add right margin
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xffa4a4a3)),
-                          color: const Color(0xffe7e7e6),
-                          borderRadius: BorderRadius.circular(15),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 40,
+                    ),
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFFE5E5E5),
+                        border: Border.all(
+                          color: const Color(0xFFA5A5A3),
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(0, 0, 25, 0),
-                              width: 15,
-                              height: 30,
-                              child: const Icon(
-                                Icons.format_list_numbered,
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(0, 1, 0, 0),
-                              child: const Text(
-                                'Sıralama',
-                                style: TextStyle(
-                                  color: Color(0xFF37352F),
-                                  fontSize: 16,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ],
+                      ),
+                      child: TextButton.icon(
+                        icon: const Icon(
+                          Icons.leaderboard,
+                          size: 40,
                         ),
+                        label: const Text(
+                          'Sıralama',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        onPressed: () {
+                          NavigationService.instance.navigateToPage(
+                              path: NavigationConstants.rankingPage);
+                        },
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(30, 0, 3, 0),
-              width: double.infinity,
-              height: 100,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              Row(
                 children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {},
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(12, 36, 17, 34),
-                        margin: const EdgeInsets.fromLTRB(0, 0, 32, 0),
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xffa4a4a3)),
-                          color: const Color(0xffe7e7e6),
-                          borderRadius: BorderRadius.circular(15),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      right: 50,
+                      top: 40,
+                    ),
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFFE5E5E5),
+                        border: Border.all(
+                          color: const Color(0xFFA5A5A3),
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(0, 0, 25, 0),
-                              width: 15,
-                              height: 30,
-                              child: const Icon(
-                                Icons.group_rounded,
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(0, 1, 0, 0),
-                              child: const Text(
-                                'boş',
-                                style: TextStyle(
-                                  color: Color(0xFF37352F),
-                                  fontSize: 16,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ],
+                      ),
+                      child: TextButton.icon(
+                        icon: const Icon(
+                          Icons.menu_book,
+                          size: 40,
                         ),
+                        label: const Text(
+                          'Blog',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        onPressed: () {},
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: InkWell(
-                      onTap: () {
-                        // Buraya işlemlerini ekleyebilirsiniz
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(12, 36, 17, 34),
-                        margin: const EdgeInsets.fromLTRB(0, 0, 30, 0),
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xffa4a4a3)),
-                          color: const Color(0xffe7e7e6),
-                          borderRadius: BorderRadius.circular(15),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 40,
+                    ),
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFFE5E5E5),
+                        border: Border.all(
+                          color: const Color(0xFFA5A5A3),
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(0, 0, 25, 0),
-                              width: 15,
-                              height: 30,
-                              child: const Icon(
-                                Icons.format_list_numbered,
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(0, 1, 0, 0),
-                              child: const Text(
-                                'boş',
-                                style: TextStyle(
-                                  color: Color(0xFF37352F),
-                                  fontSize: 16,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ],
+                      ),
+                      child: TextButton.icon(
+                        icon: const Icon(
+                          Icons.person,
+                          size: 40,
                         ),
+                        label: const Text(
+                          'profil',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        onPressed: () {},
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                },
-                child: Text('çıkış'))
-          ],
-        ),
+            ],
+          ),
+          ElevatedButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              child: Text('çıkış'))
+        ],
       ),
     );
   }
-}
+}// '${context.watch<TimerDataProiver>().getModel.allTime ?? '0'}'
