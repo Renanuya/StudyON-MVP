@@ -1,13 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:table_calendar/table_calendar.dart';
 
-import 'package:thinktank/pages/calendar/create_event_page.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:thinktank/pages/calendar/color_button.dart';
+
 import 'package:thinktank/pages/calendar/date_picker_item.dart';
 import 'package:thinktank/pages/calendar/event.dart';
 import 'package:thinktank/providers/event_provider.dart';
@@ -59,6 +58,7 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
   DateTime calendarFirstDay = DateTime.utc(2020, 1, 1);
   DateTime calendarLastDay = DateTime.utc(2030, 1, 1);
   bool checkController = false;
+  late Color _selectColor;
 
   final CalendarFormat _calendarFormat = CalendarFormat.month;
   final DateTime _firstDay = DateTime.utc(2020, 1, 1);
@@ -233,10 +233,10 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                               //! aradigin yer burasi
                                               //SelectDateTime(),
 
-                                              // changeColor(mHeight, mWidth),
                                               const TimeWidget(),
 
-                                              const Cupertio()
+                                              const Cupertio(),
+                                              ColorSelector(),
                                             ]
                                                 .map((widget) => Padding(
                                                     padding:
@@ -266,6 +266,8 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                                     checkController;
                                                 DateTime timeSelect =
                                                     _timeSelect;
+                                                Color selectColor =
+                                                    _selectColor;
 
                                                 EventProvider eventProvider =
                                                     Provider.of<EventProvider>(
@@ -277,7 +279,8 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                                     description,
                                                     selectedDate,
                                                     controlEvent,
-                                                    timeSelect);
+                                                    timeSelect,
+                                                    selectColor);
                                                 setState(() {
                                                   timeSelect = time;
                                                 });
@@ -337,6 +340,7 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                             ? Icons.check
                                             : Icons.check_box_outline_blank,
                                       )),
+
                                   trailing: IconButton(
                                     onPressed: () => showDialog(
                                       context: context,
@@ -384,187 +388,8 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   backgroundColor: Colors.red,
-      //   onPressed: () => showDialog(
-      //     context: context,
-      //     builder: (context) => SingleChildScrollView(
-      //       child: AlertDialog(
-      //         title: const Text("Add Event"),
-      //         content: Form(
-      //           key: GlobalKey<FormState>(),
-      //           child: Column(
-      //             mainAxisAlignment: MainAxisAlignment.center,
-      //             children: [
-      //               TextField(
-      //                 controller: _titleController,
-      //                 decoration: const InputDecoration(
-      //                   fillColor: Color(0xffE8E8E7),
-      //                   border: OutlineInputBorder(),
-      //                   filled: true,
-      //                   labelText: 'Yapılacaklar',
-      //                   labelStyle: TextStyle(
-      //                     color: Colors.black,
-      //                   ),
-      //                   hintText: 'Ne yapmak istediğinizi yazın...',
-      //                   hintStyle: TextStyle(
-      //                     color: Color(0xFFAFAFAC),
-      //                   ),
-      //                 ),
-      //               ),
-      //               TextField(
-      //                 controller: _descriptionController,
-      //                 decoration: const InputDecoration(
-      //                   fillColor: Color(0xffE8E8E7),
-      //                   border: OutlineInputBorder(),
-      //                   filled: true,
-      //                   labelText: 'Aciklama',
-      //                   labelStyle: TextStyle(
-      //                     color: Colors.black,
-      //                   ),
-      //                   hintText:
-      //                       'Yapmak istediginiz seyin aciklamasini yazin ...',
-      //                   hintStyle: TextStyle(
-      //                     color: Color(0xFFAFAFAC),
-      //                   ),
-      //                 ),
-      //               ),
-
-      //               //! aradigin yer burasi
-      //               //SelectDateTime(),
-
-      //               // changeColor(mHeight, mWidth),
-      //               //const TimeWidget(),
-      //               DatePickerItem(
-      //                 children: <Widget>[
-      //                   const Text('Time'),
-      //                   CupertinoButton(
-      //                     onPressed: () => _showDialog(
-      //                       CupertinoDatePicker(
-      //                         initialDateTime: currentTime,
-      //                         mode: CupertinoDatePickerMode.time,
-      //                         use24hFormat: true,
-      //                         onDateTimeChanged: (DateTime newTime) {
-      //                           //! secilen veri burada
-
-      //                           setState(() {
-      //                             time = newTime;
-      //                           });
-      //                           print(newTime);
-      //                         },
-      //                       ),
-      //                     ),
-      //                     child: Text(
-      //                       '${currentTime.hour}:${currentTime.minute}',
-      //                       style: const TextStyle(
-      //                         fontSize: 22.0,
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ],
-      //               ),
-      //               const Cupertio()
-      //             ]
-      //                 .map((widget) => Padding(
-      //                     padding: const EdgeInsets.all(10), child: widget))
-      //                 .toList(),
-      //           ),
-      //         ),
-      //         actions: [
-      //           TextButton(
-      //             child: const Text("Cancel"),
-      //             onPressed: () => Navigator.pop(context),
-      //           ),
-      //           TextButton(
-      //               child: const Text("Ok"),
-      //               onPressed: () async {
-      //                 //! fab yap
-      //                 String title = _titleController.text;
-      //                 String description = _descriptionController.text;
-      //                 DateTime selectedDate = _selectedDate;
-      //                 bool controlEvent = checkController;
-      //                 DateTime timeSelect = _timeSelect;
-
-      //                 EventProvider eventProvider =
-      //                     Provider.of<EventProvider>(context, listen: false);
-
-      //                 eventProvider.addEvent(title, description, selectedDate,
-      //                     controlEvent, timeSelect);
-
-      //                 _titleController.clear();
-      //                 _descriptionController.clear();
-
-      //                 Navigator.pop(context);
-      //               }),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      //   label: const Text("Add Event"),
-      //   icon: const Icon(Icons.add),
-      // ),
     );
   }
-
-  // Container changeColor(double mHeight, double mWidth) {
-  //   return Container(
-  //     decoration: BoxDecoration(
-  //       borderRadius: const BorderRadius.all(
-  //         Radius.circular(10),
-  //       ),
-  //       color: Colors.grey[300],
-  //     ),
-  //     // child: Column(
-  //     //   children: [
-  //     //     Row(
-  //     //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //     //       children: [
-  //     //         ColorButton(
-  //     //           color: Colors.red,
-  //     //           onPressed: (isSelected) {
-  //     //             setState(() {
-  //     //               isRedSelected = isSelected;
-  //     //             });
-  //     //           },
-  //     //         ),
-  //     //         ColorButton(
-  //     //           color: Colors.yellow,
-  //     //           onPressed: (isSelected) {
-  //     //             setState(() {
-  //     //               isRedSelected = isSelected;
-  //     //             });
-  //     //           },
-  //     //         ),
-  //     //       ],
-  //     //     ),
-  //     //     SizedBox(
-  //     //       height: mHeight * 0.01,
-  //     //     ),
-  //     //     Row(
-  //     //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //     //       children: [
-  //     //         ColorButton(
-  //     //           color: Colors.blue,
-  //     //           onPressed: (isSelected) {
-  //     //             setState(() {
-  //     //               isRedSelected = isSelected;
-  //     //             });
-  //     //           },
-  //     //         ),
-  //     //         ColorButton(
-  //     //           color: Colors.green,
-  //     //           onPressed: (isSelected) {
-  //     //             setState(() {
-  //     //               isRedSelected = isSelected;
-  //     //             });
-  //     //           },
-  //     //         ),
-  //     //       ],
-  //     //     ),
-  //     //   ],
-  //     // ),
-  //   );
-  // }
 }
 
 class Cupertio extends StatefulWidget {
@@ -687,7 +512,7 @@ class _TimeWidgetState extends State<TimeWidget> {
         CupertinoButton(
           onPressed: () => _showDialog(
             CupertinoDatePicker(
-              initialDateTime: time,
+              initialDateTime: _timeSelect,
               mode: CupertinoDatePickerMode.time,
               use24hFormat: true,
               onDateTimeChanged: (DateTime newTime) {

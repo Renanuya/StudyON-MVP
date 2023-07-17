@@ -147,6 +147,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         date: time,
                         eventController: true,
                         timeSelect: DateTime.now(),
+                        selectColor: Colors.red,
                       ),
                     );
                   } else {
@@ -157,6 +158,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         date: time,
                         eventController: true,
                         timeSelect: DateTime.now(),
+                        selectColor: Colors.red,
                       ),
                     ];
                   }

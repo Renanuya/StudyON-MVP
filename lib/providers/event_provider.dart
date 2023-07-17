@@ -10,6 +10,7 @@ class EventProvider extends ChangeNotifier {
     DateTime selectedDate,
     bool controlEvent,
     DateTime timeSelect,
+    Color selectColor,
   ) {
     if (title.isEmpty) {
       return;
@@ -21,6 +22,7 @@ class EventProvider extends ChangeNotifier {
           date: selectedDate,
           eventController: controlEvent,
           timeSelect: timeSelect,
+          selectColor: selectColor,
         ));
       } else {
         selectedEvents[selectedDate] = [
@@ -30,6 +32,7 @@ class EventProvider extends ChangeNotifier {
             date: selectedDate,
             eventController: controlEvent,
             timeSelect: timeSelect,
+            selectColor: selectColor,
           )
         ];
       }
