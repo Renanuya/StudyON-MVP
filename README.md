@@ -26,9 +26,9 @@ StudyOn, kullanıcıların çalışırken yalnız başlarına olduklarında yaş
 
 - Kronometre: Uygulama, kullanıcılara çalışma sürelerini ölçmek için bir kronometre sağlar. Öğrenciler, çalışma sürelerini başlatabilir, duraklatabilir ve sonlandırabilirler. Bu sayede, verimli çalışma alışkanlıklarını izlemek ve geliştirmek için bir araç sunar.
 
-- Sıralama: ThinkTank, kullanıcıların çalışma sürelerine dayalı olarak genel bir sıralamaya girmelerini sağlar. Kullanıcılar, kendi çalışma sürelerini ve ekledikleri arkadaşlarının çalışma sürelerini görerek motivasyonlarını artırabilir ve rekabetçi bir ortamda kendilerini geliştirebilirler.
+- Sıralama: StudyOn, kullanıcıların çalışma sürelerine dayalı olarak genel bir sıralamaya girmelerini sağlar. Kullanıcılar, kendi çalışma sürelerini ve ekledikleri arkadaşlarının çalışma sürelerini görerek motivasyonlarını artırabilir ve rekabetçi bir ortamda kendilerini geliştirebilirler.
 
-- Blog: Öğrencilerin sorularını sormak, tartışmalara katılmak ve bilgi paylaşımında bulunmak için bir platform sağlar. Kullanıcılar, farklı konularla ilgili sorularını diğer öğrencilere yöneltebilir ve deneyimlerini paylaşabilir. Bu şekilde, öğrencilerin birbirleriyle etkileşim kurmaları ve farklı bakış açılarını keşfetmeleri teşvik edilir.
+- Blog: Kullanıcı, blog kısmı ile verimli çalışma hakkında geniş bir içeriğe erişebilir. Bu içerikler, kullanıcılara bilgilendirici ve pratik ipuçları sunarak akılcı çalışmalarını desteklemeye yardımcı olur.
 
 
 ## Hedef Kitle
@@ -45,6 +45,7 @@ StudyOn, kullanıcıların çalışırken yalnız başlarına olduklarında yaş
 [Flutter Team 42 Trello Backlog Board 1.Sprint](https://trello.com/invite/b/2e69xpzn/ATTI0c01a3db55d637e2b473971f37c18f9f204616A5/f-42-team-1sprint)
 <br>
 [Flutter Team 42 Trello Backlog Board 2.Sprint](https://trello.com/b/qDCcWj0s/f-42-team-2sprint)
+[Flutter Team 42 Trello Backlog Board 3.Sprint](https://trello.com/invite/b/4bHrZoSx/ATTIdf9d830579be9b1f42a4c7fa07288287F958A4E7/f-42-team-3sprint)
 
 ---
 
