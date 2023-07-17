@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                   child: ElevatedButton(
                     onPressed: () {
                       NavigationService.instance.navigateToPage(
-                        path: NavigationConstants.notFound,
+                        path: NavigationConstants.timerPage,
                         //! timer sayfasına atacak ama hata vardı timer sayfasında o yüzden böyle tıklamayın.
                       );
                     },

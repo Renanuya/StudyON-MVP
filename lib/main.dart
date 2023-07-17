@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:thinktank/pages/calendar/time_model.dart';
+
+import 'package:thinktank/auth_page.dart';
+import 'package:thinktank/core/utils/navigation/navigation_route.dart';
+
 import 'package:thinktank/auth_page.dart';
 import 'package:thinktank/core/utils/navigation/navigation_route.dart';
 import 'package:thinktank/pages/homePage/viewmodel/home_page_viewmodel.dart';
+
 import 'package:thinktank/pages/login/viewmodel/view_model.dart';
 import 'package:thinktank/pages/rankPages/veiwmodel/rank_view_model.dart';
 import 'package:thinktank/pages/register/viewmodel/view_model.dart';
 import 'package:thinktank/pages/splashPages/splash_page_1.dart';
+import 'package:thinktank/providers/event_provider.dart';
 import 'package:thinktank/providers/theme.dart';
 import 'package:thinktank/theme/dark_theme.dart';
 import 'package:thinktank/theme/light_theme.dart';
@@ -32,8 +40,14 @@ void main() async {
         ChangeNotifierProvider(
             create: (context) => LoginPasswordVisibilityProvider()),
         ChangeNotifierProvider(create: (context) => UserLoginProvider()),
+        ChangeNotifierProvider(create: (context) => EventProvider()),
         ChangeNotifierProvider(create: (context) => TimerDataProiver()),
-        ChangeNotifierProvider(create: (context) => RankUserListDataProvider()),
+        ChangeNotifierProvider(
+            create: (context) => RankUserListDataProviderAllTime()),
+        ChangeNotifierProvider(
+            create: (context) => RankUserListDataProviderMonthly()),
+        ChangeNotifierProvider(
+            create: (context) => RankUserListDataProviderWeekly()),
       ],
       child: const MainApp(),
     ),
