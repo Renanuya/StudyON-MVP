@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:thinktank/pages/calendar/time_model.dart';
-
-import 'package:thinktank/auth_page.dart';
-import 'package:thinktank/core/utils/navigation/navigation_route.dart';
-
 import 'package:thinktank/auth_page.dart';
 import 'package:thinktank/core/utils/navigation/navigation_route.dart';
 import 'package:thinktank/pages/homePage/viewmodel/home_page_viewmodel.dart';
-
 import 'package:thinktank/pages/login/viewmodel/view_model.dart';
 import 'package:thinktank/pages/rankPages/veiwmodel/rank_view_model.dart';
 import 'package:thinktank/pages/register/viewmodel/view_model.dart';
-import 'package:thinktank/pages/splashPages/splash_page_1.dart';
+import 'package:thinktank/pages/timerpage/view_model/view_model_timer.dart';
 import 'package:thinktank/providers/event_provider.dart';
 import 'package:thinktank/providers/theme.dart';
 import 'package:thinktank/theme/dark_theme.dart';
@@ -48,6 +41,8 @@ void main() async {
             create: (context) => RankUserListDataProviderMonthly()),
         ChangeNotifierProvider(
             create: (context) => RankUserListDataProviderWeekly()),
+        ChangeNotifierProvider(
+            create: (context) => TimerPageBackgroundMusicProvider())
       ],
       child: const MainApp(),
     ),
