@@ -72,7 +72,7 @@ Backlog 1 ![trello_1 sprint_ss](https://github.com/Renanuya/F-42-bootcamp/assets
 - **Ürün Durumu**: Ekran görüntüleri:
   <br>
   
-[UI_1](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/e534c535-aca6-4b64-96c3-3ed05b5f1570)
+![1_sprint_UI](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/e534c535-aca6-4b64-96c3-3ed05b5f1570)
 
 
 - **Sprint Review**: 
