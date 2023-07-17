@@ -121,5 +121,35 @@ Alınan kararlar: Takvim, Sıralama, Anasayfa, Hedef Belirleme ve Zamanlayıcı 
 ---
 
 # Sprint 3
+- **Sprint Notları**: User Story'ler product backlog'ların içine yazılmıştır. Trello da kartı aç'lara tıklandığında hikayelerin detayları okunabilir.
 
+- **Sprint içinde tamamlanması tahmin edilen puan**: 120 Puan
+
+- **Puan tamamlama mantığı**: Toplamda proje boyunca tamamlanması gereken 340 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde üçüncü sprint'in 120 puan ile değerlendirilmesine karar verildi.
+
+- **Backlog düzeni ve Story seçimleri**: Backlog'umuz 2. Sprint sonrası yapılması gereken story'lere göre düzenlenmiştir.
+
+Story'ler yapılacak işlere (task'lere) bölünmüştür. Trello da gözüken mavi item'lar story'leri temsil etmektedir ve işler (task) görevler başlığı altında story'lerin hemen altında görevler başlığı ile tutulmuştur. 
+
+- **Daily Scrum**: Daily Scrum toplantılarının Discord üzerinden yapılmasına karar verilmiştir. Daily Scrum toplantısı örneği Notion linki olarak Readme'de tarafımızdan paylaşılmaktadır: [Sprint 1 Daily Scrum Chats](https://www.notion.so/F-42-Daily-Scrum-2d035ade81164ba7b94bd076f75c33db?pvs=4)
+
+- **Sprint board update**: Sprint board screenshotları: 
+
+  Backlog 2
+
+![3 sprint_backlog](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/1b40b94b-459e-4f95-bed8-cc238a6b1c93)
+
+- **Ürün Durumu**: Ekran görüntüleri:
+
+![3_sprint_UI](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/b40e753a-fc88-4d50-ae40-edf1fda8175d)
+
+
+
+- **Sprint Review**: 
+Alınan kararlar: Uygulamanın gelişime açık olduğu üzerine konuşuldu, bootcamp süreci sonrası yeni özellikler eklenmesi üzerine çalışmalara devam edilmesi kararı alındı. Süreç aksamalara uğrasada ürün çıkarma hedefimize ulaştık. Süreci elimizdeki imkanlar doğrultusunda iyi yürüttüğümüz fikrindeyiz.. : - Ali Renan Uyanık, Bahar Ulus, Kemal Erdem Yenin, Selin Arslan, Vural Kayra Çetintaş
+- **Sprint Retrospective:**
+  - Öğretici ve Sorumluluk bilinci aşılayan bir süreci, takım olarak sağlıklı iletişim kurup, olumsuzluklar karşısında yapıcı bir tavır takınarak sürdürdük. Süreci keyifli hale getiren takım arkadaşlarımı özverileri için tebrik ediyorum.
+    
+
+---
 ---
