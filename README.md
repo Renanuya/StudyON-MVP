@@ -51,7 +51,7 @@ StudyOn, kullanıcıların çalışırken yalnız başlarına olduklarında yaş
 
 ## Jüriye not:
 - Github da yaşanılan bazı olumsuz durumlar sonrası yeni repoya geçildi.
-- Uygulamanın ismi değiştirilmiştir
+- Uygulamanın ismi değiştirilmiştir. ThinkTank -> StudyOn
 
 ---
 
