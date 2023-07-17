@@ -60,7 +60,7 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
   bool checkController = false;
   late Color _selectColor;
 
-  final CalendarFormat _calendarFormat = CalendarFormat.month;
+  CalendarFormat _calendarFormat = CalendarFormat.month;
   final DateTime _firstDay = DateTime.utc(2020, 1, 1);
   DateTime _focusedDate = DateTime.now();
   final DateTime _lastDay = DateTime(DateTime.now().year + 5);
@@ -137,9 +137,11 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                 eventLoader: _getEventsfromDay,
                 calendarFormat: _calendarFormat,
                 onFormatChanged: (CalendarFormat format) {
-                  setState(() {
-                    format = format;
-                  });
+                  if (_calendarFormat != format) {
+                    setState(() {
+                      _calendarFormat = format;
+                    });
+                  }
                 },
                 daysOfWeekVisible: true,
 
@@ -266,8 +268,6 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                                     checkController;
                                                 DateTime timeSelect =
                                                     _timeSelect;
-                                                Color selectColor =
-                                                    _selectColor;
 
                                                 EventProvider eventProvider =
                                                     Provider.of<EventProvider>(
@@ -275,12 +275,12 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                                         listen: false);
 
                                                 eventProvider.addEvent(
-                                                    title,
-                                                    description,
-                                                    selectedDate,
-                                                    controlEvent,
-                                                    timeSelect,
-                                                    selectColor);
+                                                  title,
+                                                  description,
+                                                  selectedDate,
+                                                  controlEvent,
+                                                  timeSelect,
+                                                );
                                                 setState(() {
                                                   timeSelect = time;
                                                 });
@@ -351,10 +351,13 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                             content: SingleChildScrollView(
                                               child: ListBody(
                                                 children: [
-                                                  Text(event.title),
-                                                  Text(event.description),
-                                                  // Text(
-                                                  //     '${event.timeSelect.hour}:${event.timeSelect.minute}')
+                                                  Text(
+                                                      'Aciklama :\n${event.description}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleMedium),
+                                                  Text(
+                                                      'Etkinlink Saati :\n${event.timeSelect.hour}:${event.timeSelect.minute}')
                                                 ],
                                               ),
                                             ),

@@ -286,8 +286,8 @@ class LoginUserTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         filled: true,
-        labelText: 'Kullanıcı Adı veya E-Posta',
-        hintText: 'Kullanıcı Adı veya E-Posta Adresinizi Giriniz',
+        labelText: 'E-Posta',
+        hintText: 'E-Posta Adresinizi Giriniz',
         hintStyle: const TextStyle(fontSize: 11),
         prefixIcon: const Icon(Icons.mail_outline_rounded),
         suffixIcon: emailController.text.isEmpty

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:thinktank/pages/homePage/view/home_page.dart';
 import 'package:thinktank/pages/login/viewmodel/view_model.dart';
 import 'package:thinktank/pages/register/model/request_model.dart';
 import 'package:thinktank/services/auth.dart';
@@ -325,22 +327,26 @@ class LastNameTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: lastNameController,
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(),
-        filled: true,
-        // fillColor: Color.fromARGB(255, 238, 238, 238),
-        labelText: 'Soyisim',
-        labelStyle: TextStyle(
-          color: Colors.black,
+        controller: lastNameController,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          filled: true,
+          // fillColor: Color.fromARGB(255, 238, 238, 238),
+          labelText: 'Soyisim',
+          labelStyle: TextStyle(
+            color: Colors.black,
+          ),
+          hintText: 'Lütfen bir soyisim girin...',
+          hintStyle: TextStyle(
+            color: Color(0xFFAFAFAC),
+          ),
+          prefixIcon: Icon(Icons.person),
         ),
-        hintText: 'Lütfen bir soyisim girin...',
-        hintStyle: TextStyle(
-          color: Color(0xFFAFAFAC),
-        ),
-        prefixIcon: Icon(Icons.person),
-      ),
-    );
+        validator: FormBuilderValidators.compose([
+          FormBuilderValidators.required(errorText: 'Zorunlu Alan'),
+          FormBuilderValidators.minLength(6,
+              errorText: 'En az 6 karakter olmalıdır.'),
+        ]));
   }
 }
 
@@ -370,6 +376,11 @@ class EmailTextField extends StatelessWidget {
         ),
         prefixIcon: Icon(Icons.person),
       ),
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(errorText: 'Zorunlu Alan'),
+        FormBuilderValidators.minLength(6,
+            errorText: 'En az 6 karakter olmalıdır.'),
+      ]),
     );
   }
 }

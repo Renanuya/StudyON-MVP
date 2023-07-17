@@ -4,7 +4,6 @@ import 'package:thinktank/pages/blogPages/blog_home_page.dart';
 import 'package:thinktank/pages/blogPages/blog_topics/blog_topic_feynman.dart';
 import 'package:thinktank/pages/blogPages/blog_topics/blog_topic_pomodoro.dart';
 import 'package:thinktank/pages/blogPages/blog_topics/blog_topic_secondbrain.dart';
-import 'package:thinktank/pages/calendar/create_event_page.dart';
 
 import 'package:thinktank/pages/homePage/view/home_page.dart';
 import 'package:thinktank/pages/rankPages/view/rank_page.dart';
@@ -79,13 +78,6 @@ class NavigationRoute {
       case NavigationConstants.calendarPage:
         return normalNavigate(
             const CalendarMainPage(), NavigationConstants.calendarPage);
-      case NavigationConstants.createTaskPage:
-        return normalNavigate(
-            CreateEventPage(
-              selectedDate: DateTime.now(),
-              selectedEvents: {},
-            ),
-            NavigationConstants.createTaskPage);
 
       //Login & Register Pages
       case NavigationConstants.loginPage:
