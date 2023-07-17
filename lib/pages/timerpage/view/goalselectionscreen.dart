@@ -268,7 +268,11 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
             Builder(
               builder: (BuildContext context) {
                 return Text(
-                  selectedSound,
+                  context
+                      .watch<TimerPageBackgroundMusicProvider>()
+                      .getSelectedSound
+                      .keys
+                      .first,
                   style:
                       const TextStyle(fontSize: 16, color: Color(0xFF37352F)),
                 );

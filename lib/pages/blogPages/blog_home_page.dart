@@ -18,28 +18,36 @@ class _BlogHomePageState extends State<BlogHomePage> {
     double mWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 70,
+        title: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            text: 'Study',
+            style: GoogleFonts.pacifico(
+              fontSize: mHeight * 0.04,
+              color: const Color(0xFF37352f),
+            ),
+            children: const [
+              TextSpan(
+                text: 'On',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 101, 191, 107),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
             children: [
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Study',
-                  style: GoogleFonts.pacifico(
-                    fontSize: mHeight * 0.04,
-                    color: const Color(0xFF37352f),
-                  ),
-                  children: const [
-                    TextSpan(
-                      text: 'On',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 101, 191, 107),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              Theme.of(context).brightness == Brightness.dark
+                  ? Image.asset('assets/images/blogpage.png',
+                      height: mHeight * 0.4, width: mWidth * 0.9)
+                  : Image.asset('assets/images/blogpage.png',
+                      height: mHeight * 0.4, width: mWidth * 0.9),
               const SizedBox(height: 50),
               SizedBox(
                 width: 348,
@@ -60,7 +68,9 @@ class _BlogHomePageState extends State<BlogHomePage> {
                   child: const Text('Second Brain Çalışma Tekniği'),
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(
+                height: 30,
+              ),
               SizedBox(
                 width: 348,
                 height: 50,
@@ -74,13 +84,15 @@ class _BlogHomePageState extends State<BlogHomePage> {
                     ),
                   ),
                   onPressed: () {
-                    NavigationService.instance.navigateToPage(
-                        path: NavigationConstants.secondBrainPage);
+                    NavigationService.instance
+                        .navigateToPage(path: NavigationConstants.feynmanPage);
                   },
-                  child: const Text('Second Brain Çalışma Tekniği'),
+                  child: const Text('Feynman Çalışma Tekniği'),
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(
+                height: 30,
+              ),
               SizedBox(
                 width: 348,
                 height: 50,
@@ -94,10 +106,10 @@ class _BlogHomePageState extends State<BlogHomePage> {
                     ),
                   ),
                   onPressed: () {
-                    NavigationService.instance.navigateToPage(
-                        path: NavigationConstants.secondBrainPage);
+                    NavigationService.instance
+                        .navigateToPage(path: NavigationConstants.pomodoroPage);
                   },
-                  child: const Text('Second Brain Çalışma Tekniği'),
+                  child: const Text('Pomodoro Çalışma Tekniği'),
                 ),
               ),
             ],

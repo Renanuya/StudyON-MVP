@@ -4,19 +4,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:thinktank/core/constants/navigation/navigation_constants.dart';
 import 'package:thinktank/core/utils/navigation/navigation_service.dart';
-import 'package:thinktank/pages/homePage/view/home_page.dart';
-import 'package:thinktank/pages/timerpage/view/goalselectionscreen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:thinktank/services/firestore_user_creation.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
-class MainStopwatchScreen extends StatefulWidget {
-  late final String goal;
-  late final int workingTime;
-  late final int breakTime;
-  late final String backgroundMusic;
+import 'goalselectionscreen.dart';
 
-  MainStopwatchScreen({
+class MainStopwatchScreen extends StatefulWidget {
+  final String goal;
+  final int workingTime;
+  final int breakTime;
+  final String backgroundMusic;
+
+  const MainStopwatchScreen({
     Key? key,
     required this.goal,
     required this.workingTime,
@@ -32,7 +31,7 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
   final user = FirebaseAuth.instance.currentUser;
   bool isMuted = false;
   bool isBreakTimer = false;
-
+  bool result = false;
   int currentWorkingTime = 0;
   int currentBreakTime = 0;
   bool isFirstStart = true;
@@ -43,8 +42,8 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
       FirestoreUserCreationService();
   AudioPlayer audioPlayer = AudioPlayer();
 
-  CountDownController? workingTimerController;
-  CountDownController? breakTimerController;
+  late CountDownController workingTimerController;
+  late CountDownController breakTimerController;
 
   @override
   void initState() {
@@ -55,42 +54,41 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
     breakTimerController = CountDownController();
 
     if (currentWorkingTime > 0) {
-      workingTimerController?.start();
+      workingTimerController.start();
     }
 
     if (currentBreakTime > 0) {
-      breakTimerController?.start();
+      breakTimerController.start();
     }
   }
 
   @override
   void dispose() {
+    audioPlayer.pause();
     super.dispose();
-    audioPlayer.dispose();
-    audioPlayer.stop();
   }
 
   void stopTimer({bool isBreakTimer = false}) {
     if (isBreakTimer) {
-      breakTimerController?.pause();
+      breakTimerController.pause();
     } else {
-      workingTimerController?.pause();
+      workingTimerController.pause();
     }
   }
 
   void resetTimer() {
-    workingTimerController?.reset();
-    breakTimerController?.reset();
+    workingTimerController.restart();
+    breakTimerController.restart();
     setState(() {});
   }
 
   void startWorkingTimer({bool isFirstStart = true}) {
     if (isFirstStart) {
-      workingTimerController?.start();
+      workingTimerController.start();
       backgroundSoundController(true);
       setState(() {});
     } else {
-      workingTimerController?.resume();
+      workingTimerController.resume();
       backgroundSoundController(true);
       setState(() {});
     }
@@ -98,17 +96,17 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
 
   void startBreakTimer({bool isFirstBreak = true}) {
     if (isFirstBreak) {
-      breakTimerController?.start();
+      breakTimerController.start();
       backgroundSoundController(false);
       setState(() {});
     } else {
-      breakTimerController?.resume();
+      breakTimerController.resume();
       backgroundSoundController(false);
       setState(() {});
     }
   }
 
-  Future<bool> showProceedConfirmationDialog(BuildContext context) async {
+  Future<bool?> showProceedConfirmationDialog(BuildContext context) async {
     // Pause the timers based on the current state
     if (isWorking) {
       stopTimer(isBreakTimer: false);
@@ -116,30 +114,39 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
       stopTimer(isBreakTimer: true);
     }
 
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Reset Confirmation'),
-          content:
-              const Text('Are you sure you want to proceed with the reset?'),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context, true); // Proceed with the reset
-              },
-              child: const Text('Proceed'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context, false); // Cancel the reset
-              },
-              child: const Text('Cancel'),
-            ),
-          ],
-        );
-      },
-    );
+    if (result == false) {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Reset Confirmation'),
+            content:
+                const Text('Are you sure you want to proceed with the reset?'),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  setState(() {
+                    result = true;
+                  });
+                  // Proceed with the reset
+                },
+                child: const Text('Proceed'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    result = false;
+                  });
+                  Navigator.pop(context); // Cancel the reset
+                },
+                child: const Text('Cancel'),
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     if (result == true) {
       // User confirmed reset
@@ -154,7 +161,8 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
     }
 
     // Return the result indicating whether to proceed with the reset
-    return result ?? false;
+
+    return result;
   }
 
   void showBreakTimeOverDialog() {
@@ -179,7 +187,8 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
   }
 
   void _performReset() {
-    resetTimer();
+    workingTimerController.reset();
+    breakTimerController.reset();
     setState(() {
       isFirstStart = true;
       isFirstBreak = true;
@@ -279,7 +288,7 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                           ? currentWorkingTime
                           : currentBreakTime,
                       "Çalışma",
-                      workingTimerController!,
+                      workingTimerController,
                       isBreakTimer: false,
                     ),
                   ),
@@ -290,7 +299,7 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                           ? currentBreakTime
                           : currentWorkingTime,
                       "Ara",
-                      breakTimerController!,
+                      breakTimerController,
                       isBreakTimer: true,
                     ),
                   ),
@@ -363,7 +372,7 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
+                          shape: const CircleBorder(),
                           padding: const EdgeInsets.all(16.0),
                           backgroundColor: Colors.transparent,
                           shadowColor: Colors.transparent,
@@ -484,10 +493,9 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           final remainingTime =
-                              workingTimerController?.getTime().toString();
+                              workingTimerController.getTime().toString();
                           final timeString =
-                              remainingTime?.replaceAll(RegExp(r":"), "") ??
-                                  '0';
+                              remainingTime.replaceAll(RegExp(r":"), "");
                           final elapsedMinutes =
                               widget.workingTime - int.parse(timeString);
                           if (FirebaseAuth.instance.currentUser != null) {
@@ -558,8 +566,10 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
           actions: [
             ElevatedButton(
               onPressed: () {
-                _firestoreService.saveWorkingTime(
-                    user!.uid, widget.workingTime);
+                if (user != null) {
+                  _firestoreService.saveWorkingTime(
+                      user!.uid, widget.workingTime);
+                }
                 Navigator.pop(context);
               },
               child: const Text('Close'),
