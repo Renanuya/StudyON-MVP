@@ -69,176 +69,142 @@ class _RankPageState extends State<RankPage>
                 Center(
                   child: Stack(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: mHeight * 0.0510185185),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: mWidth * 0.805555556,
-                              height: mHeight * 0.2462963,
-                              decoration: ShapeDecoration(
-                                color: const Color(0xFFE7E7E6),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    right: mWidth * 0.0462962962962963,
-                                    left: mWidth * 0.0462962962962963,
-                                    top: mHeight * 0.0462962962962963,
-                                    bottom: mHeight * 0.0231481481481481),
-                                child: InkWell(
-                                  onTap: () {
-                                    if (user == null) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const LoginPage(),
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        user?.displayName ??
-                                            'Önce hesap açmalısınız',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: mWidth * 0.0555555555555556,
-                                          //  fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: mHeight * 0.01,
-                                      ),
-                                      Container(
-                                        width: mWidth * 0.6481481481481481,
-                                        height: mHeight * 0.1157407407407407,
-                                        decoration: ShapeDecoration(
-                                          color: const Color(0xFFC9C7C7),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(Icons.star_border_outlined,
-                                                    size: mWidth *
-                                                        0.0694444444444444),
-                                                Text(
-                                                  'Puan',
-                                                  style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
-                                                    fontSize: mWidth *
-                                                        0.037037037037037,
-                                                    fontFamily: 'Nunito',
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  '${context.watch<TimerDataProiver>().getModel.allTime ?? '0'}',
-                                                  style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
-                                                    fontSize: mWidth *
-                                                        0.037037037037037,
-                                                    fontFamily: 'Nunito',
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            //! Bunları responsive yapmama gerek var mı bilemedim.
-                                            const VerticalDivider(
-                                              color: Color(0xFFffffff),
-                                              thickness: 2,
-                                              indent: 20,
-                                              endIndent: 20,
-                                              width: 0,
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(Icons.public_outlined,
-                                                    size: mWidth *
-                                                        0.0694444444444444),
-                                                Text(
-                                                  'Siralama',
-                                                  style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
-                                                    fontSize: mWidth *
-                                                        0.037037037037037,
-                                                    fontFamily: 'Nunito',
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  //burası
-                                                  '${userProviderAllTime.getUserRank}',
-                                                  style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
-                                                    fontSize: mWidth *
-                                                        0.037037037037037,
-                                                    fontFamily: 'Nunito',
-                                                    fontWeight: FontWeight.w700,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            width: 75,
-                            height: 75,
+                            width: mWidth * 0.805555556,
+                            height: mHeight * 0.2262963,
                             decoration: ShapeDecoration(
-                              image: const DecorationImage(
-                                image: NetworkImage(
-                                    "https://via.placeholder.com/100x100"),
-                                fit: BoxFit.fill,
+                              color: const Color(0xFFE7E7E6),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
                               ),
-                              shape: OvalBorder(
-                                side: BorderSide(
-                                    width: mWidth * 0.0011574074074074,
-                                    color: const Color(0xFF37352F)),
-                              ),
-                              shadows: const [
-                                BoxShadow(
-                                  //  color: Color(0x3F000000),
-                                  blurRadius: 4,
-                                  offset: Offset(0, 4),
-                                  spreadRadius: 0,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  right: mWidth * 0.0462962962962963,
+                                  left: mWidth * 0.0462962962962963,
+                                  top: mHeight * 0.0262962962962963,
+                                  bottom: mHeight * 0.0231481481481481),
+                              child: InkWell(
+                                onTap: () {
+                                  if (user == null) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const LoginPage(),
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      user?.displayName ??
+                                          'Önce hesap açmalısınız',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: mWidth * 0.0555555555555556,
+                                        //  fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: mHeight * 0.01,
+                                    ),
+                                    Container(
+                                      width: mWidth * 0.6481481481481481,
+                                      height: mHeight * 0.1157407407407407,
+                                      decoration: ShapeDecoration(
+                                        color: const Color(0xFFC9C7C7),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.star_border_outlined,
+                                                  size: mWidth *
+                                                      0.0694444444444444),
+                                              Text(
+                                                'Puan',
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFF37352F),
+                                                  fontSize: mWidth *
+                                                      0.037037037037037,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              Text(
+                                                '${context.watch<TimerDataProiver>().getModel.allTime ?? '0'}',
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFF37352F),
+                                                  fontSize: mWidth *
+                                                      0.037037037037037,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          //! Bunları responsive yapmama gerek var mı bilemedim.
+                                          const VerticalDivider(
+                                            color: Color(0xFFffffff),
+                                            thickness: 2,
+                                            indent: 20,
+                                            endIndent: 20,
+                                            width: 0,
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.public_outlined,
+                                                  size: mWidth *
+                                                      0.0694444444444444),
+                                              Text(
+                                                'Siralama',
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFF37352F),
+                                                  fontSize: mWidth *
+                                                      0.037037037037037,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              Text(
+                                                //burası
+                                                '${userProviderAllTime.getUserRank}',
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFF37352F),
+                                                  fontSize: mWidth *
+                                                      0.037037037037037,
+                                                  fontFamily: 'Nunito',
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
                         ],
@@ -339,7 +305,7 @@ class _RankPageState extends State<RankPage>
                                           Container(
                                             width: mWidth * 0.2685185185185185,
                                             height:
-                                                mHeight * 0.1793981481481481,
+                                                mHeight * 0.1793981581481481,
                                             decoration: const ShapeDecoration(
                                               color: Color(0xFFFF8474),
                                               shape: RoundedRectangleBorder(
@@ -457,7 +423,7 @@ class _RankPageState extends State<RankPage>
                                           Container(
                                             width: mWidth * 0.2685185185185185,
                                             height:
-                                                mHeight * 0.2314814814814815,
+                                                mHeight * 0.2335814814814815,
                                             decoration: const ShapeDecoration(
                                               color: Color(0xFF139487),
                                               shape: RoundedRectangleBorder(
@@ -556,7 +522,7 @@ class _RankPageState extends State<RankPage>
                                           Container(
                                             width: mWidth * 0.2685185185185185,
                                             height:
-                                                mHeight * 0.1273148148148148,
+                                                mHeight * 0.1294148148148148,
                                             decoration: const ShapeDecoration(
                                               color: Color(0xFFFFE162),
                                               shape: RoundedRectangleBorder(
@@ -587,8 +553,8 @@ class _RankPageState extends State<RankPage>
                             ],
                           ),
                           Container(
-                            width: mWidth,
-                            height: mHeight * 0.15,
+                            width: mWidth * 0.9,
+                            height: mHeight * 0.16709,
                             decoration: BoxDecoration(
                               color: const Color(0xFFE7E7E6),
                               borderRadius: BorderRadius.circular(15.0),
@@ -776,7 +742,7 @@ class _RankPageState extends State<RankPage>
                                               width:
                                                   mWidth * 0.2685185185185185,
                                               height:
-                                                  mHeight * 0.1793981481481481,
+                                                  mHeight * 0.1793981581481481,
                                               decoration: const ShapeDecoration(
                                                 color: Color(0xFFFF8474),
                                                 shape: RoundedRectangleBorder(
@@ -901,7 +867,7 @@ class _RankPageState extends State<RankPage>
                                               width:
                                                   mWidth * 0.2685185185185185,
                                               height:
-                                                  mHeight * 0.2314814814814815,
+                                                  mHeight * 0.2335814814814815,
                                               decoration: const ShapeDecoration(
                                                 color: Color(0xFF139487),
                                                 shape: RoundedRectangleBorder(
@@ -1006,7 +972,7 @@ class _RankPageState extends State<RankPage>
                                               width:
                                                   mWidth * 0.2685185185185185,
                                               height:
-                                                  mHeight * 0.1273148148148148,
+                                                  mHeight * 0.1294148148148148,
                                               decoration: const ShapeDecoration(
                                                 color: Color(0xFFFFE162),
                                                 shape: RoundedRectangleBorder(
@@ -1040,8 +1006,8 @@ class _RankPageState extends State<RankPage>
                               ],
                             ),
                             Container(
-                              width: mWidth,
-                              height: mHeight * 0.15,
+                              width: mWidth * 0.9,
+                              height: mHeight * 0.16709,
                               decoration: BoxDecoration(
                                 color: const Color(0xFFE7E7E6),
                                 borderRadius: BorderRadius.circular(15.0),
@@ -1234,7 +1200,7 @@ class _RankPageState extends State<RankPage>
                                               width:
                                                   mWidth * 0.2685185185185185,
                                               height:
-                                                  mHeight * 0.1793981481481481,
+                                                  mHeight * 0.1793981581481481,
                                               decoration: const ShapeDecoration(
                                                 color: Color(0xFFFF8474),
                                                 shape: RoundedRectangleBorder(
@@ -1359,7 +1325,7 @@ class _RankPageState extends State<RankPage>
                                               width:
                                                   mWidth * 0.2685185185185185,
                                               height:
-                                                  mHeight * 0.2314814814814815,
+                                                  mHeight * 0.2335814814814815,
                                               decoration: const ShapeDecoration(
                                                 color: Color(0xFF139487),
                                                 shape: RoundedRectangleBorder(
@@ -1464,7 +1430,7 @@ class _RankPageState extends State<RankPage>
                                               width:
                                                   mWidth * 0.2685185185185185,
                                               height:
-                                                  mHeight * 0.1273148148148148,
+                                                  mHeight * 0.1294148148148148,
                                               decoration: const ShapeDecoration(
                                                 color: Color(0xFFFFE162),
                                                 shape: RoundedRectangleBorder(
@@ -1498,8 +1464,8 @@ class _RankPageState extends State<RankPage>
                               ],
                             ),
                             Container(
-                              width: mWidth,
-                              height: mHeight * 0.15,
+                              width: mWidth * 0.9,
+                              height: mHeight * 0.16709,
                               decoration: BoxDecoration(
                                 color: const Color(0xFFE7E7E6),
                                 borderRadius: BorderRadius.circular(15.0),
