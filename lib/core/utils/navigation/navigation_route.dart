@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:thinktank/auth.dart';
 import 'package:thinktank/pages/blogPages/blog_home_page.dart';
+import 'package:thinktank/pages/blogPages/blog_topics/blog_topic_feynman.dart';
+import 'package:thinktank/pages/blogPages/blog_topics/blog_topic_pomodoro.dart';
 import 'package:thinktank/pages/blogPages/blog_topics/blog_topic_secondbrain.dart';
 import 'package:thinktank/pages/calendar/create_event_page.dart';
 
@@ -35,6 +37,12 @@ class NavigationRoute {
       case NavigationConstants.secondBrainPage:
         return normalNavigate(
             const SecondBrainPage(), NavigationConstants.secondBrainPage);
+      case NavigationConstants.feynmanPage:
+        return normalNavigate(
+            const FeynmanPage(), NavigationConstants.feynmanPage);
+      case NavigationConstants.pomodoroPage:
+        return normalNavigate(
+            const PomodoroPage(), NavigationConstants.pomodoroPage);
 
       //profile Page
       case NavigationConstants.profilePage:
