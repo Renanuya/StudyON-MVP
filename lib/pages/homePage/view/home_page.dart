@@ -55,18 +55,24 @@ class _HomePageState extends State<HomePage> {
           Center(
             child: SizedBox(
               width: 348,
-              child: Row(
-                children: [
-                  Text(
-                    user != null ? '$greeting, ${user.displayName}' : greeting,
-                    style: const TextStyle(
-                      color: Color(0xFF37352F),
-                      fontSize: 26,
-                      fontFamily: 'Nunito',
-                      fontWeight: FontWeight.w700,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Text(
+                      user != null
+                          ? '$greeting, ${user.displayName}'
+                          : greeting,
+                      style: const TextStyle(
+                        color: Color(0xFF37352F),
+                        fontSize: 26,
+                        fontFamily: 'Nunito',
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                ],
+                    // Diğer yatayda yer almasını istediğiniz widget'ları buraya ekleyebilirsiniz.
+                  ],
+                ),
               ),
             ),
           ),
@@ -215,175 +221,148 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      right: 50,
-                      top: 40,
+          Expanded(
+            child: GridView.count(
+              primary: false,
+              padding: const EdgeInsets.all(20),
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              crossAxisCount: 2,
+              children: <Widget>[
+                Container(
+                  width: 150,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color(0xFFE5E5E5),
+                    border: Border.all(
+                      color: const Color(0xFFA5A5A3),
                     ),
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xFFE5E5E5),
-                        border: Border.all(
-                          color: const Color(0xFFA5A5A3),
-                        ),
-                      ),
-                      child: TextButton.icon(
-                        icon: const Icon(
-                          Icons.calendar_month,
-                          size: 40,
-                        ),
-                        label: const Text(
-                          'Takvim',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        onPressed: () async {
-                          if (FirebaseAuth.instance.currentUser != null) {
-                            NavigationService.instance.navigateToPage(
-                                path: NavigationConstants.calendarPage);
-                          } else {
-                            await showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text('Önce hesap açmalısınız'),
-                                    content: const SingleChildScrollView(
-                                      child: ListBody(
-                                        children: <Widget>[
-                                          Text(
-                                              'Bu özelliği kullanabilmeniz için önce hesap açmalısınız.'),
-                                        ],
-                                      ),
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text('Devam et')),
-                                      TextButton(
-                                        child: const Text('Hesap aç'),
-                                        onPressed: () {
-                                          NavigationService.instance
-                                              .navigateToPageRemoveAll(
-                                                  path: NavigationConstants
-                                                      .loginPage);
-                                        },
-                                      ),
+                  ),
+                  child: TextButton.icon(
+                    icon: const Icon(
+                      Icons.calendar_month,
+                      size: 40,
+                    ),
+                    label: const Text(
+                      'Takvim',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    onPressed: () async {
+                      if (FirebaseAuth.instance.currentUser != null) {
+                        NavigationService.instance.navigateToPage(
+                            path: NavigationConstants.calendarPage);
+                      } else {
+                        await showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Önce hesap açmalısınız'),
+                                content: const SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      Text(
+                                          'Bu özelliği kullanabilmeniz için önce hesap açmalısınız.'),
                                     ],
-                                  );
-                                });
-                          }
-                        },
-                      ),
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Devam et')),
+                                  TextButton(
+                                    child: const Text('Hesap aç'),
+                                    onPressed: () {
+                                      NavigationService.instance
+                                          .navigateToPageRemoveAll(
+                                              path: NavigationConstants
+                                                  .loginPage);
+                                    },
+                                  ),
+                                ],
+                              );
+                            });
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  width: 150,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color(0xFFE5E5E5),
+                    border: Border.all(
+                      color: const Color(0xFFA5A5A3),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 40,
+                  child: TextButton.icon(
+                    icon: const Icon(
+                      Icons.leaderboard,
+                      size: 40,
                     ),
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xFFE5E5E5),
-                        border: Border.all(
-                          color: const Color(0xFFA5A5A3),
-                        ),
-                      ),
-                      child: TextButton.icon(
-                        icon: const Icon(
-                          Icons.leaderboard,
-                          size: 40,
-                        ),
-                        label: const Text(
-                          'Sıralama',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        onPressed: () {
-                          NavigationService.instance.navigateToPage(
-                              path: NavigationConstants.rankingPage);
-                        },
-                      ),
+                    label: const Text(
+                      'Sıralama',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    onPressed: () {
+                      NavigationService.instance.navigateToPage(
+                          path: NavigationConstants.rankingPage);
+                    },
+                  ),
+                ),
+                Container(
+                  width: 150,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color(0xFFE5E5E5),
+                    border: Border.all(
+                      color: const Color(0xFFA5A5A3),
                     ),
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      right: 50,
-                      top: 40,
+                  child: TextButton.icon(
+                    icon: const Icon(
+                      Icons.menu_book,
+                      size: 40,
                     ),
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xFFE5E5E5),
-                        border: Border.all(
-                          color: const Color(0xFFA5A5A3),
-                        ),
-                      ),
-                      child: TextButton.icon(
-                        icon: const Icon(
-                          Icons.menu_book,
-                          size: 40,
-                        ),
-                        label: const Text(
-                          'Blog',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        onPressed: () {
-                          NavigationService.instance.navigateToPage(
-                              path: NavigationConstants.blogPage);
-                        },
-                      ),
+                    label: const Text(
+                      'Blog',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    onPressed: () {
+                      NavigationService.instance
+                          .navigateToPage(path: NavigationConstants.blogPage);
+                    },
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color(0xFFE5E5E5),
+                    border: Border.all(
+                      color: const Color(0xFFA5A5A3),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 40,
+                  child: TextButton.icon(
+                    icon: const Icon(
+                      Icons.person,
+                      size: 40,
                     ),
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xFFE5E5E5),
-                        border: Border.all(
-                          color: const Color(0xFFA5A5A3),
-                        ),
-                      ),
-                      child: TextButton.icon(
-                        icon: const Icon(
-                          Icons.person,
-                          size: 40,
-                        ),
-                        label: const Text(
-                          'profil',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        onPressed: () {
-                          NavigationService.instance.navigateToPage(
-                              path: NavigationConstants.profilePage);
-                        },
-                      ),
+                    label: const Text(
+                      'profil',
+                      style: TextStyle(fontSize: 16),
                     ),
+                    onPressed: () {
+                      NavigationService.instance.navigateToPage(
+                          path: NavigationConstants.profilePage);
+                    },
                   ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
           ElevatedButton(
               onPressed: () {

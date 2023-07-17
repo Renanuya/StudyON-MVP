@@ -685,7 +685,7 @@ class _RankPageState extends State<RankPage>
                                 },
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
 
@@ -1600,7 +1600,7 @@ class _RankPageState extends State<RankPage>
                                   },
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
