@@ -61,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> with RegisterPageMixin {
                   text: 'Study',
                   style: GoogleFonts.pacifico(
                     fontSize: mHeight * 0.04,
-                    color: const Color(0xFF37352f),
+                    // color: const Color(0xFF37352f),
                   ),
                   children: const [
                     TextSpan(
@@ -98,8 +98,8 @@ class _RegisterPageState extends State<RegisterPage> with RegisterPageMixin {
                             //  fillColor: Color.fromARGB(255, 238, 238, 238),
                             labelText: 'E-Posta',
                             labelStyle: TextStyle(
-                              color: Colors.black,
-                            ),
+                                //    color: Colors.black,
+                                ),
                             hintText: 'Lütfen e-postanızı girin...',
                             hintStyle: TextStyle(
                               color: Color(0xFFAFAFAC),
@@ -124,8 +124,8 @@ class _RegisterPageState extends State<RegisterPage> with RegisterPageMixin {
                             // fillColor: const Color.fromARGB(255, 238, 238, 238),
                             labelText: 'Şifre',
                             labelStyle: const TextStyle(
-                              color: Colors.black,
-                            ),
+                                //  color: Colors.black,
+                                ),
                             hintText: 'Lütfen bir şifre girin...',
                             hintStyle: const TextStyle(
                                 //  color: Color(0xFFAFAFAC),
@@ -169,8 +169,8 @@ class _RegisterPageState extends State<RegisterPage> with RegisterPageMixin {
                             //fillColor: const Color.fromARGB(255, 238, 238, 238),
                             labelText: 'Şifreyi Onayla',
                             labelStyle: const TextStyle(
-                              color: Colors.black,
-                            ),
+                                //   color: Colors.black,
+                                ),
                             hintText: 'Lütfen şifrenizi onaylayın...',
                             hintStyle: const TextStyle(
                               color: Color(0xFFAFAFAC),
@@ -343,8 +343,8 @@ class LastNameTextField extends StatelessWidget {
           // fillColor: Color.fromARGB(255, 238, 238, 238),
           labelText: 'Soyisim',
           labelStyle: TextStyle(
-            color: Colors.black,
-          ),
+              // color: Colors.black,
+              ),
           hintText: 'Lütfen bir soyisim girin...',
           hintStyle: TextStyle(
             color: Color(0xFFAFAFAC),
@@ -376,8 +376,8 @@ class EmailTextField extends StatelessWidget {
         //fillColor: Color.fromARGB(255, 238, 238, 238),
         labelText: 'İsim',
         labelStyle: TextStyle(
-          color: Colors.black,
-        ),
+            //  color: Colors.black,
+            ),
         hintText: 'Lütfen bir isim girin...',
         hintStyle: TextStyle(
           color: Color(0xFFAFAFAC),

@@ -16,9 +16,9 @@ ThemeData darkTheme = ThemeData(
     //Scaffold Background
     onBackground: Color(0xff191919),
     //Scaffold Color and Cards
-    surface: Color.fromARGB(255, 66, 66, 66),
-    onSurface: Color.fromARGB(255, 113, 112, 112),
-    //
+    surface: Color.fromARGB(255, 28, 28, 28),
+    onSurface: Color.fromARGB(255, 170, 170, 170),
+
     tertiary: Color(0xff37352F),
     onTertiary: Color(0xff37352F),
   ),
@@ -40,19 +40,28 @@ ThemeData darkTheme = ThemeData(
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
       borderSide: const BorderSide(
-        color: Color(0xff717070),
+        color: Color.fromARGB(255, 178, 178, 178),
       ),
     ),
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       textStyle: const TextStyle(fontWeight: FontWeight.bold),
-      backgroundColor: const Color.fromARGB(255, 66, 66, 66),
+      backgroundColor: const Color.fromARGB(255, 39, 39, 39),
       surfaceTintColor: Colors.transparent,
       foregroundColor: const Color(0xffD3D3D3),
       side: const BorderSide(
-        color: Color.fromARGB(255, 113, 112, 112),
+        color: Color.fromARGB(255, 84, 84, 84),
         width: 1.5,
+      ),
+    ),
+  ),
+  cardTheme: const CardTheme(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      side: BorderSide(
+        color: Color.fromARGB(255, 84, 84, 84),
+        width: 1.0,
       ),
     ),
   ),
@@ -70,7 +79,8 @@ ThemeData darkTheme = ThemeData(
     surfaceTintColor: Colors.transparent,
   ),
   textTheme: const TextTheme(
-      bodyMedium: TextStyle(
-    color: Color(0xffD3D3D3),
-  )),
+    bodyMedium: TextStyle(
+      color: Color(0xffD3D3D3),
+    ),
+  ),
 );
