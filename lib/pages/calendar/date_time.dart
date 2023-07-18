@@ -11,7 +11,7 @@ class SelectDateTime extends StatelessWidget {
 
     return DatePickerItem(
       children: <Widget>[
-        const Text('Time'),
+        const Text('Zaman'),
         CupertinoButton(
           onPressed: () => _showDialog(context, timeModel),
           child: Text(
@@ -30,7 +30,7 @@ class SelectDateTime extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Select Time'),
+          title: Text('Zaman seç'),
           content: CupertinoDatePicker(
             initialDateTime: timeModel.time,
             mode: CupertinoDatePickerMode.time,

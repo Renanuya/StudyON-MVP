@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thinktank/auth_page.dart';
 import 'package:thinktank/core/utils/navigation/navigation_route.dart';
+import 'package:thinktank/pages/firtsSplash.dart';
 import 'package:thinktank/pages/homePage/viewmodel/home_page_viewmodel.dart';
 import 'package:thinktank/pages/login/view/login_page.dart';
 import 'package:thinktank/pages/login/viewmodel/view_model.dart';
@@ -83,7 +84,7 @@ class _MainAppState extends State<MainApp> {
       debugShowCheckedModeBanner: false,
       theme: themeChange.currentTheme ?? lightTheme,
       darkTheme: themeChange.currentTheme ?? darkTheme,
-      home: sawed ? const AuthPage() : const SplashPageOne(),
+      home: sawed ? const FirstSplashPage() : const SplashPageOne(),
     );
   }
 }

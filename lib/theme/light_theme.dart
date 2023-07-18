@@ -28,6 +28,12 @@ ThemeData lightTheme = ThemeData(
       backgroundColor: const Color(0xffF7F7F5),
       surfaceTintColor: Colors.transparent,
       foregroundColor: const Color(0xff37352F),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        side: const BorderSide(
+          color: Color.fromARGB(255, 84, 84, 84),
+        ),
+      ),
     ),
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
