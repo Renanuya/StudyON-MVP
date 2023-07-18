@@ -148,7 +148,8 @@ Story'ler yapılacak işlere (task'lere) bölünmüştür. Trello da gözüken m
 
 - **Ürün Durumu**: Ekran görüntüleri:
 
-![3_sprint_UI](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/b40e753a-fc88-4d50-ae40-edf1fda8175d)
+![image](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/0bd5f827-4a2c-47f1-8bdd-468145a5768b)
+
 
 
 
