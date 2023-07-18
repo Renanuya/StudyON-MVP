@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thinktank/auth_page.dart';
 import 'package:thinktank/core/utils/navigation/navigation_route.dart';
-import 'package:thinktank/pages/firtsSplash.dart';
 import 'package:thinktank/pages/homePage/viewmodel/home_page_viewmodel.dart';
+import 'package:thinktank/pages/login/view/login_page.dart';
 import 'package:thinktank/pages/login/viewmodel/view_model.dart';
 import 'package:thinktank/pages/rankPages/veiwmodel/rank_view_model.dart';
 import 'package:thinktank/pages/register/viewmodel/view_model.dart';
+import 'package:thinktank/pages/splashPages/splash_page_1.dart';
 import 'package:thinktank/pages/timerpage/view_model/view_model_timer.dart';
 import 'package:thinktank/providers/event_provider.dart';
 import 'package:thinktank/providers/theme.dart';
@@ -50,8 +52,26 @@ void main() async {
   );
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  bool sawed = false;
+  Future<void> sharedPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    sawed = prefs.getBool('saw') ?? false;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    sharedPreferences();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +83,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: themeChange.currentTheme ?? lightTheme,
       darkTheme: themeChange.currentTheme ?? darkTheme,
-      home: const FirstSplashPage(),
+      home: sawed ? const AuthPage() : const SplashPageOne(),
     );
   }
 }
