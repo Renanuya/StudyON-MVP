@@ -24,7 +24,9 @@ class _ColorSelectorState extends State<ColorSelector> {
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
-        color: Colors.grey[300],
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color.fromARGB(255, 33, 33, 33)
+            : const Color(0xFFE7E7E6),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

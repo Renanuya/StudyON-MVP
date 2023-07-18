@@ -25,13 +25,13 @@ ThemeData darkTheme = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontWeight: FontWeight.bold),
-      backgroundColor: const Color.fromARGB(255, 69, 69, 69),
+      backgroundColor: const Color.fromARGB(255, 39, 39, 39),
       surfaceTintColor: Colors.transparent,
       foregroundColor: const Color(0xffD3D3D3),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
         side: const BorderSide(
-          color: Color(0xff717070),
+          color: Color.fromARGB(255, 84, 84, 84),
         ),
       ),
     ),
@@ -40,7 +40,7 @@ ThemeData darkTheme = ThemeData(
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
       borderSide: const BorderSide(
-        color: Color.fromARGB(255, 178, 178, 178),
+        color: Color.fromARGB(255, 14, 14, 14),
       ),
     ),
   ),

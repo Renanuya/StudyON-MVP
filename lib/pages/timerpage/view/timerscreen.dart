@@ -263,17 +263,26 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      IconButton(
+                          onPressed: () {
+                            NavigationService.instance.navigateToPage(
+                                path: NavigationConstants.homePage);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back_ios,
+                            size: 24,
+                          )),
                       Text(
                         widget.goal,
                         style: const TextStyle(
-                          color: Color(0xFF37352F),
-                          fontSize: 28,
+                          //color: Color(0xFF37352F),
+                          fontSize: 24,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                       const SizedBox(width: 10),
-                      const Icon(Icons.add, size: 20),
+                      const Icon(Icons.add, size: 24),
                     ],
                   ),
                 ),
@@ -327,12 +336,14 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                     Container(
                       width: 100,
                       height: 100,
-                      decoration: const ShapeDecoration(
-                        color: Color(0xFFE7E7E6),
-                        shape: CircleBorder(),
-                        shadows: [
+                      decoration: ShapeDecoration(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? const Color.fromARGB(255, 26, 26, 26)
+                            : const Color(0xFFE7E7E6),
+                        shape: const CircleBorder(),
+                        shadows: const [
                           BoxShadow(
-                            color: Color(0xFF37352F),
+                            // color: Color(0xFF37352F),
                             blurRadius: 10,
                             offset: Offset(2, 6),
                             spreadRadius: 2,
@@ -381,7 +392,7 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                         child: Text(
                           isWorking ? 'Durdur' : 'Başlat',
                           style: const TextStyle(
-                            color: Color(0xFF37352F),
+                            //  color: Color(0xFF37352F),
                             fontSize: 20,
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w700,
@@ -434,12 +445,14 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
     return Container(
       width: circleSize,
       height: circleSize,
-      decoration: const ShapeDecoration(
-        color: Color(0xFFE7E7E6),
-        shape: CircleBorder(),
-        shadows: [
+      decoration: ShapeDecoration(
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color.fromARGB(255, 26, 26, 26)
+            : const Color(0xFFE7E7E6),
+        shape: const CircleBorder(),
+        shadows: const [
           BoxShadow(
-            color: Color(0xFF37352F),
+            // color: Color(0xFF37352F),
             blurRadius: 10,
             offset: Offset(2, 6),
             spreadRadius: 2,
@@ -453,8 +466,10 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
         width: circleSize,
         height: circleSize,
         strokeWidth: 3.0,
-        fillColor: const Color(0xFFE7E7E6),
-        ringColor: Colors.blue,
+        fillColor: Theme.of(context).brightness == Brightness.dark
+            ? const Color.fromARGB(255, 26, 26, 26)
+            : const Color(0xFFE7E7E6),
+        ringColor: const Color.fromARGB(255, 101, 191, 107),
         backgroundColor: const Color.fromARGB(0, 105, 240, 175),
         strokeCap: StrokeCap.round,
         textStyle: TextStyle(

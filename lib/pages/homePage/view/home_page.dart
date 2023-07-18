@@ -334,13 +334,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          ElevatedButton(
-              onPressed: () {
-                NavigationService.instance
-                    .navigateToPage(path: NavigationConstants.splashPageOne);
-                // FirebaseAuth.instance.signOut();
-              },
-              child: const Text('çıkış'))
         ],
       ),
     );

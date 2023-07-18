@@ -61,7 +61,9 @@ class _RegisterPageState extends State<RegisterPage> with RegisterPageMixin {
                   text: 'Study',
                   style: GoogleFonts.pacifico(
                     fontSize: mHeight * 0.04,
-                    // color: const Color(0xFF37352f),
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? const Color(0xffD3D3D3)
+                        : const Color(0xFF37352f),
                   ),
                   children: const [
                     TextSpan(

@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/constants/navigation/navigation_constants.dart';
+import '../../../core/utils/navigation/navigation_service.dart';
 import '../../homePage/viewmodel/home_page_viewmodel.dart';
 import '../../login/view/login_page.dart';
 import '../veiwmodel/rank_view_model.dart';
@@ -69,6 +71,15 @@ class _RankPageState extends State<RankPage>
                 Center(
                   child: Stack(
                     children: [
+                      IconButton(
+                          onPressed: () {
+                            NavigationService.instance.navigateToPage(
+                                path: NavigationConstants.homePage);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back_ios,
+                            size: 24,
+                          )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -76,7 +87,10 @@ class _RankPageState extends State<RankPage>
                             width: mWidth * 0.805555556,
                             height: mHeight * 0.2262963,
                             decoration: ShapeDecoration(
-                              color: const Color(0xFFE7E7E6),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? const Color.fromARGB(255, 43, 43, 43)
+                                  : const Color(0xffE8E8E7),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25),
                               ),
@@ -108,7 +122,7 @@ class _RankPageState extends State<RankPage>
                                       style: TextStyle(
                                         fontSize: mWidth * 0.0555555555555556,
                                         //  fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                        //color: Colors.black,
                                       ),
                                     ),
                                     SizedBox(
@@ -118,7 +132,11 @@ class _RankPageState extends State<RankPage>
                                       width: mWidth * 0.6481481481481481,
                                       height: mHeight * 0.1157407407407407,
                                       decoration: ShapeDecoration(
-                                        color: const Color(0xFFC9C7C7),
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? const Color.fromARGB(
+                                                255, 120, 120, 120)
+                                            : const Color(0xFFCAC7C7),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -138,8 +156,7 @@ class _RankPageState extends State<RankPage>
                                               Text(
                                                 'Puan',
                                                 style: TextStyle(
-                                                  color:
-                                                      const Color(0xFF37352F),
+                                                  //  color:        const Color(0xFF37352F),
                                                   fontSize: mWidth *
                                                       0.037037037037037,
                                                   fontFamily: 'Nunito',
@@ -149,8 +166,7 @@ class _RankPageState extends State<RankPage>
                                               Text(
                                                 '${context.watch<TimerDataProiver>().getModel.allTime ?? '0'}',
                                                 style: TextStyle(
-                                                  color:
-                                                      const Color(0xFF37352F),
+                                                  //color:const Color(0xFF37352F),
                                                   fontSize: mWidth *
                                                       0.037037037037037,
                                                   fontFamily: 'Nunito',
@@ -177,8 +193,7 @@ class _RankPageState extends State<RankPage>
                                               Text(
                                                 'Siralama',
                                                 style: TextStyle(
-                                                  color:
-                                                      const Color(0xFF37352F),
+                                                  //     color:const Color(0xFF37352F),
                                                   fontSize: mWidth *
                                                       0.037037037037037,
                                                   fontFamily: 'Nunito',
@@ -189,8 +204,7 @@ class _RankPageState extends State<RankPage>
                                                 //burası
                                                 '${userProviderAllTime.getUserRank}',
                                                 style: TextStyle(
-                                                  color:
-                                                      const Color(0xFF37352F),
+                                                  // color:  const Color(0xFF37352F),
                                                   fontSize: mWidth *
                                                       0.037037037037037,
                                                   fontFamily: 'Nunito',
@@ -267,7 +281,7 @@ class _RankPageState extends State<RankPage>
                                               fontSize:
                                                   mWidth * 0.0324074074074074,
                                               //  fontWeight: FontWeight.bold,
-                                              color: Colors.black,
+                                              // // color: Colors.black,
                                             ),
                                           ),
                                           const SizedBox(height: 5),
@@ -281,8 +295,7 @@ class _RankPageState extends State<RankPage>
                                               Text(
                                                 'Puan ',
                                                 style: TextStyle(
-                                                  color:
-                                                      const Color(0xFF37352F),
+                                                  //   color:  const Color(0xFF37352F),
                                                   fontSize: mWidth *
                                                       0.0277777777777778,
                                                   fontFamily: 'Nunito',
@@ -292,8 +305,7 @@ class _RankPageState extends State<RankPage>
                                               Text(
                                                 '${userProviderWeekly.getModel?[1].weekly ?? '0'}',
                                                 style: TextStyle(
-                                                  color:
-                                                      const Color(0xFF37352F),
+                                                  //color:const Color(0xFF37352F),
                                                   fontSize: mWidth *
                                                       0.0277777777777778,
                                                   fontFamily: 'Nunito',
@@ -383,7 +395,7 @@ class _RankPageState extends State<RankPage>
                                               fontSize:
                                                   mWidth * 0.0324074074074074,
                                               //  fontWeight: FontWeight.bold,
-                                              color: Colors.black,
+                                              //// color: Colors.black,
                                             ),
                                           ),
                                           SizedBox(
@@ -399,8 +411,7 @@ class _RankPageState extends State<RankPage>
                                               Text(
                                                 'Puan ',
                                                 style: TextStyle(
-                                                  color:
-                                                      const Color(0xFF37352F),
+                                                  //color:const Color(0xFF37352F),
                                                   fontSize: mWidth *
                                                       0.0277777777777778,
                                                   fontFamily: 'Nunito',
@@ -410,8 +421,7 @@ class _RankPageState extends State<RankPage>
                                               Text(
                                                 '${userProviderWeekly.getModel?[0].weekly ?? '0'}',
                                                 style: TextStyle(
-                                                  color:
-                                                      const Color(0xFF37352F),
+                                                  //color:const Color(0xFF37352F),
                                                   fontSize: mWidth *
                                                       0.0277777777777778,
                                                   fontFamily: 'Nunito',
@@ -482,7 +492,7 @@ class _RankPageState extends State<RankPage>
                                               fontSize:
                                                   mWidth * 0.0324074074074074,
                                               //  fontWeight: FontWeight.bold,
-                                              color: Colors.black,
+                                              // // color: Colors.black,
                                             ),
                                           ),
                                           SizedBox(
@@ -498,8 +508,7 @@ class _RankPageState extends State<RankPage>
                                               Text(
                                                 'Puan ',
                                                 style: TextStyle(
-                                                  color:
-                                                      const Color(0xFF37352F),
+                                                  //color:const Color(0xFF37352F),
                                                   fontSize: mWidth *
                                                       0.0277777777777778,
                                                   fontFamily: 'Nunito',
@@ -509,8 +518,7 @@ class _RankPageState extends State<RankPage>
                                               Text(
                                                 '${userProviderWeekly.getModel?[2].weekly ?? '0'}',
                                                 style: TextStyle(
-                                                  color:
-                                                      const Color(0xFF37352F),
+                                                  //color:const Color(0xFF37352F),
                                                   fontSize: mWidth *
                                                       0.0277777777777778,
                                                   fontFamily: 'Nunito',
@@ -556,7 +564,11 @@ class _RankPageState extends State<RankPage>
                             width: mWidth * 0.9,
                             height: mHeight * 0.16709,
                             decoration: BoxDecoration(
-                              color: const Color(0xFFE7E7E6),
+                              //bbbbb
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? const Color.fromARGB(255, 63, 63, 63)
+                                  : const Color(0xFFE7E7E6),
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             child: Padding(
@@ -578,7 +590,11 @@ class _RankPageState extends State<RankPage>
                                   return Container(
                                     margin: const EdgeInsets.only(bottom: 8.0),
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? const Color.fromARGB(
+                                              255, 85, 85, 85)
+                                          : const Color(0xFFffffff),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Padding(
@@ -590,10 +606,16 @@ class _RankPageState extends State<RankPage>
                                           Container(
                                             height: 25,
                                             width: 25,
-                                            decoration: const BoxDecoration(
-                                                color: Color(0xffD9D9D9),
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(4))),
+                                            decoration: BoxDecoration(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.dark
+                                                    ? const Color.fromARGB(
+                                                        255, 43, 43, 43)
+                                                    : const Color(0xFFE7E7E6),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(4))),
                                             alignment: Alignment.center,
                                             child: Text('${index + 4}'),
                                           ),
@@ -703,7 +725,7 @@ class _RankPageState extends State<RankPage>
                                                 fontSize:
                                                     mWidth * 0.0324074074074074,
                                                 //  fontWeight: FontWeight.bold,
-                                                color: Colors.black,
+                                                // color: Colors.black,
                                               ),
                                             ),
                                             const SizedBox(height: 5),
@@ -717,8 +739,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   'Puan ',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -728,8 +749,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   '${userProviderMonthly.getModel?[1].monthly ?? '0'}',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -826,7 +846,7 @@ class _RankPageState extends State<RankPage>
                                                 fontSize:
                                                     mWidth * 0.0324074074074074,
                                                 //  fontWeight: FontWeight.bold,
-                                                color: Colors.black,
+                                                //// color: Colors.black,
                                               ),
                                             ),
                                             SizedBox(
@@ -842,8 +862,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   'Puan ',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -853,8 +872,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   '${userProviderMonthly.getModel?[0].monthly ?? '0'}',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -931,7 +949,7 @@ class _RankPageState extends State<RankPage>
                                                 fontSize:
                                                     mWidth * 0.0324074074074074,
                                                 //  fontWeight: FontWeight.bold,
-                                                color: Colors.black,
+                                                //// color: Colors.black,
                                               ),
                                             ),
                                             SizedBox(
@@ -947,8 +965,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   'Puan ',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -958,8 +975,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   '${userProviderMonthly.getModel?[2].monthly ?? '0'}',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -1009,7 +1025,10 @@ class _RankPageState extends State<RankPage>
                               width: mWidth * 0.9,
                               height: mHeight * 0.16709,
                               decoration: BoxDecoration(
-                                color: const Color(0xFFE7E7E6),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? const Color.fromARGB(255, 63, 63, 63)
+                                    : const Color(0xFFDADADA),
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: Padding(
@@ -1033,7 +1052,11 @@ class _RankPageState extends State<RankPage>
                                       margin:
                                           const EdgeInsets.only(bottom: 8.0),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? const Color.fromARGB(
+                                                255, 85, 85, 85)
+                                            : const Color(0xFFffffff),
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                       ),
@@ -1046,10 +1069,15 @@ class _RankPageState extends State<RankPage>
                                             Container(
                                               height: 25,
                                               width: 25,
-                                              decoration: const BoxDecoration(
-                                                  color: Color(0xffD9D9D9),
+                                              decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? const Color.fromARGB(
+                                                          255, 43, 43, 43)
+                                                      : const Color(0xFFE7E7E6),
                                                   borderRadius:
-                                                      BorderRadius.all(
+                                                      const BorderRadius.all(
                                                           Radius.circular(4))),
                                               alignment: Alignment.center,
                                               child: Text('${index + 4}'),
@@ -1161,7 +1189,7 @@ class _RankPageState extends State<RankPage>
                                                 fontSize:
                                                     mWidth * 0.0324074074074074,
                                                 //  fontWeight: FontWeight.bold,
-                                                color: Colors.black,
+                                                //// color: Colors.black,
                                               ),
                                             ),
                                             const SizedBox(height: 5),
@@ -1175,8 +1203,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   'Puan ',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -1186,8 +1213,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   '${userProviderAllTime.getModel?[1].allTime ?? '0'}',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -1284,7 +1310,7 @@ class _RankPageState extends State<RankPage>
                                                 fontSize:
                                                     mWidth * 0.0324074074074074,
                                                 //  fontWeight: FontWeight.bold,
-                                                color: Colors.black,
+                                                //// color: Colors.black,
                                               ),
                                             ),
                                             SizedBox(
@@ -1300,8 +1326,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   'Puan ',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -1311,8 +1336,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   '${userProviderAllTime.getModel?[0].allTime ?? '0'}',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -1389,7 +1413,7 @@ class _RankPageState extends State<RankPage>
                                                 fontSize:
                                                     mWidth * 0.0324074074074074,
                                                 //  fontWeight: FontWeight.bold,
-                                                color: Colors.black,
+                                                //// color: Colors.black,
                                               ),
                                             ),
                                             SizedBox(
@@ -1405,8 +1429,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   'Puan ',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -1416,8 +1439,7 @@ class _RankPageState extends State<RankPage>
                                                 Text(
                                                   '${userProviderAllTime.getModel?[2].allTime ?? '0'}',
                                                   style: TextStyle(
-                                                    color:
-                                                        const Color(0xFF37352F),
+                                                    // color:   const Color(0xFF37352F),
                                                     fontSize: mWidth *
                                                         0.0277777777777778,
                                                     fontFamily: 'Nunito',
@@ -1467,7 +1489,10 @@ class _RankPageState extends State<RankPage>
                               width: mWidth * 0.9,
                               height: mHeight * 0.16709,
                               decoration: BoxDecoration(
-                                color: const Color(0xFFE7E7E6),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? const Color.fromARGB(255, 63, 63, 63)
+                                    : const Color(0xFFDADADA),
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: Padding(
@@ -1491,7 +1516,11 @@ class _RankPageState extends State<RankPage>
                                       margin:
                                           const EdgeInsets.only(bottom: 8.0),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? const Color.fromARGB(
+                                                255, 85, 85, 85)
+                                            : const Color(0xFFffffff),
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                       ),
@@ -1504,10 +1533,15 @@ class _RankPageState extends State<RankPage>
                                             Container(
                                               height: 25,
                                               width: 25,
-                                              decoration: const BoxDecoration(
-                                                  color: Color(0xffD9D9D9),
+                                              decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? const Color.fromARGB(
+                                                          255, 43, 43, 43)
+                                                      : const Color(0xFFE7E7E6),
                                                   borderRadius:
-                                                      BorderRadius.all(
+                                                      const BorderRadius.all(
                                                           Radius.circular(4))),
                                               alignment: Alignment.center,
                                               child: Text('${index + 4}'),
@@ -1630,10 +1664,12 @@ class TabWidget extends StatelessWidget {
           indicatorPadding: const EdgeInsets.all(5),
           overlayColor: MaterialStateProperty.all(Colors.transparent),
           indicator: BoxDecoration(
-            color: const Color(0xFFCCCCCC),
+            color: Theme.of(context).brightness == Brightness.dark
+                ? const Color.fromARGB(255, 43, 43, 43)
+                : Color.fromARGB(255, 174, 174, 173),
             borderRadius: BorderRadius.circular(10),
           ),
-          unselectedLabelColor: const Color(0xFF37352F),
+          // unselectedLabelColor: const Color(0xFF37352F),
           tabs: const [
             Tab(
               text: 'Haftalık',

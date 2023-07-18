@@ -47,23 +47,23 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 32),
+              const SizedBox(height: 50),
               const Text(
                 'Hedefinizi belirleyin ve çalışma deneyiminizi bir üst seviyeye çıkartın.',
                 style: TextStyle(
-                  color: Color(0xFF37352F),
+                  // color: Color(0xFF37352F),
                   fontSize: 24,
                   fontFamily: 'Nunito',
                   fontWeight: FontWeight.w400,
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 89),
+              const SizedBox(height: 50),
               buildTextField(
                 label: 'Hedefiniz',
                 hinttext: 'Lütfen hedefinizi yazın..',
                 hintstyle: const TextStyle(
-                  color: Color(0xFF717171),
+                  //   color: Color(0xFF717171),
                   fontSize: 15,
                   fontFamily: 'Nunito',
                   fontWeight: FontWeight.w700,
@@ -114,20 +114,12 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
                     );
                   }
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE7E7E6),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    side:
-                        const BorderSide(width: 0.50, color: Color(0xFFA4A4A3)),
-                  ),
-                ),
                 child: const Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text(
                       'Çalışmaya başlayın!',
                       style: TextStyle(
-                        color: Color(0xFF37352F),
+                        //   color: Color(0xFF37352F),
                         fontSize: 24,
                         fontFamily: 'Nunito',
                         fontWeight: FontWeight.w400,
@@ -157,7 +149,9 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
           hintText: hinttext,
           hintStyle: hintstyle,
           border: const OutlineInputBorder(),
-          fillColor: const Color(0xFFE7E7E6),
+          fillColor: Theme.of(context).brightness == Brightness.dark
+              ? const Color.fromARGB(255, 26, 26, 26)
+              : const Color(0xFFE7E7E6),
           filled: true,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
@@ -184,9 +178,11 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
         context: context,
         builder: (BuildContext context) {
           return Container(
-            decoration: const ShapeDecoration(
-              color: Color(0xFFE2E2E1),
-              shape: RoundedRectangleBorder(
+            decoration: ShapeDecoration(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? const Color.fromARGB(255, 26, 26, 26)
+                  : const Color(0xFFE7E7E6),
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25),
                   topRight: Radius.circular(25),
@@ -213,9 +209,11 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          border: Border.all(color: const Color(0xFFA4A4A3), width: 0.5),
+          border: Border.all(width: 0.5),
           borderRadius: BorderRadius.circular(10),
-          color: const Color(0xFFE7E7E6),
+          color: Theme.of(context).brightness == Brightness.dark
+              ? const Color.fromARGB(255, 26, 26, 26)
+              : const Color(0xFFE7E7E6),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -223,19 +221,20 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
           children: [
             Text(
               label,
-              style: const TextStyle(fontSize: 16, color: Color(0xFF37352F)),
+              style: const TextStyle(
+                fontSize: 16,
+              ),
             ),
             const SizedBox(width: 8),
             Builder(
               builder: (BuildContext context) {
                 return Text(
                   '$selectedTime dakika',
-                  style:
-                      const TextStyle(fontSize: 16, color: Color(0xFF37352F)),
+                  style: const TextStyle(fontSize: 16),
                 );
               },
             ),
-            const Icon(Icons.arrow_drop_down, color: Color(0xFF37352F)),
+            const Icon(Icons.arrow_drop_down),
           ],
         ),
       ),
@@ -279,16 +278,18 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          border: Border.all(color: const Color(0xFFA4A4A3), width: 0.5),
+          border: Border.all(width: 0.5),
           borderRadius: BorderRadius.circular(10),
-          color: const Color(0xFFE7E7E6),
+          color: Theme.of(context).brightness == Brightness.dark
+              ? const Color.fromARGB(255, 26, 26, 26)
+              : const Color(0xFFE7E7E6),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               label,
-              style: const TextStyle(fontSize: 16, color: Color(0xFF37352F)),
+              style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(width: 8),
             Builder(
@@ -299,8 +300,7 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
                       .getSelectedSound
                       .keys
                       .first,
-                  style:
-                      const TextStyle(fontSize: 16, color: Color(0xFF37352F)),
+                  style: const TextStyle(fontSize: 16),
                 );
               },
             ),

@@ -14,10 +14,10 @@ import 'package:thinktank/providers/event_provider.dart';
 const double _kItemExtent = 32.0;
 DateTime _timeSelect = DateTime.now();
 const List<String> _reminders = <String>[
-  'On day of event ',
-  '1 day before ',
-  '2 days before ',
-  '1 week before ',
+  'Etkinlik günü',
+  'Etkinliketen bir gün önce',
+  'Etkinliketen iki gün önce',
+  'Etkinliketen bir hafa önce',
 ];
 
 class CalendarMainPage extends StatefulWidget {
@@ -31,10 +31,10 @@ class ReminderModel extends ChangeNotifier {
   int _selectedIndex = 0;
 
   final List<String> _reminders = <String>[
-    'On day of event ',
-    '1 day before ',
-    '2 days before ',
-    '1 week before ',
+    'Etkinlik günü',
+    'Etkinliketen bir gün önce',
+    'Etkinliketen iki gün önce',
+    'Etkinliketen bir hafa önce',
   ];
 
   int get selectedIndex => _selectedIndex;
@@ -130,7 +130,16 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                   titleCentered: true,
                   formatButtonShowsNext: false,
                 ),
-                calendarStyle: const CalendarStyle(),
+                calendarStyle: CalendarStyle(
+                  todayDecoration: BoxDecoration(
+                    color: Colors.green[200],
+                    shape: BoxShape.circle,
+                  ),
+                  selectedDecoration: const BoxDecoration(
+                    color: Colors.green,
+                    shape: BoxShape.circle,
+                  ),
+                ),
 
                 startingDayOfWeek: StartingDayOfWeek.monday,
                 availableGestures: AvailableGestures.all,
@@ -163,7 +172,9 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.grey[300],
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? const Color.fromARGB(255, 43, 43, 43)
+                      : const Color(0xFFE7E7E6),
                 ),
                 height: mHeight * 0.35,
                 width: mWidth * 0.9,
@@ -178,9 +189,9 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                             Row(
                               children: [
                                 Text('$_formatDate - Yapılacaklar'),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 IconButton(
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.add_circle_outline_sharp,
                                   ),
                                   onPressed: () => showDialog(
@@ -198,18 +209,18 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                                 controller: _titleController,
                                                 decoration:
                                                     const InputDecoration(
-                                                  fillColor: Color(0xffE8E8E7),
+                                                  //fillColor: Color(0xffE8E8E7),
                                                   border: OutlineInputBorder(),
                                                   filled: true,
                                                   labelText: 'Yapılacaklar',
                                                   labelStyle: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
+                                                      //color: Colors.black,
+                                                      ),
                                                   hintText:
                                                       'Ne yapmak istediğinizi yazın...',
                                                   hintStyle: TextStyle(
-                                                    color: Color(0xFFAFAFAC),
-                                                  ),
+                                                      // color: Color(0xFFAFAFAC),
+                                                      ),
                                                 ),
                                               ),
                                               TextField(
@@ -217,18 +228,18 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                                     _descriptionController,
                                                 decoration:
                                                     const InputDecoration(
-                                                  fillColor: Color(0xffE8E8E7),
+                                                  // fillColor: Color(0xffE8E8E7),
                                                   border: OutlineInputBorder(),
                                                   filled: true,
                                                   labelText: 'Aciklama',
                                                   labelStyle: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
+                                                      //  color: Colors.black,
+                                                      ),
                                                   hintText:
                                                       'Yapmak istediginiz seyin aciklamasini yazin ...',
                                                   hintStyle: TextStyle(
-                                                    color: Color(0xFFAFAFAC),
-                                                  ),
+                                                      // color: Color(0xFFAFAFAC),
+                                                      ),
                                                 ),
                                               ),
 
@@ -311,11 +322,14 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: ShapeDecoration(
-                                  color: Colors.white,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? const Color.fromARGB(255, 26, 26, 26)
+                                      : const Color(0xFFE7E7E6),
                                   shape: RoundedRectangleBorder(
                                     side: const BorderSide(
                                       width: 0.50,
-                                      color: Color(0xFF37352F),
+                                      //  color: Color(0xFF37352F),
                                     ),
                                     borderRadius: BorderRadius.circular(15),
                                   ),
@@ -335,9 +349,10 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                                         });
                                       },
                                       icon: Icon(
-                                        color: Colors.green,
+                                        color: const Color.fromARGB(
+                                            255, 101, 191, 107),
                                         event.eventController
-                                            ? Icons.check
+                                            ? Icons.check_box_outlined
                                             : Icons.check_box_outline_blank,
                                       )),
 
@@ -428,8 +443,11 @@ class _CupertioState extends State<Cupertio> {
     final double mWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
-          color: const Color(0xffE8E8E7),
-          border: Border.all(color: Colors.black),
+          //aaaaa
+          color: Theme.of(context).brightness == Brightness.dark
+              ? const Color.fromARGB(255, 33, 33, 33)
+              : const Color(0xFFE7E7E6),
+          border: Border.all(),
           borderRadius: BorderRadius.circular(5)),
       width: mWidth,
       child: Column(
@@ -438,8 +456,8 @@ class _CupertioState extends State<Cupertio> {
           const Text(
             'Hatirlatici Sec:',
             style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
+              //color: Colors.black,
+              fontSize: 16,
               fontWeight: FontWeight.normal,
             ),
           ),
@@ -449,6 +467,7 @@ class _CupertioState extends State<Cupertio> {
               CupertinoPicker(
                 magnification: 1.22,
                 squeeze: 1.2,
+
                 useMagnifier: true,
                 itemExtent: _kItemExtent,
                 // This sets the initial item.
@@ -468,8 +487,7 @@ class _CupertioState extends State<Cupertio> {
             child: Text(
               _reminders[_selectedIndex],
               style: const TextStyle(
-                fontSize: 22.0,
-                fontWeight: FontWeight.w600,
+                fontSize: 16.0,
               ),
             ),
           ),
@@ -511,7 +529,10 @@ class _TimeWidgetState extends State<TimeWidget> {
   Widget build(BuildContext context) {
     return DatePickerItem(
       children: <Widget>[
-        const Text('Time'),
+        const Text(
+          'Time',
+          style: TextStyle(fontSize: 16),
+        ),
         CupertinoButton(
           onPressed: () => _showDialog(
             CupertinoDatePicker(
@@ -531,7 +552,7 @@ class _TimeWidgetState extends State<TimeWidget> {
           child: Text(
             '${_timeSelect.hour}:${_timeSelect.minute}',
             style: const TextStyle(
-              fontSize: 22.0,
+              fontSize: 16.0,
             ),
           ),
         ),
