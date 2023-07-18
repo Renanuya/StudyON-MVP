@@ -10,6 +10,7 @@ class GoalSelectionScreen extends StatefulWidget {
 }
 
 class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String goal = '';
   int workingTime = 0;
   int breakTime = 0;
@@ -55,6 +56,7 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
                   fontFamily: 'Nunito',
                   fontWeight: FontWeight.w400,
                 ),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 89),
               buildTextField(
@@ -98,7 +100,20 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
               ),
               const SizedBox(height: 70),
               ElevatedButton(
-                onPressed: _startWorking,
+                onPressed: () {
+                  if (_formKey.currentState!.validate() &&
+                      workingTime != 0 &&
+                      breakTime != 0) {
+                    _startWorking();
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Hedefinizi , çalışma ve mola sürenizi '
+                            'belirleyin.'),
+                      ),
+                    );
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFE7E7E6),
                   shape: RoundedRectangleBorder(
@@ -133,19 +148,29 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
     required String hinttext,
     required TextStyle hintstyle,
   }) {
-    return TextField(
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hinttext,
-        hintStyle: hintstyle,
-        border: const OutlineInputBorder(),
-        fillColor: const Color(0xFFE7E7E6),
-        filled: true,
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-        isDense: true,
+    return Form(
+      key: _formKey,
+      child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        decoration: InputDecoration(
+          labelText: label,
+          hintText: hinttext,
+          hintStyle: hintstyle,
+          border: const OutlineInputBorder(),
+          fillColor: const Color(0xFFE7E7E6),
+          filled: true,
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+          isDense: true,
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Lütfen hedefinizi yazın..';
+          }
+          return null;
+        },
+        onChanged: onChanged,
       ),
-      onChanged: onChanged,
     );
   }
 
@@ -194,6 +219,7 @@ class _GoalSelectionScreenState extends State<GoalSelectionScreen> {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               label,
