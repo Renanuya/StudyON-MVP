@@ -9,12 +9,13 @@ import 'package:thinktank/pages/homePage/view/home_page.dart';
 import 'package:thinktank/pages/rankPages/view/rank_page.dart';
 import 'package:thinktank/pages/splashPages/splash_page_1.dart';
 import 'package:thinktank/pages/timerpage/view/timerscreen.dart';
+import 'package:thinktank/profilePage/view/profile_screen.dart';
 
 import '../../../auth_page.dart';
 import '../../../not_found.dart';
 import '../../../pages/calendar/calendar_main_page.dart';
 import '../../../pages/login/view/login_page.dart';
-import '../../../pages/profileSettingPage/profilePage/profile_screen.dart';
+
 import '../../../pages/register/view/register_page.dart';
 import '../../../pages/register/view/reset_password.dart';
 import '../../../pages/splashPages/splash_page_2.dart';
@@ -67,7 +68,7 @@ class NavigationRoute {
 
       case NavigationConstants.timerPage:
         return normalNavigate(
-            MainStopwatchScreen(
+            const MainStopwatchScreen(
                 goal: 'Hedefinizi Belirleyin',
                 workingTime: 0,
                 breakTime: 0,
@@ -120,25 +121,3 @@ class NavigationRoute {
     );
   }
 }
-
-/* //Splash Pages
-  static const String splashPageOne = '/splashPageOne';
-  static const String splashPageTwo = '/splashPageTwo';
-  static const String splashPageThree = '/splashPageThree';
-
-  //Ranking Pages
-  static const String rankingPage = '/rankingPage';
-
-  //Timer Pages
-  static const String timerPage = '/timerPage';
-
-  //Calendar Pages
-  static const String calendarPage = '/calendarPage';
-
-  //login & Register Pages
-  static const String loginPage = '/loginPage';
-  static const String registerPage = '/registerPage';
-
-  //Other Pages
-  static const String homePage = '/homePage';
-  static const String notFound = '/notFound'; */

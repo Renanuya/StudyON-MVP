@@ -4,7 +4,9 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
+  file_selector_windows
   firebase_core
+  share_plus
   url_launcher_windows
 )
 

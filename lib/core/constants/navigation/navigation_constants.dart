@@ -6,6 +6,7 @@ class NavigationConstants {
   static const String pomodoroPage = '/pomodoroPage';
   //Profile Page
   static const String profilePage = '/profilePage';
+  static const String faqScreen = '/faqScreen';
 
   //Splash Pages
   static const String splashPageOne = '/splashPageOne';

@@ -11,6 +11,7 @@ import 'package:thinktank/pages/rankPages/veiwmodel/rank_view_model.dart';
 import 'package:thinktank/pages/register/viewmodel/view_model.dart';
 import 'package:thinktank/pages/splashPages/splash_page_1.dart';
 import 'package:thinktank/pages/timerpage/view_model/view_model_timer.dart';
+import 'package:thinktank/profilePage/viewModel/view_model_profile.dart';
 import 'package:thinktank/providers/event_provider.dart';
 import 'package:thinktank/providers/theme.dart';
 import 'package:thinktank/theme/dark_theme.dart';
@@ -46,7 +47,8 @@ void main() async {
         ChangeNotifierProvider(
             create: (context) => RankUserListDataProviderWeekly()),
         ChangeNotifierProvider(
-            create: (context) => TimerPageBackgroundMusicProvider())
+            create: (context) => TimerPageBackgroundMusicProvider()),
+        ChangeNotifierProvider(create: (context) => PickProfilePhoto())
       ],
       child: const MainApp(),
     ),

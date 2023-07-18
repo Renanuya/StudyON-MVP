@@ -57,6 +57,8 @@ dependencies:
   firebase_storage: ^11.2.4
   audioplayers: ^4.1.0
   circular_countdown_timer: ^0.2.3
+  image_picker: ^1.0.1
+  share_plus: ^7.0.2
 dependency_overrides:
    intl: ^0.18.1
 
