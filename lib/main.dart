@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:thinktank/auth_page.dart';
 import 'package:thinktank/core/utils/navigation/navigation_route.dart';
-import 'package:thinktank/pages/firtsSplash.dart';
 import 'package:thinktank/pages/homePage/viewmodel/home_page_viewmodel.dart';
 import 'package:thinktank/pages/login/viewmodel/view_model.dart';
 import 'package:thinktank/pages/rankPages/veiwmodel/rank_view_model.dart';
@@ -63,7 +62,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: themeChange.currentTheme ?? lightTheme,
       darkTheme: themeChange.currentTheme ?? darkTheme,
-      home: const FirstSplashPage(),
+      home: const AuthPage(),
     );
   }
 }
