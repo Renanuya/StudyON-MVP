@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> with LoginPageMixin {
                     text: 'Study',
                     style: GoogleFonts.pacifico(
                       fontSize: mHeight * 0.04,
-                      color: const Color(0xFF37352f),
+                      //  color: const Color(0xFF37352f),
                     ),
                     children: const [
                       TextSpan(
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> with LoginPageMixin {
                 ),
                 Theme.of(context).brightness == Brightness.dark
                     ? Image.asset('assets/images/loginpage.png',
-                        height: mHeight * 0.4, width: mWidth * 0.9)
+                        height: mHeight * 0.2, width: mWidth * 0.7)
                     : Image.asset('assets/images/loginpage.png',
                         height: mHeight * 0.2, width: mWidth * 0.7),
                 const SizedBox(
@@ -168,10 +168,6 @@ class _LoginPageState extends State<LoginPage> with LoginPageMixin {
                               } else {
                                 return ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: const BorderSide(),
-                                    ),
                                     elevation: 0,
                                     minimumSize: Size(mWidth, mHeight * 0.06),
                                   ),
@@ -212,10 +208,11 @@ class _LoginPageState extends State<LoginPage> with LoginPageMixin {
                               }
                             }),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.all(20.0),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
                             child: Text(
                               'Ya da ?',
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           ),
                           Padding(
@@ -229,16 +226,12 @@ class _LoginPageState extends State<LoginPage> with LoginPageMixin {
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  side: const BorderSide(),
-                                ),
                                 elevation: 0,
                                 minimumSize: Size(mWidth, mHeight * 0.06),
                               ),
                               icon: const Icon(
                                 FontAwesomeIcons.google,
-                                color: Colors.black,
+                                // color: Colors.black,
                               ),
                               label: const Text(
                                 'Google ile Giriş Yap',

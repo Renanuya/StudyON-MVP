@@ -29,7 +29,7 @@ class SplashPageOne extends StatelessWidget {
                       text: 'Study',
                       style: GoogleFonts.pacifico(
                         fontSize: mHeight * 0.04,
-                        color: const Color(0xFF37352f),
+                        //color: const Color(0xFF37352f),
                       ),
                       children: [
                         const TextSpan(
