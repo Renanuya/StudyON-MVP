@@ -143,7 +143,8 @@ Story'ler yapılacak işlere (task'lere) bölünmüştür. Trello da gözüken m
 
   Backlog 2
 
-![3 sprint_backlog](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/1b40b94b-459e-4f95-bed8-cc238a6b1c93)
+![image](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/3b6b99aa-7bb5-46d8-a11b-9901beada227)
+
 
 - **Ürün Durumu**: Ekran görüntüleri:
 
