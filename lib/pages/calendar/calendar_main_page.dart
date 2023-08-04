@@ -130,7 +130,16 @@ class _CalendarMainPageState extends State<CalendarMainPage> {
                   titleCentered: true,
                   formatButtonShowsNext: false,
                 ),
-                calendarStyle: const CalendarStyle(),
+                calendarStyle: CalendarStyle(
+                  todayDecoration: BoxDecoration(
+                    color: Colors.green[200],
+                    shape: BoxShape.circle,
+                  ),
+                  selectedDecoration: BoxDecoration(
+                    color: Colors.green,
+                    shape: BoxShape.circle,
+                  ),
+                ),
 
                 startingDayOfWeek: StartingDayOfWeek.monday,
                 availableGestures: AvailableGestures.all,

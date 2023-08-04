@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                           ? '$greeting, ${user.displayName}'
                           : greeting,
                       style: const TextStyle(
-                        color: Color(0xFF37352F),
+                        // color: Color(0xFF37352F),
                         fontSize: 26,
                         fontFamily: 'Nunito',
                         fontWeight: FontWeight.w700,
@@ -79,146 +79,138 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 20,
           ),
-          Container(
+          SizedBox(
             width: 348,
             height: 244,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: const Color(0xFFE5E5E5),
-              border: Border.all(
-                color: const Color(0xFFA5A5A3),
-              ),
-            ),
-            child: Column(
-              children: [
-                const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Çalışmaya başlayın!',
-                      style: TextStyle(
-                        color: Color(0xFF37352F),
-                        fontSize: 24,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 25.0,
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Icon(
-                            Icons.star_rounded,
-                            color: Color(0xFF37352F),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              'Bu gün ${context.watch<TimerDataProiver>().getModel.daily ?? '0'} puan kazandınız.',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Icon(
-                            Icons.star_rounded,
-                            color: Color(0xFF37352F),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              'Bu hafta ${context.watch<TimerDataProiver>().getModel.weekly ?? '0'} puan kazandınız.',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Icon(
-                            Icons.star_rounded,
-                            color: Color(0xFF37352F),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              'Bu ay ${context.watch<TimerDataProiver>().getModel.monthly ?? '0'} puan kazandınız.',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  width: 285,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      NavigationService.instance.navigateToPage(
-                        path: NavigationConstants.timerPage,
-                        //! timer sayfasına atacak ama hata vardı timer sayfasında o yüzden böyle tıklamayın.
-                      );
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        const Color(0xFFFAC6C4),
-                      ),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: const BorderSide(
-                            color: Color(0xFFFF534D),
-                          ),
+            child: Card(
+              child: Column(
+                children: [
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Çalışmaya başlayın!',
+                        style: TextStyle(
+                          //   color: Color(0xFF37352F),
+                          fontSize: 24,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    child: const Text(
-                      'Zamanlayıcı Aç',
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Color(0xffF13131),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 25.0,
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.star_rounded,
+                              //color: Color(0xFF37352F),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(
+                                'Bu gün ${context.watch<TimerDataProiver>().getModel.daily ?? '0'} puan kazandınız.',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.star_rounded,
+                              // color: Color(0xFF37352F),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(
+                                'Bu hafta ${context.watch<TimerDataProiver>().getModel.weekly ?? '0'} puan kazandınız.',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.star_rounded,
+                              // color: Color(0xFF37352F),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(
+                                'Bu ay ${context.watch<TimerDataProiver>().getModel.monthly ?? '0'} puan kazandınız.',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: 285,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        NavigationService.instance.navigateToPage(
+                          path: NavigationConstants.timerPage,
+                          //! timer sayfasına atacak ama hata vardı timer sayfasında o yüzden böyle tıklamayın.
+                        );
+                      },
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: const BorderSide(
+                                //     color: Color(0xFFFF534D),
+                                ),
+                          ),
+                        ),
+                      ),
+                      child: const Text(
+                        'Zamanlayıcı Aç',
+                        style: TextStyle(
+                          fontSize: 22,
+                          //  color: Color(0xffF13131),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -229,123 +221,101 @@ class _HomePageState extends State<HomePage> {
               mainAxisSpacing: 10,
               crossAxisCount: 2,
               children: <Widget>[
-                Container(
+                SizedBox(
                   width: 150,
                   height: 150,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: const Color(0xFFE5E5E5),
-                    border: Border.all(
-                      color: const Color(0xFFA5A5A3),
-                    ),
-                  ),
-                  child: TextButton.icon(
-                    icon: const Icon(
-                      Icons.calendar_month,
-                      size: 40,
-                    ),
-                    label: const Text(
-                      'Takvim',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    onPressed: () async {
-                      if (FirebaseAuth.instance.currentUser != null) {
-                        NavigationService.instance.navigateToPage(
-                            path: NavigationConstants.calendarPage);
-                      } else {
-                        await showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text('Önce hesap açmalısınız'),
-                                content: const SingleChildScrollView(
-                                  child: ListBody(
-                                    children: <Widget>[
-                                      Text(
-                                          'Bu özelliği kullanabilmeniz için önce hesap açmalısınız.'),
-                                    ],
+                  child: Card(
+                    child: TextButton.icon(
+                      icon: const Icon(
+                        Icons.calendar_month,
+                        size: 40,
+                      ),
+                      label: const Text(
+                        'Takvim',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      onPressed: () async {
+                        if (FirebaseAuth.instance.currentUser != null) {
+                          NavigationService.instance.navigateToPage(
+                              path: NavigationConstants.calendarPage);
+                        } else {
+                          await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Önce hesap açmalısınız'),
+                                  content: const SingleChildScrollView(
+                                    child: ListBody(
+                                      children: <Widget>[
+                                        Text(
+                                            'Bu özelliği kullanabilmeniz için önce hesap açmalısınız.'),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
+                                  actions: <Widget>[
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('Devam et')),
+                                    TextButton(
+                                      child: const Text('Hesap aç'),
                                       onPressed: () {
-                                        Navigator.of(context).pop();
+                                        NavigationService.instance
+                                            .navigateToPageRemoveAll(
+                                                path: NavigationConstants
+                                                    .loginPage);
                                       },
-                                      child: const Text('Devam et')),
-                                  TextButton(
-                                    child: const Text('Hesap aç'),
-                                    onPressed: () {
-                                      NavigationService.instance
-                                          .navigateToPageRemoveAll(
-                                              path: NavigationConstants
-                                                  .loginPage);
-                                    },
-                                  ),
-                                ],
-                              );
-                            });
-                      }
-                    },
+                                    ),
+                                  ],
+                                );
+                              });
+                        }
+                      },
+                    ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 150,
                   height: 150,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: const Color(0xFFE5E5E5),
-                    border: Border.all(
-                      color: const Color(0xFFA5A5A3),
+                  child: Card(
+                    child: TextButton.icon(
+                      icon: const Icon(
+                        Icons.leaderboard,
+                        size: 40,
+                      ),
+                      label: const Text(
+                        'Sıralama',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      onPressed: () {
+                        NavigationService.instance.navigateToPage(
+                            path: NavigationConstants.rankingPage);
+                      },
                     ),
-                  ),
-                  child: TextButton.icon(
-                    icon: const Icon(
-                      Icons.leaderboard,
-                      size: 40,
-                    ),
-                    label: const Text(
-                      'Sıralama',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    onPressed: () {
-                      NavigationService.instance.navigateToPage(
-                          path: NavigationConstants.rankingPage);
-                    },
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 150,
                   height: 150,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: const Color(0xFFE5E5E5),
-                    border: Border.all(
-                      color: const Color(0xFFA5A5A3),
+                  child: Card(
+                    child: TextButton.icon(
+                      icon: const Icon(
+                        Icons.menu_book,
+                        size: 40,
+                      ),
+                      label: const Text(
+                        'Blog',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      onPressed: () {
+                        NavigationService.instance
+                            .navigateToPage(path: NavigationConstants.blogPage);
+                      },
                     ),
-                  ),
-                  child: TextButton.icon(
-                    icon: const Icon(
-                      Icons.menu_book,
-                      size: 40,
-                    ),
-                    label: const Text(
-                      'Blog',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    onPressed: () {
-                      NavigationService.instance
-                          .navigateToPage(path: NavigationConstants.blogPage);
-                    },
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: const Color(0xFFE5E5E5),
-                    border: Border.all(
-                      color: const Color(0xFFA5A5A3),
-                    ),
-                  ),
+                Card(
                   child: TextButton.icon(
                     icon: const Icon(
                       Icons.person,
@@ -366,9 +336,11 @@ class _HomePageState extends State<HomePage> {
           ),
           ElevatedButton(
               onPressed: () {
-                FirebaseAuth.instance.signOut();
+                NavigationService.instance
+                    .navigateToPage(path: NavigationConstants.splashPageOne);
+                // FirebaseAuth.instance.signOut();
               },
-              child: Text('çıkış'))
+              child: const Text('çıkış'))
         ],
       ),
     );

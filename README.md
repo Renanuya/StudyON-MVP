@@ -70,7 +70,7 @@ Story'ler yapılacak işlere (task'lere) bölünmüştür. Trello'da gözüken k
 - **Daily Scrum**: Daily Scrum toplantılarının Discord üzerinden yapılmasına karar verilmiştir. Daily Scrum toplantısı örneği Notion linki olarak Readme'de tarafımızdan paylaşılmaktadır: [Sprint 1 Daily Scrum Chats](https://www.notion.so/F-42-Daily-Scrum-2d035ade81164ba7b94bd076f75c33db?pvs=4)
 
 - **Sprint board update**: Sprint board screenshotları: 
-Backlog 1 ![trello_1 sprint_ss](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/2352800e-6d51-4059-88fb-569e90c61776)
+!Backlog 1[trello_1 sprint_ss](https://github.com/Renanuya/F-42-bootcamp/assets/74377173/2352800e-6d51-4059-88fb-569e90c61776)
   
 
 
@@ -153,8 +153,8 @@ Story'ler yapılacak işlere (task'lere) bölünmüştür. Trello da gözüken m
 - **Sprint Review**: 
 Alınan kararlar: Uygulamanın gelişime açık olduğu üzerine konuşuldu, bootcamp süreci sonrası yeni özellikler eklenmesi üzerine çalışmalara devam edilmesi kararı alındı. Süreç aksamalara uğrasada ürün çıkarma hedefimize ulaştık. Süreci elimizdeki imkanlar doğrultusunda iyi yürüttüğümüz fikrindeyiz.. : - Ali Renan Uyanık, Bahar Ulus, Kemal Erdem Yenin, Selin Arslan, Vural Kayra Çetintaş
 - **Sprint Retrospective:**
-  - Öğretici ve Sorumluluk bilinci aşılayan bir süreci, takım olarak sağlıklı iletişim kurup, olumsuzluklar karşısında yapıcı bir tavır takınarak sürdürdük. Süreci keyifli hale getiren takım arkadaşlarımı özverileri için tebrik ediyorum./
+  - Öğretici ve Sorumluluk bilinci aşılayan bir süreci, takım olarak sağlıklı iletişim kurup, olumsuzluklar karşısında yapıcı bir tavır takınarak sürdürdük. Süreci keyifli hale getiren takım arkadaşlarımı özverileri için tebrik ediyorum.
     
 
 ---
----
+

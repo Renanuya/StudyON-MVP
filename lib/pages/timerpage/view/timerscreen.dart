@@ -119,9 +119,9 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Reset Confirmation'),
-            content:
-                const Text('Are you sure you want to proceed with the reset?'),
+            title: const Text('Sıfırlama işlemi'),
+            content: const Text(
+                'Sıfırlama işlemine devam etmek istediğinizden emin misiniz?'),
             actions: [
               ElevatedButton(
                 onPressed: () {
@@ -131,7 +131,7 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                   });
                   // Proceed with the reset
                 },
-                child: const Text('Proceed'),
+                child: const Text('Devam et'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -140,7 +140,7 @@ class _MainStopwatchScreenState extends State<MainStopwatchScreen> {
                   });
                   Navigator.pop(context); // Cancel the reset
                 },
-                child: const Text('Cancel'),
+                child: const Text('İptal et'),
               ),
             ],
           );

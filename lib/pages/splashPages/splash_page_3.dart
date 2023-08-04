@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thinktank/core/utils/navigation/navigation_service.dart';
 import 'package:thinktank/pages/components/main_outlinedbutton.dart';
 import '../../core/constants/navigation/navigation_constants.dart';
 
 class SplashPageThree extends StatelessWidget {
   const SplashPageThree({super.key});
+
+  Future<void> sharedPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('saw', true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,7 @@ class SplashPageThree extends StatelessWidget {
                       text: 'Study',
                       style: GoogleFonts.pacifico(
                         fontSize: mHeight * 0.04,
-                        color: const Color(0xFF37352f),
+                        //    color: const Color(0xFF37352f),
                       ),
                       children: [
                         const TextSpan(
@@ -64,8 +70,9 @@ class SplashPageThree extends StatelessWidget {
                 MainOutlinedButton(
                   text: 'Devam et',
                   onPressed: () {
+                    sharedPreferences();
                     NavigationService.instance.navigateToPage(
-                      path: NavigationConstants.loginPage,
+                      path: NavigationConstants.authPage,
                     );
                   },
                   textSize: 0.023,
